@@ -12,7 +12,7 @@ export namespace Ignite {
         public args: Array<string> = [];
 
         constructor(public usage: IgniteCommandUsage, protected message: Message, protected client: Client) {
-            this.args = this.message.content.split(' ');
+            this.args = this.message.content.split(' ').splice(0);
             this.run();
         }
 

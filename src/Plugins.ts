@@ -10,10 +10,15 @@ interface Plugin {
  */
 
 import { TestCommand } from 'src/plugins/test';
+import { SettingsCommand } from 'src/plugins/Settings';
 
 export const plugins: Array<Plugin> = [
     {
         trigger: 'test',
         component: TestCommand
+    },
+    {
+        trigger: 'settings',
+        component: SettingsCommand
     }
 ];
