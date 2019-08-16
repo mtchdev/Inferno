@@ -1,16 +1,20 @@
 import { Model } from 'vendor/astro/http/Model';
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity('users')
-export class User extends Model {
+@Entity('guilds')
+export class Guild extends Model {
 
     @PrimaryGeneratedColumn()
     public id: number;
     @Column()
-    public username: string;
+    public guild_id: number;
     @Column()
-    public email: string;
+    public owner_id: number;
     @Column()
-    public password: string;
+    public unix_added: number;
+
+    generateTime(): number {
+        return Date.now();
+    }
 
 }
