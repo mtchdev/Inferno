@@ -10,7 +10,6 @@ export class GuildController extends Controller {
 
     async addGuild(request: Request) {
         let input: any = request.body;
-        console.log(request.body)
 
         let guild = new Guild();
         guild.guild_id = input.id;

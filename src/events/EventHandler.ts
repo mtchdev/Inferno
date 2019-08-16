@@ -1,5 +1,6 @@
-import { Client, Message } from "discord.js";
+import { Client, Message, Guild } from "discord.js";
 import { MessageHandler } from './Message';
+import { GuildCreateHandler } from './GuildCreate';
 
 export default class EventHandler {
     constructor(private client: Client) {
@@ -10,5 +11,9 @@ export default class EventHandler {
         this.client.on('message', (message: Message) => {
             new MessageHandler(message);
         });
+
+        this.client.on('guildCreate', (guild: Guild) => {
+            new GuildCreateHandler(guild);
+        })
     }
 }
