@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS guilds (
+    id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    guild_id VARCHAR(255) NOT NULL,
+    owner_id VARCHAR(255) NOT NULL,
+    unix_added INT(4) UNSIGNED NOT NULL,
+
+    PRIMARY KEY (id)
+)
