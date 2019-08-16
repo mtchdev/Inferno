@@ -5,7 +5,7 @@ export namespace Ignite {
     interface IgniteCommandUsage {
         name: string;
         description: string;
-        usage: string;
+        usage: string | Array<string>;
     }
 
     export class IgniteCommand {
