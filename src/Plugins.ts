@@ -10,8 +10,8 @@ interface Plugin {
  */
 
 import { TestCommand } from 'src/plugins/test';
-import { SettingsCommand } from 'src/plugins/Settings';
-import { WarnCommand } from 'src/plugins/Warn';
+import { SettingsCommand } from 'src/plugins/admin/Settings';
+import { WarnCommand } from 'src/plugins/moderation/Warn';
 
 export const plugins: Array<Plugin> = [
     {

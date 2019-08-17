@@ -1,4 +1,4 @@
-import { Ignite } from './IgnitePlugin';
+import { Ignite } from '../IgnitePlugin';
 import { Client, Message, GuildMember } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';

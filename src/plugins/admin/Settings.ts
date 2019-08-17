@@ -1,4 +1,4 @@
-import { Ignite } from './IgnitePlugin';
+import { Ignite } from '../IgnitePlugin';
 import { Client, Message } from 'discord.js';
 import { removeFromCache } from 'src/util/Cache';
 import axios from 'axios';
