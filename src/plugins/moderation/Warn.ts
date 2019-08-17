@@ -23,6 +23,7 @@ export class WarnCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
 
         if (!user) { return this.message.reply('please @mention a user to warn.'); }
         if (!reason) { return this.message.reply('please enter a reason.'); }
+        if (user.id == this.message.author.id) { return this.message.reply('you cannot warn yourself!'); }
 
         let item: Case = {
             type: 'warn',
