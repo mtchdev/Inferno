@@ -16,8 +16,14 @@ export class GuildController extends Controller {
         guild.guild_id = input.id;
         guild.owner_id = input.owner;
         guild.unix_added = guild.generateTime();
+
+        // Create config
+        let config = new Config();
+        config.guild_id = guild.guild_id;
+        config.prefix = ';';
+
         try {
-            await this.db.save(guild);
+            await this.db.save([guild, config]);
         } catch (e) {
             this.respondWithError(e);
         }
