@@ -15,6 +15,7 @@ http.get('guild/:id', (req: Request, res: Response) => new GuildController(res).
 // Settings
 http.post('guild/prefix', (req: Request, res: Response) => new GuildController(res).setPrefix(req));
 http.post('guild/:id/roles/mod', (req: Request, res: Response) => new GuildController(res).setModRole(req));
+http.post('guild/:id/roles/admin', (req: Request, res: Response) => new GuildController(res).setAdminRole(req));
 
 // Cases
 http.post('case', (req: Request, res: Response) => new CaseController(res).addCase(req));

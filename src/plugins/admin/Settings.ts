@@ -6,7 +6,8 @@ import Log from 'src/util/Logger';
 
 const SETTINGS: Array<string> = [
     '--set-prefix',
-    '--set-mod-role'
+    '--set-mod-role',
+    '--set-admin-role'
 ];
 
 export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
@@ -21,6 +22,10 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
     }
 
     async run() {
+        if (this.args.length == 1) {
+            return this.error('Please specify a setting (or settings) to change. Run `settings help` for a list of actions.');
+        }
+
         for (let i in this.args) {
             let x = this.args[i].split('=');
 
@@ -40,14 +45,27 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
                         break;
 
                     case '--set-mod-role':
-                        let inputRole: string = this.args[this.args.indexOf('--set-mod-role') + 1];
-                        let actualRole: Role = this.message.mentions.roles.find((role: Role) => role.toString() === inputRole);
+                        let inputModRole: string = this.args[this.args.indexOf('--set-mod-role') + 1];
+                        let actualModRole: Role = this.message.mentions.roles.find((role: Role) => role.toString() === inputModRole);
                         try {
-                            await axios.post(process.env.API_URL + `guild/${this.message.guild.id}/roles/mod`, {modrole: actualRole.id});
+                            await axios.post(process.env.API_URL + `guild/${this.message.guild.id}/roles/mod`, {modrole: actualModRole.id});
                             removeFromCache(`config::${this.message.guild.id}`);
                         } catch (e) {
                             this.message.reply('An unexpected error occurred while setting a moderator role.');
                             Log('Failed to set mod role.', 'error');
+                            console.log(e); 
+                        }
+                        break;
+
+                    case '--set-admin-role':
+                        let inputAdminRole: string = this.args[this.args.indexOf('--set-admin-role') + 1];
+                        let actualAdminRole: Role = this.message.mentions.roles.find((role: Role) => role.toString() === inputAdminRole);
+                        try {
+                            await axios.post(process.env.API_URL + `guild/${this.message.guild.id}/roles/admin`, {adminrole: actualAdminRole.id});
+                            removeFromCache(`config::${this.message.guild.id}`);
+                        } catch (e) {
+                            this.message.reply('An unexpected error occurred while setting an admin role.');
+                            Log('Failed to set admin role.', 'error');
                             console.log(e); 
                         }
                         break;
