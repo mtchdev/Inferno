@@ -4,9 +4,12 @@ import Log from 'src/util/Logger';
 import GuildConfig from 'src/util/GuildConfig';
 import APIResponse from 'src/util/APIResponse';
 import axios, { AxiosResponse } from 'axios';
+import { Cache } from 'src/util/Cache';
+import NodeCache = require("node-cache");
 
 export class MessageHandler {
     public guild: GuildConfig;
+    public cache: NodeCache = Cache;
     private command: string;
 
     constructor(public message: Message) {
@@ -14,7 +17,18 @@ export class MessageHandler {
     }
 
     private async handle() {
-        this.guild = await this.getGuildConfig();
+        await new Promise<void>((resolve: Function, reject: Function) => {
+            this.cache.get(`config::${this.message.guild.id}`, async (err: any, data: GuildConfig) => {
+                if (data) {
+                    this.guild = data;
+                    resolve();
+                } else {
+                    this.guild = await this.getGuildConfig();
+                    this.cache.set<GuildConfig>(`config::${this.message.guild.id}`, this.guild);
+                    resolve();
+                }
+            });
+        });
 
         if (!this.guild) { return; }
         if (!this.message.content.startsWith(this.guild.prefix)) { return; }
