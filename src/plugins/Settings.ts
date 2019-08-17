@@ -1,5 +1,6 @@
 import { Ignite } from './IgnitePlugin';
 import { Client, Message } from 'discord.js';
+import { removeFromCache } from 'src/util/Cache';
 import axios from 'axios';
 import Log from 'src/util/Logger';
 
@@ -27,6 +28,7 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
                     case '--set-prefix':
                         try {
                             await axios.post(process.env.API_URL + 'guild/prefix', {guild_id: this.message.guild.id, prefix: x[1]});
+                            removeFromCache(`config::${this.message.guild.id}`);
                             this.message.channel.send(`Successfully changed prefix to \`${x[1]}\``);
                         } catch (e) {
                             this.message.reply('An unexpected error occurred.');
