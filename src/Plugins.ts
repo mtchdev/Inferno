@@ -1,8 +1,7 @@
-import { Ignite } from './plugins/IgnitePlugin';
-
 interface Plugin {
     trigger: string;
-    component: any | Ignite.IgnitePlugin; //set any for now, we cant do much
+    component: any
+    canActivate?: any
 }
 
 /**
@@ -13,10 +12,16 @@ import { TestCommand } from 'src/plugins/test';
 import { SettingsCommand } from 'src/plugins/admin/Settings';
 import { WarnCommand } from 'src/plugins/moderation/Warn';
 
+/**
+ * Middleware
+ */
+import { IsAdmin } from 'src/util/middleware/IsAdmin';
+
 export const plugins: Array<Plugin> = [
     {
         trigger: 'test',
-        component: TestCommand
+        component: TestCommand,
+        canActivate: IsAdmin
     },
     {
         trigger: 'settings',
