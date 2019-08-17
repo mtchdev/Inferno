@@ -3,6 +3,7 @@ import { Client, Message, GuildMember } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
+import Log from 'src/util/Logger';
 
 export class WarnCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
 
@@ -21,9 +22,9 @@ export class WarnCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
         let user: GuildMember = this.message.mentions.members.first();
         let reason: string = this.args.slice(2).join(' ');
 
-        if (!user) { return this.message.reply('please @mention a user to warn.'); }
-        if (!reason) { return this.message.reply('please enter a reason.'); }
-        if (user.id == this.message.author.id) { return this.message.reply('you cannot warn yourself!'); }
+        if (!user) { return this.error('Please @mention a user to warn.'); }
+        if (!reason) { return this.error('Please enter a reason.'); }
+        if (user.id == this.message.author.id) { return this.error('You cannot warn yourself!'); }
 
         let item: Case = {
             type: 'warn',
@@ -34,8 +35,12 @@ export class WarnCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
 
         let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
 
-        this.message.channel.send(`\`[CASE #${response.data.data.id}]\` Warned ${user} for *${reason}*`);
-        user.send(`You have been warned on **${this.message.guild.name}** for ${reason}`);
+        this.success(`\`[CASE #${response.data.data.id}]\` Warned ${user} for *${reason}*`);
+        try {
+            user.send(`You have been warned on **${this.message.guild.name}** for ${reason}`);
+        } catch (e) {
+            Log('Failed to send message to user.', 'warn');
+        }
     }
 
 }

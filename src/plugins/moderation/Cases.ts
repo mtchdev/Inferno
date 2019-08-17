@@ -23,11 +23,11 @@ export class CasesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
                 try {
                     user = await this.client.fetchUser(this.args[1]);
                 } catch (e) {
-                    return this.message.reply('please enter a valid user ID.');
+                    return this.error('please enter a valid user ID.');
                 }
             }
         }
-        if (!user) { return this.message.reply('please @mention a user or type their user ID to see their cases.'); }
+        if (!user) { return this.error('please @mention a user or type their user ID to see their cases.'); }
 
         let response: AxiosResponse<APIResponse<Case[]>> = await axios.get(process.env.API_URL + 'cases/' + user.id);
         let cases = response.data.data;

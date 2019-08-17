@@ -14,15 +14,15 @@ export class RemoveCaseCommand extends Ignite.IgniteCommand implements Ignite.Ig
     }
 
     async run() {
-        if (!this.args[1]) { return this.message.reply('please enter a case ID.'); }
+        if (!this.args[1]) { return this.error('Please enter a case ID.'); }
         let caseId = this.args[1];
 
         let response: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'case/' + caseId);
         if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
-            return this.message.reply(`couldn't find a case with an ID of **${caseId}**`);
+            return this.error(`Couldn't find a case with an ID of **${caseId}**`);
         }
 
-        this.message.channel.send(`Successfully deleted case \`#${caseId}\``);
+        this.success(`Successfully deleted case \`#${caseId}\``);
     }
 
 }

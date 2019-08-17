@@ -76,6 +76,28 @@ export namespace Ignite {
                 }).catch(e => reject(e));
             });
         }
+
+        protected success(message: string, deleteAfter?: number): void {
+            this.message.channel.send({embed: {
+                color: 3066993,
+                title: 'Success',
+                description: `✅ ${message}` 
+            }}).then((msg: Message) => {
+                if (deleteAfter) {
+                    msg.delete(deleteAfter / 1000);
+                }
+            });
+        }
+
+        protected error(message: string): void {
+            this.message.channel.send({embed: {
+                color: 15158332,
+                title: 'Error',
+                description: `⚠ ${message}` 
+            }}).then((msg: Message) => {
+                msg.delete(3.5 / 1000);
+            });
+        }
     }
 
     export interface IgnitePlugin {
