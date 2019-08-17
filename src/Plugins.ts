@@ -11,6 +11,7 @@ interface Plugin {
 import { TestCommand } from 'src/plugins/test';
 import { SettingsCommand } from 'src/plugins/admin/Settings';
 import { WarnCommand } from 'src/plugins/moderation/Warn';
+import { CasesCommand } from 'src/plugins/moderation/Cases';
 
 /**
  * Middleware
@@ -31,5 +32,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'warn',
         component: WarnCommand
+    },
+    {
+        trigger: 'cases',
+        component: CasesCommand
     }
 ];

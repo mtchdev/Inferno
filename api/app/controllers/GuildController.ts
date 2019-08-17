@@ -15,7 +15,7 @@ export class GuildController extends Controller {
         let guild = new Guild();
         guild.guild_id = input.id;
         guild.owner_id = input.owner;
-        guild.unix_added = guild.generateTime();
+        guild.unix_added = Date.now() / 1000;
 
         // Create config
         let config = new Config();

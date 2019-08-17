@@ -4,6 +4,8 @@ export interface Case {
     actor_id: string;
     reason: string;
     id?: number;
+    unix_added?: number;
+    unix_updated?: number;
 }
 
 export type CaseTypes = 'warn' | 'mute' | 'ban' | 'tempban';

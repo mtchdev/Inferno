@@ -22,12 +22,23 @@ export class CaseController extends Controller {
         if (input.reason) {
             newCase.reason = input.reason;
         }
-        newCase.unix_added = Date.now();
-        newCase.unix_updated = Date.now();
+        newCase.unix_added = Date.now() / 1000;
+        newCase.unix_updated = Date.now() / 1000;
 
         await this.db.save(newCase);
 
         return this.respondWithSuccess({...newCase});
+    }
+
+    /**
+     * Get all cases for a specific user
+     * @param request The API request
+     */
+    async getCasesForUser(request: Request) {
+        let params: any = request.params;
+
+        let cases = await this.db.find(Case, {where: {user_id: params.uid}});
+        return this.respondWithSuccess(cases);
     }
 
 }
