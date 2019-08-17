@@ -1,6 +1,7 @@
 import { Controller } from 'vendor/astro/http/Controller';
 import { Request } from 'express';
 import { Guild } from 'app/models/Guild';
+import { Config } from 'app/models/Config';
 
 export class GuildController extends Controller {
     
@@ -22,6 +23,19 @@ export class GuildController extends Controller {
         }
 
         return this.respondWithSuccess(guild);
+    }
+
+    async getConfig(request: Request) {
+        let id = request.params.id;
+        let config;
+
+        try {
+            config = await <Promise<Config>>this.db.findOneOrFail(Config, {where:{guild_id: id}});
+        } catch (e) {
+            return this.respondWithError(e);
+        }
+
+        return this.respondWithSuccess(config);
     }
 
 }
