@@ -4,10 +4,28 @@ import { removeFromCache } from 'src/util/Cache';
 import axios from 'axios';
 import Log from 'src/util/Logger';
 
-const SETTINGS: Array<string> = [
-    '--set-prefix',
-    '--set-mod-role',
-    '--set-admin-role'
+interface Setting {
+    trigger: string;
+    description: string;
+    displayAs?: string;
+}
+
+const SETTINGS: Array<Setting> = [
+    {
+        trigger: '--set-prefix',
+        description: 'Change the prefix for the guild.',
+        displayAs: '--set-prefix=!'
+    },
+    {
+        trigger: '--set-mod-role',
+        description: 'Change the moderator permission role.',
+        displayAs: '--set-mod-role @Moderator'
+    },
+    {
+        trigger: '--set-mod-role',
+        description: 'Change the admin permission role.',
+        displayAs: '--set-admin-role @Admin'
+    }
 ];
 
 export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
@@ -15,7 +33,7 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
     constructor(client: Client, message: Message) {
         super({
             name: 'Settings',
-            description: 'Edit the settings for this guild',
+            description: 'Edit the settings for this guild. Run `settings list` for a list of actions',
             usage: 'settings [--option(s)]',
             category: 'admin'
         }, message, client);
@@ -23,15 +41,19 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
 
     async run() {
         if (this.args.length == 1) {
-            return this.error('Please specify a setting (or settings) to change. Run `settings help` for a list of actions.');
+            return this.error('Please specify a setting (or settings) to change. Run `settings list` for a list of actions.');
+        }
+
+        if (this.args[1] == 'list') {
+            return this.listActions();
         }
 
         for (let i in this.args) {
             let x = this.args[i].split('=');
 
-            let isValid = SETTINGS.findIndex((setting: string) => setting === x[0]);
+            let isValid = SETTINGS.findIndex((setting: Setting) => setting.trigger === x[0]);
             if (isValid >= 0) {
-                switch (SETTINGS[isValid]) {
+                switch (SETTINGS[isValid].trigger) {
                     case '--set-prefix':
                         try {
                             await axios.post(process.env.API_URL + 'guild/prefix', {guild_id: this.message.guild.id, prefix: x[1]});
@@ -76,6 +98,29 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
                 this.success('Settings saved.', 3.5);
             }
         }
+    }
+
+    listActions(): void {
+        let attributes: Array<String> = [];
+
+        for (let i in SETTINGS) {
+            let x = SETTINGS[i];
+            attributes.push(`\`${x.displayAs}\` - ${x.description}`);
+        }
+
+        this.message.channel.send({embed: {
+            color: 16553987,
+            description: 'All settings can be changed with the **Admin Role**. You can combine these settings in the same command.',
+            author: {
+                name: `Settings`
+            },
+            fields: [
+                {
+                    name: 'Attributes',
+                    value: attributes.join('\n'),
+                }
+            ]
+        }});
     }
 
 }
