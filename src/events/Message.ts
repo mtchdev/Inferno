@@ -16,6 +16,8 @@ export class MessageHandler {
 
     private async handle() {
         if (!this.message.guild) { return; }
+        if (this.message.author.bot) { return; }
+
         let cached = getFromCache<GuildConfig>(`config::${this.message.guild.id}`);
         if (cached) {
             this.guild = cached;
@@ -26,7 +28,6 @@ export class MessageHandler {
 
         if (!this.guild) { return; }
         if (!this.message.content.startsWith(this.guild.prefix)) { return; }
-        if (this.message.author.bot) { return; }
 
         let args = this.message.content.split(' ');
         this.command = args.shift().slice(this.guild.prefix.length).toLowerCase();
