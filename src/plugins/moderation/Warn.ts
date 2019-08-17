@@ -34,10 +34,7 @@ export class WarnCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
         let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
 
         this.message.channel.send(`\`[CASE #${response.data.data.id}]\` Warned ${user} for *${reason}*`);
-
-        if (!this.args.includes('--no-message')) {
-            user.send(`You have been warned on **${this.message.guild.name}** for ${reason}`);
-        }
+        user.send(`You have been warned on **${this.message.guild.name}** for ${reason}`);
     }
 
 }
