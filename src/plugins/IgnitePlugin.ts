@@ -84,7 +84,7 @@ export namespace Ignite {
                 description: `✅ ${message}` 
             }}).then((msg: Message) => {
                 if (deleteAfter) {
-                    msg.delete(deleteAfter / 1000);
+                    msg.delete(deleteAfter * 1000);
                 }
             });
         }

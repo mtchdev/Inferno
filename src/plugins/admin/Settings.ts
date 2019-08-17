@@ -1,11 +1,12 @@
 import { Ignite } from '../IgnitePlugin';
-import { Client, Message } from 'discord.js';
+import { Client, Message, Role } from 'discord.js';
 import { removeFromCache } from 'src/util/Cache';
 import axios from 'axios';
 import Log from 'src/util/Logger';
 
 const SETTINGS: Array<string> = [
-    '--set-prefix'
+    '--set-prefix',
+    '--set-mod-role'
 ];
 
 export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
@@ -30,15 +31,31 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
                         try {
                             await axios.post(process.env.API_URL + 'guild/prefix', {guild_id: this.message.guild.id, prefix: x[1]});
                             removeFromCache(`config::${this.message.guild.id}`);
-                            this.message.channel.send(`Successfully changed prefix to \`${x[1]}\``);
                         } catch (e) {
-                            this.message.reply('An unexpected error occurred.');
+                            this.message.reply('An unexpected error occurred while changing the prefix.');
                             Log('Failed to set new prefix.', 'error');
                             console.log(e);
                         }
 
                         break;
+
+                    case '--set-mod-role':
+                        let inputRole: string = this.args[this.args.indexOf('--set-mod-role') + 1];
+                        let actualRole: Role = this.message.mentions.roles.find((role: Role) => role.toString() === inputRole);
+                        try {
+                            await axios.post(process.env.API_URL + `guild/${this.message.guild.id}/roles/mod`, {modrole: actualRole.id});
+                            removeFromCache(`config::${this.message.guild.id}`);
+                        } catch (e) {
+                            this.message.reply('An unexpected error occurred while setting a moderator role.');
+                            Log('Failed to set mod role.', 'error');
+                            console.log(e); 
+                        }
+                        break;
                 }
+            }
+
+            if (Number(i) == this.args.length - 1) {
+                this.success('Settings saved.', 3.5);
             }
         }
     }
