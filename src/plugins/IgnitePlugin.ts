@@ -95,7 +95,7 @@ export namespace Ignite {
                 title: 'Error',
                 description: `⚠ ${message}` 
             }}).then((msg: Message) => {
-                msg.delete(3.5 / 1000);
+                msg.delete(3500);
             });
         }
     }

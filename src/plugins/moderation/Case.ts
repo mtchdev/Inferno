@@ -18,14 +18,24 @@ export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
 
     async run() {
         if (!this.args[1]) { return this.error('Please enter a case ID.'); }
-        let caseId = this.args[1];
+        if (isNaN(Number(this.args[1]))) { return this.error('Please enter a valid case ID.'); }
 
-        let response: AxiosResponse<APIResponse<Case>> = await axios.get(process.env.API_URL + 'case/' + caseId);
-        this.formatCase(response.data.data);
+        if (this.args[2]) {
+            if (this.args[2] == 'edit') {
+                return this.editCase();
+            } else if (['del', 'delete', 'remove'].indexOf(this.args[2]) + 1) {
+                return this.deleteCase();
+            }
+        }
+
+        this.getCase();
     }
 
     
-    async formatCase(obj: Case) {
+    async getCase() {
+        let response: AxiosResponse<APIResponse<Case>> = await axios.get(process.env.API_URL + 'case/' + this.args[1]);
+
+        let obj = response.data.data;
         let type = obj.type.charAt(0).toUpperCase() + obj.type.substr(1);
         let color;
 
@@ -82,5 +92,9 @@ export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
             ]
         }});
     }
+
+    async editCase() {}
+
+    async deleteCase() {}
 
 }
