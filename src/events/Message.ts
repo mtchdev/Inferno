@@ -23,7 +23,7 @@ export class MessageHandler {
             this.guild = cached;
         } else {
             this.guild = await this.getGuildConfig();
-            addToCache(`config::${this.message.guild.id}`, this.guild, 10);
+            addToCache(`config::${this.message.guild.id}`, this.guild, 60);
         }
 
         if (!this.guild) { return; }
