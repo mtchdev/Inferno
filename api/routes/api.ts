@@ -7,12 +7,16 @@ const http = new Http();
  */
 
 import { GuildController } from 'app/controllers/GuildController';
+import { CaseController } from 'app/controllers/CaseController';
 
 http.post('guild', (req: Request, res: Response) => new GuildController(res).addGuild(req));
 http.get('guild/:id', (req: Request, res: Response) => new GuildController(res).getConfig(req));
 
 // Settings
 http.post('guild/prefix', (req: Request, res: Response) => new GuildController(res).setPrefix(req));
+
+// Cases
+http.post('case', (req: Request, res: Response) => new CaseController(res).addCase(req));
 
 http.get('*', (req: Request, res: any) => {
     res.status(404).send(RouteResponses.NotFound(req));

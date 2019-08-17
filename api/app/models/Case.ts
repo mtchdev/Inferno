@@ -5,7 +5,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 export class Case extends Model {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
     @Column()
     public type: CaseTypes;
     @Column()

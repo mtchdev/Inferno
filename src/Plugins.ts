@@ -11,6 +11,7 @@ interface Plugin {
 
 import { TestCommand } from 'src/plugins/test';
 import { SettingsCommand } from 'src/plugins/Settings';
+import { WarnCommand } from 'src/plugins/Warn';
 
 export const plugins: Array<Plugin> = [
     {
@@ -20,5 +21,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'settings',
         component: SettingsCommand
+    },
+    {
+        trigger: 'warn',
+        component: WarnCommand
     }
 ];
