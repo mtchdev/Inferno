@@ -6,8 +6,9 @@ export class TestCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
     constructor(client: Client, message: Message) {
         super({
             name: 'Test',
-            description: 'A test command!',
-            usage: 'test'
+            description: 'A test command',
+            usage: 'test',
+            category: 'entertainment'
         }, message, client);
     }
 

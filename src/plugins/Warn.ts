@@ -9,14 +9,21 @@ export class WarnCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
     constructor(client: Client, message: Message) {
         super({
             name: 'Warn',
-            description: 'Warn a user.',
-            usage: 'warn @user [reason]'
+            description: 'Warn a user. Use `--no-message` to disable DMs to the user',
+            usage: 'warn @user [reason]',
+            category: 'moderation'
         }, message, client);
     }
 
     async run() {
+        if (this.args.length < 2) { return this.sendHelp(); }
+
         let user: GuildMember = this.message.mentions.members.first();
-        let reason: string = this.args[2];
+        let reason: string = this.args.slice(2).join(' ');
+
+        if (!user) { return this.message.reply('please @mention a user to warn.'); }
+        if (!reason) { return this.message.reply('please enter a reason.'); }
+
         let item: Case = {
             type: 'warn',
             user_id: user.id,

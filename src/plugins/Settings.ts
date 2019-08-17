@@ -13,8 +13,9 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
     constructor(client: Client, message: Message) {
         super({
             name: 'Settings',
-            description: 'Edit the settings for this guild.',
-            usage: 'settings [--option(s)]'
+            description: 'Edit the settings for this guild',
+            usage: 'settings [--option(s)]',
+            category: 'admin'
         }, message, client);
     }
 
