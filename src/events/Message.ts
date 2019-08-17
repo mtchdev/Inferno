@@ -4,12 +4,10 @@ import Log from 'src/util/Logger';
 import GuildConfig from 'src/util/GuildConfig';
 import APIResponse from 'src/util/APIResponse';
 import axios, { AxiosResponse } from 'axios';
-import { Cache } from 'src/util/Cache';
-import NodeCache = require("node-cache");
+import { getFromCache, addToCache } from 'src/util/Cache';
 
 export class MessageHandler {
     public guild: GuildConfig;
-    public cache: NodeCache = Cache;
     private command: string;
 
     constructor(public message: Message) {
@@ -17,18 +15,13 @@ export class MessageHandler {
     }
 
     private async handle() {
-        await new Promise<void>((resolve: Function, reject: Function) => {
-            this.cache.get(`config::${this.message.guild.id}`, async (err: any, data: GuildConfig) => {
-                if (data) {
-                    this.guild = data;
-                    resolve();
-                } else {
-                    this.guild = await this.getGuildConfig();
-                    this.cache.set<GuildConfig>(`config::${this.message.guild.id}`, this.guild);
-                    resolve();
-                }
-            });
-        });
+        let cached = getFromCache<GuildConfig>(`config::${this.message.guild.id}`);
+        if (cached) {
+            this.guild = cached;
+        } else {
+            this.guild = await this.getGuildConfig();
+            addToCache(`config::${this.message.guild.id}`, this.guild, 10);
+        }
 
         if (!this.guild) { return; }
         if (!this.message.content.startsWith(this.guild.prefix)) { return; }
