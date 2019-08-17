@@ -96,7 +96,17 @@ export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
         }});
     }
 
-    async editCase() {}
+    async editCase() {
+        let reason: string = this.args.slice(3).join(' ');
+        let caseId = this.args[1];
+        
+        let response: AxiosResponse<any> = await axios.put(process.env.API_URL + 'case/' + caseId, {reason: reason});
+        if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
+            return this.error(`Couldn't find a case with an ID of **${caseId}**`);
+        }
+
+        this.success(`Successfully updated reason for case \`#${caseId}\``);
+    }
 
     async deleteCase() {
         let caseId = this.args[1];

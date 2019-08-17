@@ -75,4 +75,21 @@ export class CaseController extends Controller {
         this.respondWithSuccess(caseItem);
     }
 
+    async editCase(request: Request) {
+        let caseId: string = request.params.id;
+        let reason: string = request.body.reason;
+        let obj: Case;
+       
+        try {
+            obj = await this.db.findOneOrFail(Case, caseId);
+        } catch (e) {
+            return this.respondWithError('CASE_NOT_FOUND');
+        }
+
+        obj.reason = reason;
+        this.db.save(obj);
+
+        return this.respondWithSuccess();
+    }
+
 }
