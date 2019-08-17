@@ -47,7 +47,13 @@ export class CaseController extends Controller {
      */
     async removeCase(request: Request) {
         let item: string = request.params.id;
-        await this.db.delete(Case, {where:{id: item}});
+
+        let exists = await this.db.findOne(Case, {where:{id: item}});
+        if (!exists) {
+            return this.respondWithError('CASE_NOT_FOUND');
+        }
+
+        await this.db.getRepository(Case).remove(exists);
 
         this.respondWithSuccess();
     }

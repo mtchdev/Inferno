@@ -12,6 +12,7 @@ import { TestCommand } from 'src/plugins/test';
 import { SettingsCommand } from 'src/plugins/admin/Settings';
 import { WarnCommand } from 'src/plugins/moderation/Warn';
 import { CasesCommand } from 'src/plugins/moderation/Cases';
+import { RemoveCaseCommand } from 'src/plugins/moderation/RemoveCase';
 
 /**
  * Middleware
@@ -36,5 +37,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'cases',
         component: CasesCommand
+    },
+    {
+        trigger: 'removecase',
+        component: RemoveCaseCommand
     }
 ];
