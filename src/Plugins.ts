@@ -16,6 +16,7 @@ import { WarnCommand } from 'src/plugins/moderation/Warn';
  * Middleware
  */
 import { IsAdmin } from 'src/util/middleware/IsAdmin';
+import { IsModerator } from 'src/util/middleware/isModerator';
 
 export const plugins: Array<Plugin> = [
     {
