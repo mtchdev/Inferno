@@ -41,4 +41,15 @@ export class CaseController extends Controller {
         return this.respondWithSuccess(cases);
     }
 
+    /**
+     * Remove a case by ID
+     * @param request The API request
+     */
+    async removeCase(request: Request) {
+        let item: string = request.params.id;
+        await this.db.delete(Case, {where:{id: item}});
+
+        this.respondWithSuccess();
+    }
+
 }
