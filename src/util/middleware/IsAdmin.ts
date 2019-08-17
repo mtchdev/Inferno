@@ -20,7 +20,7 @@ export class IsAdmin implements PluginMiddlewareObject {
             let adminRole = config.admin_role;
 
             if (!adminRole) { resolve(false); return; }
-            if (this.message.member.roles.has(adminRole.toString())) { resolve(true); return; }
+            return resolve(this.message.member.roles.has(adminRole.toString()));
         });
     }
 
