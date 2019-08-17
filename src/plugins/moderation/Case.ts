@@ -34,6 +34,9 @@ export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
     
     async getCase() {
         let response: AxiosResponse<APIResponse<Case>> = await axios.get(process.env.API_URL + 'case/' + this.args[1]);
+        if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
+            return this.error(`Couldn't find a case with an ID of **${this.args[1]}**`);
+        }
 
         let obj = response.data.data;
         let type = obj.type.charAt(0).toUpperCase() + obj.type.substr(1);
@@ -95,6 +98,14 @@ export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
 
     async editCase() {}
 
-    async deleteCase() {}
+    async deleteCase() {
+        let caseId = this.args[1];
+        let response: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'case/' + caseId);
+        if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
+            return this.error(`Couldn't find a case with an ID of **${caseId}**`);
+        }
+
+        this.success(`Successfully deleted case \`#${caseId}\``);
+    }
 
 }
