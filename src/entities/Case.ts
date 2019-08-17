@@ -8,4 +8,4 @@ export interface Case {
     unix_updated?: number;
 }
 
-export type CaseTypes = 'warn' | 'mute' | 'ban' | 'tempban';
+export type CaseTypes = 'warn' | 'mute' | 'ban' | 'tempban' | 'mute' | 'unmute' | 'unban';

@@ -58,4 +58,21 @@ export class CaseController extends Controller {
         this.respondWithSuccess();
     }
 
+    /**
+     * Get a specific case
+     * @param request The API request
+     */
+    async getCase(request: Request) {
+        let item: string = request.params.id;
+        let caseItem: Case;
+
+        try {
+            caseItem = await this.db.findOneOrFail(Case, {where:{id: item}});
+        } catch (e) {
+            return this.respondWithError('CASE_NOT_FOUND');
+        }
+
+        this.respondWithSuccess(caseItem);
+    }
+
 }

@@ -15,6 +15,7 @@ export class MessageHandler {
     }
 
     private async handle() {
+        if (!this.message.guild) { return; }
         let cached = getFromCache<GuildConfig>(`config::${this.message.guild.id}`);
         if (cached) {
             this.guild = cached;

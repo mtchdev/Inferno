@@ -3,6 +3,7 @@ import { Client, Message, GuildMember } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
+import moment from 'moment';
 
 export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
 
@@ -16,7 +17,70 @@ export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
     }
 
     async run() {
-        
+        if (!this.args[1]) { return this.error('Please enter a case ID.'); }
+        let caseId = this.args[1];
+
+        let response: AxiosResponse<APIResponse<Case>> = await axios.get(process.env.API_URL + 'case/' + caseId);
+        this.formatCase(response.data.data);
+    }
+
+    
+    async formatCase(obj: Case) {
+        let type = obj.type.charAt(0).toUpperCase() + obj.type.substr(1);
+        let color;
+
+        switch(obj.type) {
+            case "warn":
+                color = 15322429;
+                break;
+            case "ban":
+                color = 15945263;
+                break;
+            case "unban":
+                color = 6670643;
+                break;
+            case "mute":
+                color = 3375305;
+                break;
+            case "unmute":
+                color = 3594411;
+                break;
+        }
+
+        let user = await this.client.fetchUser(obj.user_id);
+        let actor = await this.client.fetchUser(obj.actor_id);
+
+        this.message.channel.send({embed: {
+            color: color,
+            timestamp: moment.unix(obj.unix_added).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
+            author: {
+                name: `CASE ${obj.id}`
+            },
+            thumbnail: {
+                url: user.avatarURL || 'https://cdn.discordapp.com/embed/avatars/0.png'
+            },
+            fields: [
+                {
+                    name: 'Type',
+                    value: type,
+                    inline: true
+                },
+                {
+                    name: 'User',
+                    value: `${user}`,
+                    inline: true
+                },
+                {
+                    name: 'Actor',
+                    value: `${actor}`,
+                    inline: true
+                },
+                {
+                    name: 'Reason',
+                    value: obj.reason
+                }
+            ]
+        }});
     }
 
 }
