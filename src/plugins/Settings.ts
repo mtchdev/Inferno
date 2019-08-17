@@ -1,5 +1,7 @@
 import { Ignite } from './IgnitePlugin';
 import { Client, Message } from 'discord.js';
+import axios from 'axios';
+import Log from 'src/util/Logger';
 
 const SETTINGS: Array<string> = [
     '--set-prefix'
@@ -15,7 +17,7 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
         }, message, client);
     }
 
-    run() {
+    async run() {
         for (let i in this.args) {
             let x = this.args[i].split('=');
 
@@ -23,7 +25,15 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
             if (isValid >= 0) {
                 switch (SETTINGS[isValid]) {
                     case '--set-prefix':
-                        this.message.channel.send(`Prefix set to \`${x[1]}\``);
+                        try {
+                            await axios.post(process.env.API_URL + 'guild/prefix', {guild_id: this.message.guild.id, prefix: x[1]});
+                            this.message.channel.send(`Successfully changed prefix to \`${x[1]}\``);
+                        } catch (e) {
+                            this.message.reply('An unexpected error occurred.');
+                            Log('Failed to set new prefix.', 'error');
+                            console.log(e);
+                        }
+
                         break;
                 }
             }

@@ -44,4 +44,18 @@ export class GuildController extends Controller {
         return this.respondWithSuccess(config);
     }
 
+    async setPrefix(request: Request) {
+        let input: any = request.body;
+
+        try {
+            let config = await this.db.findOneOrFail(Config, {where:{guild_id: input.guild_id}});
+            config.prefix = input.prefix;
+            this.db.save(config);
+
+            return this.respondWithSuccess(config);
+        } catch (e) {
+            return this.respondWithError(e);
+        }
+    }
+
 }
