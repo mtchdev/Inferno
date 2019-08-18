@@ -1,6 +1,7 @@
 import { Controller } from 'vendor/astro/http/Controller';
 import { Request } from 'express';
 import { Case, CaseTypes } from 'app/models/Case';
+import { Note } from 'app/models/Note';
 
 export class CaseController extends Controller {
     
