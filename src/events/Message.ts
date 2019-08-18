@@ -38,16 +38,16 @@ export class MessageHandler {
     private async routeCommands() {
         for (let i in plugins) {
             let x = plugins[i];
-
-            if (x.canActivate) {
-                let passed: boolean = await new x.canActivate(this.message, this.message.client).run();
-
-                if (!passed) {
-                    return this.message.reply('you don\'t have permission to use that command.');
-                }
-            }
             
             if (this.command == x.trigger) {
+                if (x.canActivate) {
+                    let passed: boolean = await new x.canActivate(this.message, this.message.client).run();
+    
+                    if (!passed) {
+                        return this.message.reply('you don\'t have permission to use that command.');
+                    }
+                }
+
                 Log(`Command ${this.guild.prefix}${x.trigger} executed by ${this.message.author.username}#${this.message.author.discriminator}`);
                 new x.component(this.message.client, this.message);
                 break;

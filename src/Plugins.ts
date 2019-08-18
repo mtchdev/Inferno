@@ -34,39 +34,47 @@ export const plugins: Array<Plugin> = [
     },
     {
         trigger: 'settings',
-        component: SettingsCommand
+        component: SettingsCommand,
+        canActivate: IsAdmin
     },
     {
         trigger: 'warn',
-        component: WarnCommand
+        component: WarnCommand,
+        canActivate: IsModerator
     },
     {
         trigger: 'cases',
-        component: CasesCommand
+        component: CasesCommand,
     },
     {
         trigger: 'removecase',
-        component: RemoveCaseCommand
+        component: RemoveCaseCommand,
+        canActivate: IsModerator
     },
     {
         trigger: 'case',
-        component: CaseCommand
+        component: CaseCommand,
+        canActivate: IsModerator
     },
     {
         trigger: 'note',
-        component: NoteCommand
+        component: NoteCommand,
+        canActivate: IsModerator
     },
     {
         trigger: 'notes',
-        component: NotesCommand
+        component: NotesCommand,
+        canActivate: IsModerator
     },
     {
         trigger: 'removenote',
-        component: RemoveNoteCommand
+        component: RemoveNoteCommand,
+        canActivate: IsModerator
     },
     {
         trigger: 'serverinfo',
-        component: ServerInfoCommand
+        component: ServerInfoCommand,
+        canActivate: IsAdmin
     },
     {
         trigger: 'help',
