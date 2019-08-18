@@ -45,7 +45,7 @@ export class NotesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
             try {
                 author = await this.client.fetchUser(x.author_id);
             } catch (e) {
-                str += `${moment.unix(x.unix_added).format('MM/DD/YYYY')} | *An error occurred while trying to load this note.`;
+                str += `${moment.unix(x.unix_added).format('MM/DD/YYYY')} | *An unexpected error occurred while trying to load this note.`;
                 continue;
             }
 
