@@ -17,6 +17,7 @@ import { CaseCommand } from 'src/plugins/moderation/Case';
 import { NoteCommand } from 'src/plugins/moderation/Note';
 import { NotesCommand } from 'src/plugins/moderation/Notes';
 import { RemoveNoteCommand } from 'src/plugins/moderation/RemoveNote';
+import { ServerInfoCommand } from 'src/plugins/utility/ServerInfo';
 
 /**
  * Middleware
@@ -61,5 +62,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'removenote',
         component: RemoveNoteCommand
+    },
+    {
+        trigger: 'serverinfo',
+        component: ServerInfoCommand
     }
 ];
