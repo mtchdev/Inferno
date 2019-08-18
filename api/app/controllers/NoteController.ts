@@ -33,4 +33,17 @@ export class NoteController extends Controller {
         return this.respondWithSuccess(notes);
     }
 
+    async removeNote(request: Request) {
+        let noteId: string = request.params.noteId;
+
+        let exists = await this.db.findOne(Note, noteId);
+        if (!exists) {
+            return this.respondWithError('NOTE_NOT_FOUND');
+        }
+
+        await this.db.getRepository(Note).remove(exists);
+
+        this.respondWithSuccess();
+    }
+
 }

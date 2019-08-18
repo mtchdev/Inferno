@@ -37,7 +37,7 @@ export class NotesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
         }
         
         let str = '';
-        str = `Found ${notes.length} notes for ${user}:\n\n`;
+        str = `Found ${notes.length} note${notes.length === 1 ? '' : 's'} for ${user}:\n\n`;
         for (let i in notes) {
             let x = notes[i];
             let author;
@@ -49,7 +49,7 @@ export class NotesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
                 continue;
             }
 
-            str += `${moment.unix(x.unix_added).format('MM/DD/YYYY')} | **${author.username}#${author.discriminator}**: ${x.content}\n`;
+            str += `${moment.unix(x.unix_added).format('MM/DD/YYYY')} | \`[#${x.id}]\` **${author.username}#${author.discriminator}**: ${x.content}\n`;
 
             if (str.length > 1800 || Number(i) == notes.length - 1) {
                 await this.message.channel.send(str);

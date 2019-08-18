@@ -37,7 +37,7 @@ export class WarnCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
 
         this.success(`\`[CASE #${response.data.data.id}]\` Warned ${user} for *${reason}*`);
         try {
-            user.send(`You have been warned on **${this.message.guild.name}** for ${reason}`);
+            await user.send(`You have been warned on **${this.message.guild.name}** for ${reason}`);
         } catch (e) {
             Log('Failed to send message to user.', 'warn');
         }

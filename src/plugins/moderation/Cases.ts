@@ -42,7 +42,7 @@ export class CasesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
         }
         
         let str = '';
-        str = `Found ${cases.length} cases for ${user}:\n\n`;
+        str = `Found ${cases.length} case${cases.length === 1 ? '' : 's'} for ${user}:\n\n`;
         for (let i in cases) {
             let x = cases[i];
             let type = x.type.charAt(0).toUpperCase() + x.type.substr(1);

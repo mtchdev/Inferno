@@ -16,6 +16,7 @@ import { RemoveCaseCommand } from 'src/plugins/moderation/RemoveCase';
 import { CaseCommand } from 'src/plugins/moderation/Case';
 import { NoteCommand } from 'src/plugins/moderation/Note';
 import { NotesCommand } from 'src/plugins/moderation/Notes';
+import { RemoveNoteCommand } from 'src/plugins/moderation/RemoveNote';
 
 /**
  * Middleware
@@ -56,5 +57,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'notes',
         component: NotesCommand
+    },
+    {
+        trigger: 'removenote',
+        component: RemoveNoteCommand
     }
 ];

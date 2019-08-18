@@ -28,6 +28,7 @@ http.get('cases/:uid', (req: Request, res: Response) => new CaseController(res).
 // Notes
 http.post('note/:userId', (req: Request, res: Response) => new NoteController(res).addNoteToUser(req));
 http.get('notes/:userId', (req: Request, res: Response) => new NoteController(res).getNotes(req));
+http.delete('note/:noteId', (req: Request, res: Response) => new NoteController(res).removeNote(req));
 
 http.get('*', (req: Request, res: any) => {
     res.status(404).send(RouteResponses.NotFound(req));
