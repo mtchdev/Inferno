@@ -48,6 +48,11 @@ export const COMMANDS: Array<Command> = [
         name: 'serverinfo',
         description: 'Get all information for the guild.',
         level: 'admin'
+    },
+    {
+        name: 'addcommand [trigger] [response]',
+        description: 'Add a custom command.',
+        level: 'admin'
     }
 ];
 

@@ -1,4 +1,4 @@
-interface Plugin {
+export interface Plugin {
     trigger: string;
     component: any
     canActivate?: any
@@ -19,6 +19,7 @@ import { NotesCommand } from 'src/plugins/moderation/Notes';
 import { RemoveNoteCommand } from 'src/plugins/moderation/RemoveNote';
 import { ServerInfoCommand } from 'src/plugins/utility/ServerInfo';
 import { HelpCommand } from 'src/plugins/utility/Help';
+import { AddCommandCommand } from 'src/plugins/utility/AddCommand';
 
 /**
  * Middleware
@@ -79,5 +80,10 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'help',
         component: HelpCommand
+    },
+    {
+        trigger: 'addcommand',
+        component: AddCommandCommand,
+        canActivate: IsAdmin
     }
 ];

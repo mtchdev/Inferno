@@ -14,6 +14,7 @@ import { CommandController } from 'app/controllers/CommandController';
 http.post('guild', (req: Request, res: Response) => new GuildController(res).addGuild(req));
 http.get('guild/:id', (req: Request, res: Response) => new GuildController(res).getConfig(req));
 http.get('guild/:guildId/commands', (req: Request, res: Response) => new CommandController(res).getCommands(req));
+http.post('guild/:guildId/command', (req: Request, res: Response) => new CommandController(res).addCommand(req));
 
 // Settings
 http.post('guild/prefix', (req: Request, res: Response) => new GuildController(res).setPrefix(req));

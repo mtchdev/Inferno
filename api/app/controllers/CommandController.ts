@@ -13,10 +13,31 @@ export class CommandController extends Controller {
      * @param request The API request
      */
     async getCommands(request: Request) {
-        let guildId = request.params.guildId;
-        let commands = await this.db.find(Command, {where:{guild_id: guildId}});
+        let guildId: string = request.params.guildId;
+        let commands: Command[] = await this.db.find(Command, {where:{guild_id: guildId}});
         return this.respondWithSuccess(commands);
     }
 
-}
+    /**
+     * Add a custom command
+     * @param request The API request
+     */
+    async addCommand(request: Request) {
+        let guildId: string = request.params.guildId;
+        let input: any = request.body;
 
+        let exists = await this.db.findOne(Command, {where:{guild_id: guildId, trigger: input.trigger}});
+        if (exists) {
+            return this.respondWithError('COMMAND_EXISTS');
+        }
+
+        let command = new Command();
+        command.trigger = input.trigger;
+        command.response = input.response;
+        command.guild_id = guildId;
+        this.db.save(command);
+
+        return this.respondWithSuccess(command);
+    }
+
+}
