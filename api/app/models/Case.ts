@@ -1,5 +1,6 @@
 import { Model } from 'vendor/astro/http/Model';
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Note } from './Note';
 
 @Entity('cases')
 export class Case extends Model {
@@ -18,6 +19,9 @@ export class Case extends Model {
     public unix_added: number;
     @Column()
     public unix_updated: number;
+
+    @OneToMany(type => Note, note => note.case_id)
+    public notes: Array<Note>
 
 }
 

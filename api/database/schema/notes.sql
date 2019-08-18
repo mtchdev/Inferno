@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS notes (
+
+    id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    case_id INT(10) UNSIGNED NOT NULL,
+    author_id VARCHAR(255) NOT NULL,
+    content VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (id)
+
+)
