@@ -26,7 +26,7 @@ export class AddCommandCommand extends Ignite.IgniteCommand implements Ignite.Ig
 
         let response = this.args.slice(2).join(' ');
         let command: CustomCommand = {
-            trigger: this.args[1],
+            trigger: this.args[1].toLowerCase(),
             response: response
         };
 

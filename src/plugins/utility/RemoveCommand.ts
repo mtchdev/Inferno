@@ -23,7 +23,7 @@ export class RemoveCommandCommand extends Ignite.IgniteCommand implements Ignite
             return this.error('That command is reserved by Ignite.');
         }
 
-        let res: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'guild/' + this.message.guild.id + '/command/' + this.args[1]);
+        let res: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'guild/' + this.message.guild.id + '/command/' + this.args[1].toLowerCase());
         if (res.data['message'] && res.data['message'] == 'COMMAND_NOT_FOUND') {
             return this.error('Command not found.');
         }
