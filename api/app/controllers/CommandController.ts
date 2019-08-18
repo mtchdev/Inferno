@@ -40,4 +40,23 @@ export class CommandController extends Controller {
         return this.respondWithSuccess(command);
     }
 
+    /**
+     * Remove a custom command
+     * @param request The API request
+     */
+    async removeCommand(request: Request) {
+        let params: any = request.params;
+        let guildId: string = params.guildId;
+        let command: string = params.command;
+
+        let exists = await this.db.findOne(Command, {where:{guild_id: guildId, trigger: command}});
+        if (!exists) {
+            return this.respondWithError('COMMAND_NOT_FOUND');
+        }
+
+        await this.db.getRepository(Command).remove(exists);
+
+        return this.respondWithSuccess();
+    }
+
 }

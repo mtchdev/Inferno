@@ -20,6 +20,7 @@ import { RemoveNoteCommand } from 'src/plugins/moderation/RemoveNote';
 import { ServerInfoCommand } from 'src/plugins/utility/ServerInfo';
 import { HelpCommand } from 'src/plugins/utility/Help';
 import { AddCommandCommand } from 'src/plugins/utility/AddCommand';
+import { RemoveCommandCommand } from 'src/plugins/utility/RemoveCommand';
 
 /**
  * Middleware
@@ -84,6 +85,11 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'addcommand',
         component: AddCommandCommand,
+        canActivate: IsAdmin
+    },
+    {
+        trigger: 'removecommand',
+        component: RemoveCommandCommand,
         canActivate: IsAdmin
     }
 ];

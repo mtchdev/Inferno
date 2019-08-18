@@ -84,6 +84,10 @@ export class MessageHandler {
 
             commands = cache ? cache : await this.getCustomCommands();
 
+            if (commands.length == 0) {
+                resolve(false);
+            }
+
             for (let i in commands) {
                 if (commands[i].trigger == trigger) {
                     this.message.channel.send(commands[i].response);
