@@ -18,9 +18,10 @@ export class IsModerator implements PluginMiddlewareObject {
 
             config = cache ? cache : await this.getGuildConfig();
             let modRole = config.mod_role;
+            let adminRole = config.admin_role;
 
-            if (!modRole) { resolve(false); return; }
-            return resolve(this.message.member.roles.has(modRole.toString()));
+            if (!modRole || !adminRole) { resolve(false); return; }
+            return resolve(this.message.member.roles.has(modRole.toString()) || this.message.member.roles.has(adminRole.toString()));
         });
     }
 
