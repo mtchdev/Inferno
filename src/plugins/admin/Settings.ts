@@ -33,7 +33,7 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
     constructor(client: Client, message: Message) {
         super({
             name: 'Settings',
-            description: 'Edit the settings for this guild. Run `settings list` for a list of actions',
+            description: 'Edit the settings for this guild. Run `#prefix#settings list` for a list of actions',
             usage: 'settings [--option(s)]',
             category: 'admin'
         }, message, client);

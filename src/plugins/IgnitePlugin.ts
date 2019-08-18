@@ -37,7 +37,7 @@ export namespace Ignite {
 
             config = cache ? cache : await this.getGuildConfig();
 
-            if (getFromCache(`config::${this.message.guild.id}`))
+            let description = this.usage.description.replace(/#prefix#/g, config.prefix);
             this.message.channel.send({
                 "embed": {
                   "description": "Find information for any command using `"+config.prefix+"[command] help`",
@@ -52,7 +52,7 @@ export namespace Ignite {
                     },
                     {
                       "name": "Description",
-                      "value": this.usage.description+'.'
+                      "value": description+'.'
                     },
                     {
                       "name": "Usage",
