@@ -21,6 +21,7 @@ import { ServerInfoCommand } from 'src/plugins/utility/ServerInfo';
 import { HelpCommand } from 'src/plugins/utility/Help';
 import { AddCommandCommand } from 'src/plugins/utility/AddCommand';
 import { RemoveCommandCommand } from 'src/plugins/utility/RemoveCommand';
+import { CustomCommandsCommand } from 'src/plugins/utility/Commands';
 
 /**
  * Middleware
@@ -91,5 +92,9 @@ export const plugins: Array<Plugin> = [
         trigger: 'removecommand',
         component: RemoveCommandCommand,
         canActivate: IsAdmin
+    },
+    {
+        trigger: 'commands',
+        component: CustomCommandsCommand
     }
 ];

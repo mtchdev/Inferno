@@ -53,6 +53,11 @@ export const COMMANDS: Array<Command> = [
         name: 'addcommand [trigger] [response]',
         description: 'Add a custom command.',
         level: 'admin'
+    },
+    {
+        name: 'commands',
+        description: 'Get all available custom commands.',
+        level: 'everyone'
     }
 ];
 
