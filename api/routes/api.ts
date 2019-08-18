@@ -9,9 +9,11 @@ const http = new Http();
 import { GuildController } from 'app/controllers/GuildController';
 import { CaseController } from 'app/controllers/CaseController';
 import { NoteController } from 'app/controllers/NoteController';
+import { CommandController } from 'app/controllers/CommandController';
 
 http.post('guild', (req: Request, res: Response) => new GuildController(res).addGuild(req));
 http.get('guild/:id', (req: Request, res: Response) => new GuildController(res).getConfig(req));
+http.get('guild/:guildId/commands', (req: Request, res: Response) => new CommandController(res).getCommands(req));
 
 // Settings
 http.post('guild/prefix', (req: Request, res: Response) => new GuildController(res).setPrefix(req));

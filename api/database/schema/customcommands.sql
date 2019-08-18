@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS guildcommands (
+
+    id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `guild_id` VARCHAR(255) NOT NULL,
+    `trigger` VARCHAR(255) NOT NULL,
+    `response` VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (id)
+
+)
