@@ -8,4 +8,9 @@ export interface Case {
     unix_updated?: number;
 }
 
+export interface CasesWithNotes<T> {
+    cases: Array<T>;
+    notes: number;
+}
+
 export type CaseTypes = 'warn' | 'mute' | 'ban' | 'tempban' | 'mute' | 'unmute' | 'unban';

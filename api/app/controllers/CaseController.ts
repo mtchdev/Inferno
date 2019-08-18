@@ -39,7 +39,8 @@ export class CaseController extends Controller {
         let params: any = request.params;
 
         let cases = await this.db.find(Case, {where: {user_id: params.uid}});
-        return this.respondWithSuccess(cases);
+        let notes = await this.db.count(Note, {where:{user_id: params.uid}});
+        return this.respondWithSuccess({cases: cases, notes: notes});
     }
 
     /**

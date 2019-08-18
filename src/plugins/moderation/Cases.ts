@@ -1,6 +1,6 @@
 import { Ignite } from '../IgnitePlugin';
 import { Client, Message, GuildMember, User } from 'discord.js';
-import { Case } from 'src/entities/Case';
+import { Case, CasesWithNotes } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import moment from 'moment';
@@ -23,17 +23,22 @@ export class CasesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
                 try {
                     user = await this.client.fetchUser(this.args[1]);
                 } catch (e) {
-                    return this.error('please enter a valid user ID.');
+                    return this.error('Please enter a valid user ID.');
                 }
             }
         }
-        if (!user) { return this.error('please @mention a user or type their user ID to see their cases.'); }
+        if (!user) { return this.error('Please @mention a user or type their user ID to see their cases.'); }
 
-        let response: AxiosResponse<APIResponse<Case[]>> = await axios.get(process.env.API_URL + 'cases/' + user.id);
-        let cases = response.data.data;
+        let response: AxiosResponse<APIResponse<CasesWithNotes<Case>>> = await axios.get(process.env.API_URL + 'cases/' + user.id);
+        let cases = response.data.data.cases;
+        let notes = response.data.data.notes;
 
-        if (cases.length == 0) {
-            return this.message.channel.send(`${user} does not have any cases.`);
+        if (cases.length == 0 || !(cases instanceof Array)) {
+            if (notes && notes > 0) {
+                return this.message.channel.send(`${user} does not have any cases, but has **${notes}** note${notes === 1 ? '' : 's'}.`);
+            } else {
+                return this.message.channel.send(`${user} does not have any cases`);
+            }
         }
         
         let str = '';
@@ -44,6 +49,9 @@ export class CasesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
             str += `${moment.unix(x.unix_added).format('MM/DD/YYYY')} | \`[CASE #${x.id}]\` __${type}__: ${x.reason}\n`;
 
             if (str.length > 1800 || Number(i) == cases.length - 1) {
+                if (notes && notes > 0) {
+                    str += `\n${user} has **${notes}** note${notes === 1 ? '' : 's'}.`;
+                }
                 await this.message.channel.send(str);
                 str = '';
             }
