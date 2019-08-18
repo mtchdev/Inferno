@@ -8,4 +8,22 @@ export class NoteController extends Controller {
         super(data);
     }
 
+    async addNoteToUser(request: Request) {
+        let userId: string = request.params.userId;
+        let input: any = request.body;
+
+        try {
+            let note = new Note();
+            note.author_id = input.author;
+            note.user_id = userId;
+            note.content = input.content;
+
+            await this.db.save(note);
+
+            this.respondWithSuccess(note);
+        } catch (e) {
+            this.respondWithError(e);
+        }
+    }
+
 }
