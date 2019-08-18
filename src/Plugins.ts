@@ -18,6 +18,7 @@ import { NoteCommand } from 'src/plugins/moderation/Note';
 import { NotesCommand } from 'src/plugins/moderation/Notes';
 import { RemoveNoteCommand } from 'src/plugins/moderation/RemoveNote';
 import { ServerInfoCommand } from 'src/plugins/utility/ServerInfo';
+import { HelpCommand } from 'src/plugins/utility/Help';
 
 /**
  * Middleware
@@ -66,5 +67,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'serverinfo',
         component: ServerInfoCommand
+    },
+    {
+        trigger: 'help',
+        component: HelpCommand
     }
 ];

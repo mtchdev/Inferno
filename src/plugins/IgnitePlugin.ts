@@ -69,7 +69,7 @@ export namespace Ignite {
             });
         }
 
-        private getGuildConfig(): Promise<GuildConfig> {
+        protected getGuildConfig(): Promise<GuildConfig> {
             return new Promise((resolve: Function, reject: Function) => {
                 axios.get(process.env.API_URL + 'guild/' + this.message.guild.id).then((res: AxiosResponse<APIResponse<GuildConfig>>) => {
                     resolve(res.data.data);
