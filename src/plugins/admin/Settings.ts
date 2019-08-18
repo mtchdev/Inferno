@@ -92,6 +92,8 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
                         }
                         break;
                 }
+            } else {
+                continue;
             }
 
             if (Number(i) == this.args.length - 1) {
