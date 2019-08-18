@@ -17,6 +17,7 @@ export class NoteController extends Controller {
             note.author_id = input.author;
             note.user_id = userId;
             note.content = input.content;
+            note.unix_added = Date.now() / 1000;
 
             await this.db.save(note);
 
@@ -24,6 +25,12 @@ export class NoteController extends Controller {
         } catch (e) {
             this.respondWithError(e);
         }
+    }
+
+    async getNotes(request: Request) {
+        let userId: string = request.params.userId;
+        let notes: Array<Note> = await this.db.find(Note, {where:{user_id: userId}});
+        return this.respondWithSuccess(notes);
     }
 
 }

@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS notes (
     `user_id` VARCHAR(255) NOT NULL,
     author_id VARCHAR(255) NOT NULL,
     content VARCHAR(255) NOT NULL,
+    unix_added INT(4) UNSIGNED NOT NULL,
 
     PRIMARY KEY (id)
 

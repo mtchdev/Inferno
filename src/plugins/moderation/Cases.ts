@@ -37,12 +37,12 @@ export class CasesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
             if (notes && notes > 0) {
                 return this.message.channel.send(`${user} does not have any cases, but has **${notes}** note${notes === 1 ? '' : 's'}.`);
             } else {
-                return this.message.channel.send(`${user} does not have any cases`);
+                return this.error(`${user} does not have any cases.`);
             }
         }
         
         let str = '';
-        str = `Found ${cases.length} cases for ${user}:\n`;
+        str = `Found ${cases.length} cases for ${user}:\n\n`;
         for (let i in cases) {
             let x = cases[i];
             let type = x.type.charAt(0).toUpperCase() + x.type.substr(1);

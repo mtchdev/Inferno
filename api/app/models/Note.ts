@@ -12,5 +12,7 @@ export class Note extends Model {
     public author_id: string;
     @Column()
     public content: string;
+    @Column()
+    public unix_added: number;
 
 }
