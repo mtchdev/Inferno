@@ -30,6 +30,8 @@ const SETTINGS: Array<Setting> = [
 
 export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
 
+    private canSave: boolean = false;
+
     constructor(client: Client, message: Message) {
         super({
             name: 'Settings',
@@ -53,6 +55,7 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
 
             let isValid = SETTINGS.findIndex((setting: Setting) => setting.trigger === x[0]);
             if (isValid >= 0) {
+                this.canSave = true;
                 switch (SETTINGS[isValid].trigger) {
                     case '--set-prefix':
                         try {
@@ -92,11 +95,10 @@ export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.Igni
                         }
                         break;
                 }
-            } else {
-                continue;
             }
 
             if (Number(i) == this.args.length - 1) {
+                this.canSave = false;
                 this.success('Settings saved.', 3.5);
             }
         }
