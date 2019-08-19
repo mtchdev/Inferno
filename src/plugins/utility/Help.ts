@@ -1,8 +1,6 @@
 import { Ignite } from '../IgnitePlugin';
 import { Client, Message } from 'discord.js';
 import { COMMANDS, Command } from 'src/util/Commands';
-import GuildConfig from 'src/util/GuildConfig';
-import { getFromCache } from 'src/util/Cache';
 
 export class HelpCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
 
@@ -20,12 +18,7 @@ export class HelpCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
     }
 
     async run() {
-        let config: GuildConfig
-        ,   prefix: string
-        ,   cache = getFromCache<GuildConfig>(`config::${this.message.guild.id}`);
-
-        config = cache ? cache : await this.getGuildConfig();
-        prefix = config.prefix;
+        let prefix = this.guild.prefix;
 
         this.message.channel.send({embed: {
             color: 16553987,

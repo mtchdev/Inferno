@@ -1,7 +1,6 @@
 import { Ignite } from '../IgnitePlugin';
 import { Client, Message, Channel } from 'discord.js';
 import moment from 'moment';
-import GuildConfig from 'src/util/GuildConfig';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import { getFromCache } from 'src/util/Cache';
@@ -18,10 +17,6 @@ export class ServerInfoCommand extends Ignite.IgniteCommand implements Ignite.Ig
     }
 
     async run() {
-        let config: GuildConfig
-        ,   cache = getFromCache<GuildConfig>(`config::${this.message.guild.id}`);
-
-        config = cache ? cache : await this.getConfig();
         const guild = this.message.guild;
         this.message.channel.send({embed: {
             color: 16553987,
@@ -80,18 +75,10 @@ export class ServerInfoCommand extends Ignite.IgniteCommand implements Ignite.Ig
                 },
                 {
                     name: 'Ignite Prefix',
-                    value: `\`${config.prefix}\``,
+                    value: `\`${this.guild.prefix}\``,
                     inline: true
                 }
             ]
         }});
-    }
-
-    private getConfig(): Promise<GuildConfig> {
-        return new Promise((resolve: Function, reject: Function) => {
-            axios.get(process.env.API_URL + 'guild/' + this.message.guild.id).then((res: AxiosResponse<APIResponse<GuildConfig>>) => {
-                resolve(res.data.data);
-            }).catch(e => reject(e));
-        });
     }
 }

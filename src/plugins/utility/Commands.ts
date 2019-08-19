@@ -20,16 +20,12 @@ export class CustomCommandsCommand extends Ignite.IgniteCommand implements Ignit
     async run() {
         let response: AxiosResponse<APIResponse<CustomCommand[]>> = await axios.get(process.env.API_URL + 'guild/' + this.message.guild.id + '/commands');
         let commands = response.data.data;
-        let config: GuildConfig
-        ,   cache = getFromCache<GuildConfig>(`config::${this.message.guild.id}`);
-
-        config = cache ? cache : await this.getGuildConfig();
 
         if (commands.length == 0) {
             return this.message.channel.send('There are no custom commands. Get started by adding one!');
         }
 
-        this.message.channel.send(`**__Custom Commands__**\n\n` + commands.map((command: CustomCommand) => `\`${config.prefix}${command.trigger}\``).join(' | '));
+        this.message.channel.send(`**__Custom Commands__**\n\n` + commands.map((command: CustomCommand) => `\`${this.guild.prefix}${command.trigger}\``).join(' | '));
     }
 
 }

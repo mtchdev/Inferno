@@ -18,9 +18,16 @@ export namespace Ignite {
 
     export class IgniteCommand {
         public args: Array<string> = [];
+        protected guild: GuildConfig;
 
         constructor(public usage: IgniteCommandUsage, protected message: Message, protected client: Client) {
+            this.init();
+        }
+
+        private async init() {
             this.args = this.message.content.split(' ').splice(0);
+            await this.initConfig();
+
             if (this.args.includes('help')) {
                 this.sendHelp();
                 return;
@@ -31,16 +38,24 @@ export namespace Ignite {
 
         public run() {}
 
+        private async initConfig() {
+            let cache = getFromCache<GuildConfig>(`config::${this.message.guild.id}`);
+            this.guild = cache ? cache : await this.getGuildConfig();
+        }
+
+        private getGuildConfig(): Promise<GuildConfig> {
+            return new Promise((resolve: Function, reject: Function) => {
+                axios.get(process.env.API_URL + 'guild/' + this.message.guild.id).then((res: AxiosResponse<APIResponse<GuildConfig>>) => {
+                    resolve(res.data.data);
+                }).catch(e => reject(e));
+            });
+        }
+
         protected async sendHelp() {
-            let config: GuildConfig
-            ,   cache = getFromCache<GuildConfig>(`config::${this.message.guild.id}`);
-
-            config = cache ? cache : await this.getGuildConfig();
-
-            let description = this.usage.description.replace(/#prefix#/g, config.prefix);
+            let description = this.usage.description.replace(/#prefix#/g, this.guild.prefix);
             this.message.channel.send({
                 "embed": {
-                  "description": "Find information for any command using `"+config.prefix+"[command] help`",
+                  "description": "Find information for any command using `"+this.guild.prefix+"[command] help`",
                   "color": 16553987,
                   "author": {
                     "name": "Neo Command Help",
@@ -56,7 +71,7 @@ export namespace Ignite {
                     },
                     {
                       "name": "Usage",
-                      "value": '`'+config.prefix+this.usage.usage+'`',
+                      "value": '`'+this.guild.prefix+this.usage.usage+'`',
                       "inline": true
                     },
                     {
@@ -66,14 +81,6 @@ export namespace Ignite {
                     }
                   ]
                 }
-            });
-        }
-
-        protected getGuildConfig(): Promise<GuildConfig> {
-            return new Promise((resolve: Function, reject: Function) => {
-                axios.get(process.env.API_URL + 'guild/' + this.message.guild.id).then((res: AxiosResponse<APIResponse<GuildConfig>>) => {
-                    resolve(res.data.data);
-                }).catch(e => reject(e));
             });
         }
 
