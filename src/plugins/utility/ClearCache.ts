@@ -14,6 +14,11 @@ export class ClearCacheCommand extends Ignite.IgniteCommand implements Ignite.Ig
     }
 
     async run() {
+        if (!this.args[1]) {
+            removeFromCache(`config::${this.message.guild.id}`);
+            removeFromCache(`commands::${this.message.guild.id}`);
+            return this.success(`Successfully cleared cache for **${this.message.guild.name}**.`);
+        }
         if (this.args[1] == '*') {
             // clear all
             removeAll();
