@@ -112,14 +112,12 @@ export class Http {
                 this.logAccess(req);
                 res(true);
             }
-            for (let i = 0; i < RouterConfig.allowed_ips.length; i++) {
-                if (RouterConfig.allowed_ips[i] == req.ip) {
-                    this.logAccess(req);
-                    res(true);
-                }
-                else {
-                    return resp.send('Internal Error: ip_verif_fail. | IP \n\n' + req.ip + ' is not authorized to access this server.');
-                }
+
+            if (RouterConfig.allowed_ips.includes(req.ip)) {
+                this.logAccess(req);
+                res(true);
+            } else {
+                return resp.send('Internal Error: ip_verif_fail. | IP \n\n' + req.ip + ' is not authorized to access this server.');
             }
         });
     }
