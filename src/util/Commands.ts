@@ -5,7 +5,7 @@ export const COMMANDS: Array<Command> = [
         level: 'everyone'
     },
     {
-        name: 'warn',
+        name: 'warn @user [reason]',
         description: 'Warn a user.',
         level: 'moderator'
     },
