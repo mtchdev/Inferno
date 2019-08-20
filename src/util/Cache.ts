@@ -25,3 +25,7 @@ export function removeFromCache<T>(key: string): void {
     let i = Cache.findIndex((item: CacheItem<T>) => item.key === key);
     Cache.splice(i, 1);
 }
+
+export function removeAll(): void {
+    Cache = [];
+}

@@ -22,12 +22,14 @@ import { HelpCommand } from 'src/plugins/utility/Help';
 import { AddCommandCommand } from 'src/plugins/utility/AddCommand';
 import { RemoveCommandCommand } from 'src/plugins/utility/RemoveCommand';
 import { CustomCommandsCommand } from 'src/plugins/utility/Commands';
+import { ClearCacheCommand } from 'src/plugins/utility/ClearCache';
 
 /**
  * Middleware
  */
 import { IsAdmin } from 'src/util/middleware/IsAdmin';
 import { IsModerator } from 'src/util/middleware/isModerator';
+import { IsIgniteAdmin } from 'src/util/middleware/IsIgniteAdmin';
 
 export const plugins: Array<Plugin> = [
     {
@@ -96,5 +98,10 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'commands',
         component: CustomCommandsCommand
+    },
+    {
+        trigger: 'clearcache',
+        component: ClearCacheCommand,
+        canActivate: IsIgniteAdmin
     }
 ];
