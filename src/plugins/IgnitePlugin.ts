@@ -28,7 +28,7 @@ export namespace Ignite {
             this.args = this.message.content.split(' ').splice(0);
             await this.initConfig();
 
-            if (this.args.includes('help')) {
+            if (this.args[1] == ('help')) {
                 this.sendHelp();
                 return;
             }

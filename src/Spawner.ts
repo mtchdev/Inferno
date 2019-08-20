@@ -8,6 +8,7 @@ export abstract class Spawner {
             try {
                 Log('Starting bot...');
                 await client.login(process.env.BOT_TOKEN);
+                client.user.setActivity(process.env.DEFAULT_STATUS);
 
                 Log(`Authenticated as ${client.user.username}#${client.user.discriminator}`, 'success');
                 resolve(client)
