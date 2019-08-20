@@ -63,7 +63,7 @@ export class MessageHandler {
         return new Promise((resolve: Function, reject: Function) => {
             axios.get(process.env.API_URL + 'guild/' + this.message.guild.id).then((res: AxiosResponse<APIResponse<GuildConfig>>) => {
                 resolve(res.data.data);
-                addToCache(`config::${this.message.guild.id}`, this.guild, 60);
+                addToCache(`config::${this.message.guild.id}`, res.data.data, 60);
             }).catch(e => reject(e));
         });
     }

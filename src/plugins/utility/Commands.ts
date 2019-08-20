@@ -1,8 +1,6 @@
 import { Ignite } from '../IgnitePlugin';
 import { Client, Message } from 'discord.js';
-import { getFromCache } from 'src/util/Cache';
 import { CustomCommand } from 'src/entities/CustomCommand';
-import GuildConfig from 'src/util/GuildConfig';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 
@@ -22,7 +20,7 @@ export class CustomCommandsCommand extends Ignite.IgniteCommand implements Ignit
         let commands = response.data.data;
 
         if (commands.length == 0) {
-            return this.message.channel.send('There are no custom commands. Get started by adding one!');
+            return this.error('There are no custom commands.');
         }
 
         this.message.channel.send(`**__Custom Commands__**\n\n` + commands.map((command: CustomCommand) => `\`${this.guild.prefix}${command.trigger}\``).join(' | '));
