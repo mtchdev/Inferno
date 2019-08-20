@@ -63,7 +63,7 @@ export class MessageHandler {
         return new Promise((resolve: Function, reject: Function) => {
             axios.get(process.env.API_URL + 'guild/' + this.message.guild.id).then((res: AxiosResponse<APIResponse<GuildConfig>>) => {
                 resolve(res.data.data);
-                addToCache(`config::${this.message.guild.id}`, res.data.data, 60);
+                addToCache(`config::${this.message.guild.id}`, res.data.data, 3600);
             }).catch(e => reject(e));
         });
     }
@@ -72,7 +72,7 @@ export class MessageHandler {
         return new Promise((resolve: Function, reject: Function) => {
             axios.get(process.env.API_URL + 'guild/' + this.message.guild.id + '/commands').then((res: AxiosResponse<APIResponse<CustomCommand[]>>) => {
                 resolve(res.data.data);
-                addToCache(`commands::${this.message.guild.id}`, res.data.data, 300);
+                addToCache(`commands::${this.message.guild.id}`, res.data.data, 3600);
             });
         });
     }
