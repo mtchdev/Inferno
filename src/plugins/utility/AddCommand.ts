@@ -20,6 +20,10 @@ export class AddCommandCommand extends Ignite.IgniteCommand implements Ignite.Ig
         if (!this.args[1]) { return this.error('Please enter a trigger word.'); }
         if (!this.args[2]) { return this.error('Please enter a response.'); }
 
+        if (!this.args[1].match(/^[a-zA-Z]/g)) {
+            return this.error('The command must only contain letters.');
+        }
+
         if (plugins.some((plugin: Plugin) => plugin.trigger === this.args[1])) {
             return this.error('That command is reserved by Ignite.');
         }
