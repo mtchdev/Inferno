@@ -70,6 +70,11 @@ export const COMMANDS: Array<Command> = [
         level: 'admin'
     },
     {
+        name: 'removecommand [commandName]',
+        description: 'Remove a custom command.',
+        level: 'admin'
+    },
+    {
         name: 'commands',
         description: 'Get all available custom commands.',
         level: 'everyone'
