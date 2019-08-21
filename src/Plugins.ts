@@ -26,6 +26,7 @@ import { ClearCacheCommand } from 'src/plugins/utility/ClearCache';
 import { UserInfoCommand } from './plugins/moderation/UserInfo';
 import { KickCommand } from './plugins/moderation/Kick';
 import { BanCommand } from './plugins/moderation/Ban';
+import { UnbanCommand } from './plugins/moderation/Unban';
 
 /**
  * Middleware
@@ -120,6 +121,11 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'ban',
         component: BanCommand,
+        canActivate: IsModerator
+    },
+    {
+        trigger: 'unban',
+        component: UnbanCommand,
         canActivate: IsModerator
     }
 ];

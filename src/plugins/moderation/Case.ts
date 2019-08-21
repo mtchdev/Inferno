@@ -93,7 +93,7 @@ export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
                 },
                 {
                     name: 'Reason',
-                    value: obj.reason
+                    value: obj.reason || '*No reason provided.*'
                 }
             ]
         }});

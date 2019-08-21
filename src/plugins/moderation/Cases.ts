@@ -46,7 +46,7 @@ export class CasesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
         for (let i in cases) {
             let x = cases[i];
             let type = x.type.charAt(0).toUpperCase() + x.type.substr(1);
-            str += `${moment.unix(x.unix_added).format('MM/DD/YYYY')} | \`[CASE #${x.id}]\` __${type}__: ${x.reason}\n`;
+            str += `${moment.unix(x.unix_added).format('MM/DD/YYYY')} | \`[CASE #${x.id}]\` __${type}__: ${x.reason || '*No reason provided.*'}\n`;
 
             if (str.length > 1800 || Number(i) == cases.length - 1) {
                 if (notes && notes > 0) {
