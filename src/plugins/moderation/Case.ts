@@ -58,6 +58,9 @@ export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
             case "unmute":
                 color = 3594411;
                 break;
+            case "kick":
+                color = 15302461;
+                break;
         }
 
         let user = await this.client.fetchUser(obj.user_id);
@@ -67,7 +70,7 @@ export class CaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
             color: color,
             timestamp: moment.unix(obj.unix_added).format('YYYY-MM-DDTHH:mm:ss.SSSZ'),
             author: {
-                name: `CASE ${obj.id}`
+                name: `CASE #${obj.id}`
             },
             thumbnail: {
                 url: user.avatarURL || 'https://cdn.discordapp.com/embed/avatars/0.png'

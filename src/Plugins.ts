@@ -24,6 +24,7 @@ import { RemoveCommandCommand } from 'src/plugins/utility/RemoveCommand';
 import { CustomCommandsCommand } from 'src/plugins/utility/Commands';
 import { ClearCacheCommand } from 'src/plugins/utility/ClearCache';
 import { UserInfoCommand } from './plugins/moderation/UserInfo';
+import { KickCommand } from './plugins/moderation/Kick';
 
 /**
  * Middleware
@@ -107,6 +108,12 @@ export const plugins: Array<Plugin> = [
     },
     {
         trigger: 'userinfo',
-        component: UserInfoCommand
+        component: UserInfoCommand,
+        canActivate: IsModerator
+    },
+    {
+        trigger: 'kick',
+        component: KickCommand,
+        canActivate: IsModerator
     }
 ];
