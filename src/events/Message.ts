@@ -53,7 +53,13 @@ export class MessageHandler {
                 let isCustom = await this.testCustomCommands(this.command);
 
                 if (!isCustom) {
-                    this.message.reply('command not found.');
+                    this.message.channel.send({embed: {
+                        color: 15158332,
+                        title: 'Error',
+                        description: `⚠ \`${this.guild.prefix}${this.command}\` is not a command.` 
+                    }}).then((msg: Message) => {
+                        msg.delete(3500);
+                    });
                 }
             }
         }
