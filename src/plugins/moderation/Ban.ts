@@ -5,13 +5,13 @@ import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import Log from 'src/util/Logger';
 
-export class KickCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class BanCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
 
     constructor(client: Client, message: Message) {
         super({
-            name: 'Kick',
-            description: 'Kick a user from the server',
-            usage: 'kick @user [reason]',
+            name: 'Ban',
+            description: 'Ban a user from the server',
+            usage: 'ban @user [reason]',
             category: 'moderation'
         }, message, client);
     }
@@ -22,12 +22,12 @@ export class KickCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
         let user: GuildMember = this.message.mentions.members.first();
         let reason: string = this.args.slice(2).join(' ');
 
-        if (!user) { return this.error('Please @mention a user to kick.'); }
+        if (!user) { return this.error('Please @mention a user to ban.'); }
         if (!reason) { return this.error('Please enter a reason.'); }
-        if (user.id == this.message.author.id) { return this.error('You cannot kick yourself!'); }
+        if (user.id == this.message.author.id) { return this.error('You cannot ban yourself!'); }
 
         let item: Case = {
-            type: 'kick',
+            type: 'ban',
             user_id: user.id,
             actor_id: this.message.author.id,
             reason: reason
@@ -35,16 +35,16 @@ export class KickCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
 
         let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
         try {
-            await user.send(`You have been kicked from **${this.message.guild.name}** for ${reason}`);
+            await user.send(`You have been banned from **${this.message.guild.name}** for ${reason}`);
         } catch (e) {
             Log('Failed to send message to user.', 'warn');
         }
 
         try {
-            await user.kick(reason);
-            this.success(`\`[CASE #${response.data.data.id}]\` Kicked ${user} for *${reason}*`);
+            await user.ban(reason);
+            this.success(`\`[CASE #${response.data.data.id}]\` Banned ${user} for *${reason}*`);
         } catch (e) {
-            this.error('Failed to kick user, are you sure I have sufficient permissions?');
+            this.error('Failed to ban user, are you sure I have sufficient permissions?');
         }
     }
 

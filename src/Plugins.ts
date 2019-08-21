@@ -25,6 +25,7 @@ import { CustomCommandsCommand } from 'src/plugins/utility/Commands';
 import { ClearCacheCommand } from 'src/plugins/utility/ClearCache';
 import { UserInfoCommand } from './plugins/moderation/UserInfo';
 import { KickCommand } from './plugins/moderation/Kick';
+import { BanCommand } from './plugins/moderation/Ban';
 
 /**
  * Middleware
@@ -114,6 +115,11 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'kick',
         component: KickCommand,
+        canActivate: IsModerator
+    },
+    {
+        trigger: 'ban',
+        component: BanCommand,
         canActivate: IsModerator
     }
 ];
