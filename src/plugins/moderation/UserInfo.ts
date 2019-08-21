@@ -63,7 +63,7 @@ export class UserInfoCommand extends Ignite.IgniteCommand implements Ignite.Igni
                 },
                 {
                     name: `Roles (${user.roles.size})`,
-                    value: user.roles.map((role: Role) => role.name).join(', ')
+                    value: user.roles.size === 0 ? `*${user.user.username} has no roles.*` : user.roles.map((role: Role) => role.name).join(', ')
                 }
             ]
         }});
