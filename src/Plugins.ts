@@ -23,6 +23,7 @@ import { AddCommandCommand } from 'src/plugins/utility/AddCommand';
 import { RemoveCommandCommand } from 'src/plugins/utility/RemoveCommand';
 import { CustomCommandsCommand } from 'src/plugins/utility/Commands';
 import { ClearCacheCommand } from 'src/plugins/utility/ClearCache';
+import { UserInfoCommand } from './plugins/moderation/UserInfo';
 
 /**
  * Middleware
@@ -103,5 +104,9 @@ export const plugins: Array<Plugin> = [
         trigger: 'clearcache',
         component: ClearCacheCommand,
         canActivate: IsIgniteAdmin
+    },
+    {
+        trigger: 'userinfo',
+        component: UserInfoCommand
     }
 ];
