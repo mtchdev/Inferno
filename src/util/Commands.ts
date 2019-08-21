@@ -58,6 +58,11 @@ export const COMMANDS: Array<Command> = [
         name: 'commands',
         description: 'Get all available custom commands.',
         level: 'everyone'
+    },
+    {
+        name: 'userinfo @user|userId',
+        description: 'Get specific user information.',
+        level: 'moderator'
     }
 ];
 
