@@ -10,7 +10,7 @@ export class RemoveCommandCommand extends Ignite.IgniteCommand implements Ignite
     constructor(client: Client, message: Message) {
         super({
             name: 'Remove Custom Command',
-            description: 'Remove a custom command.',
+            description: 'Remove a custom command',
             usage: 'removecommand [name]',
             category: 'utility'
         }, message, client);

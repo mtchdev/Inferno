@@ -7,7 +7,7 @@ export class RemoveNoteCommand extends Ignite.IgniteCommand implements Ignite.Ig
     constructor(client: Client, message: Message) {
         super({
             name: 'Remove Note',
-            description: 'Remove a note by ID.',
+            description: 'Remove a note by ID',
             usage: 'removenote [id]',
             category: 'moderation'
         }, message, client);

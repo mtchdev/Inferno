@@ -7,7 +7,7 @@ export class UserInfoCommand extends Ignite.IgniteCommand implements Ignite.Igni
     constructor(client: Client, message: Message) {
         super({
             name: 'User Info',
-            description: 'Get information for a specific user.',
+            description: 'Get information for a specific user',
             usage: 'userinfo @user|userId',
             category: 'moderation'
         }, message, client);

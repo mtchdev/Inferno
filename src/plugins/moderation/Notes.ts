@@ -10,7 +10,7 @@ export class NotesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
     constructor(client: Client, message: Message) {
         super({
             name: 'Notes',
-            description: 'Get all notes for a user.',
+            description: 'Get all notes for a user',
             usage: 'notes @user|uid',
             category: 'moderation'
         }, message, client);

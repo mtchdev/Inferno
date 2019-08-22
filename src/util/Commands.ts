@@ -83,6 +83,11 @@ export const COMMANDS: Array<Command> = [
         name: 'userinfo @user|userId',
         description: 'Get specific user information.',
         level: 'moderator'
+    },
+    {
+        name: 'remind [time] #channel @user? [message]',
+        description: 'Remind a user (or self) in a channel.',
+        level: 'everyone'
     }
 ];
 

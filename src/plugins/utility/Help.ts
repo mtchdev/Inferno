@@ -11,7 +11,7 @@ export class HelpCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
     constructor(client: Client, message: Message) {
         super({
             name: 'Help',
-            description: 'Get a list of available commands.',
+            description: 'Get a list of available commands',
             usage: 'help',
             category: 'utility'
         }, message, client);

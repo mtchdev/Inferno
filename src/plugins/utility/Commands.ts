@@ -9,7 +9,7 @@ export class CustomCommandsCommand extends Ignite.IgniteCommand implements Ignit
     constructor(client: Client, message: Message) {
         super({
             name: 'Custom Commands',
-            description: 'List all available custom commands.',
+            description: 'List all available custom commands',
             usage: 'commands',
             category: 'utility'
         }, message, client);

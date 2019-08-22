@@ -7,7 +7,7 @@ export class RemoveCaseCommand extends Ignite.IgniteCommand implements Ignite.Ig
     constructor(client: Client, message: Message) {
         super({
             name: 'Remove Case',
-            description: 'Remove a case by ID.',
+            description: 'Remove a case by ID',
             usage: 'removecase [id]',
             category: 'moderation'
         }, message, client);

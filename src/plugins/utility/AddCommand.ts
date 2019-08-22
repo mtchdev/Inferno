@@ -10,7 +10,7 @@ export class AddCommandCommand extends Ignite.IgniteCommand implements Ignite.Ig
     constructor(client: Client, message: Message) {
         super({
             name: 'Add Custom Command',
-            description: 'Add a custom command.',
+            description: 'Add a custom command',
             usage: 'addcommand [trigger] [response]',
             category: 'utility'
         }, message, client);

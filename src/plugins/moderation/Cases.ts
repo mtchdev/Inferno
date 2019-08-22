@@ -10,7 +10,7 @@ export class CasesCommand extends Ignite.IgniteCommand implements Ignite.IgniteP
     constructor(client: Client, message: Message) {
         super({
             name: 'Cases',
-            description: 'Get all cases for a user.',
+            description: 'Get all cases for a user',
             usage: 'cases @user|uid',
             category: 'moderation'
         }, message, client);

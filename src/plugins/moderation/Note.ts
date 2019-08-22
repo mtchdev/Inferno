@@ -7,7 +7,7 @@ export class NoteCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
     constructor(client: Client, message: Message) {
         super({
             name: 'Add Note',
-            description: 'Add a note to a user.',
+            description: 'Add a note to a user',
             usage: 'addnote [@user|userId] [note]',
             category: 'moderation'
         }, message, client);

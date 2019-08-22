@@ -7,7 +7,7 @@ export class ClearCacheCommand extends Ignite.IgniteCommand implements Ignite.Ig
     constructor(client: Client, message: Message) {
         super({
             name: 'Clear Cache',
-            description: 'Clear the cache for a guild or all guilds.',
+            description: 'Clear the cache for a guild or all guilds',
             usage: 'clearcache guildId|*',
             category: 'utility'
         }, message, client);
