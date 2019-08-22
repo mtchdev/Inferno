@@ -22,6 +22,11 @@ export class GuildController extends Controller {
         config.guild_id = guild.guild_id;
         config.prefix = ';';
 
+        let exists = await this.db.findOne(Guild, {where:{guild_id: input.id}});
+        if (exists) {
+            return this.respondWithError('GUILD_EXISTS');
+        }
+
         try {
             await this.db.save([guild, config]);
         } catch (e) {
