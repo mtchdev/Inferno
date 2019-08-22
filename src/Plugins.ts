@@ -29,6 +29,7 @@ import { BanCommand } from './plugins/moderation/Ban';
 import { UnbanCommand } from './plugins/moderation/Unban';
 import { RemindCommand } from './plugins/utility/Remind';
 import { ForceBanCommand } from './plugins/moderation/ForceBan';
+import { PurgeCommand } from './plugins/moderation/Purge';
 
 /**
  * Middleware
@@ -138,6 +139,11 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'forceban',
         component: ForceBanCommand,
+        canActivate: IsModerator
+    },
+    {
+        trigger: 'purge',
+        component: PurgeCommand,
         canActivate: IsModerator
     }
 ];

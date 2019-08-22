@@ -93,6 +93,11 @@ export const COMMANDS: Array<Command> = [
         name: 'remind [time] #channel @user? [message]',
         description: 'Remind a user (or self) in a channel.',
         level: 'everyone'
+    },
+    {
+        name: 'purge [count]',
+        description: 'Bulk-delete (purge) a number of messages.',
+        level: 'moderator'
     }
 ];
 
