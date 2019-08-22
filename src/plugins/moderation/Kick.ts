@@ -17,13 +17,21 @@ export class KickCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
     }
 
     async run() {
-        if (this.args.length < 2) { return this.sendHelp(); }
+        if (!this.args[1]) { return this.error('Please @mention a user or type their ID.'); }
+        if (!this.args[2]) { return this.error('Please enter a reason.'); }
 
         let user: GuildMember = this.message.mentions.members.first();
-        let reason: string = this.args.slice(2).join(' ');
+        if (!user) {
+            if (this.args[1]) {
+                try {
+                    user = await this.message.guild.members.get(this.args[1]);
+                } catch (e) {
+                    return this.error('User is not in this server, or the ID is invalid.');
+                }
+            }
+        }
 
-        if (!user) { return this.error('Please @mention a user to kick.'); }
-        if (!reason) { return this.error('Please enter a reason.'); }
+        let reason: string = this.args.slice(2).join(' ');
         if (user.id == this.message.author.id) { return this.error('You cannot kick yourself!'); }
 
         let item: Case = {

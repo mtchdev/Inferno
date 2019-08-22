@@ -4,6 +4,7 @@ import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import Log from 'src/util/Logger';
+import { runInThisContext } from 'vm';
 
 export class BanCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
 
@@ -17,13 +18,22 @@ export class BanCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlu
     }
 
     async run() {
-        if (this.args.length < 2) { return this.sendHelp(); }
+        if (!this.args[1]) { return this.error('Please @mention a user or type their ID.'); }
+        if (!this.args[2]) { return this.error('Please enter a reason.'); }
 
         let user: GuildMember = this.message.mentions.members.first();
-        let reason: string = this.args.slice(2).join(' ');
+        if (!user) {
+            if (this.args[1]) {
+                try {
+                    // should replace with the User object because what if they're not in the server?
+                    user = await this.message.guild.members.get(this.args[1]);
+                } catch (e) {
+                    return this.error('User is not in this server, or the ID is invalid.');
+                }
+            }
+        }
 
-        if (!user) { return this.error('Please @mention a user to ban.'); }
-        if (!reason) { return this.error('Please enter a reason.'); }
+        let reason: string = this.args.slice(2).join(' ');
         if (user.id == this.message.author.id) { return this.error('You cannot ban yourself!'); }
 
         let item: Case = {
