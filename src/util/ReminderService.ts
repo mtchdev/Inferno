@@ -18,7 +18,7 @@ export abstract class ReminderService {
                     this.sendReminder(x);
                 }
             }
-        }, 5000);
+        }, 10 * 1000);
     }
 
     private static async sendReminder(reminder: Reminder) {

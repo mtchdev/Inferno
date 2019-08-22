@@ -9,8 +9,8 @@ export class RemindCommand extends Ignite.IgniteCommand implements Ignite.Ignite
     constructor(client: Client, message: Message) {
         super({
             name: 'Add A Reminder',
-            description: 'Add a reminder',
-            usage: 'remind [time] #channel @user [message]',
+            description: 'Add a reminder. The user field is optional, and will default to you',
+            usage: 'remind [time] #channel @user? [message]',
             category: 'utility'
         }, message, client);
     }
@@ -49,7 +49,7 @@ export class RemindCommand extends Ignite.IgniteCommand implements Ignite.Ignite
         ReminderService.Reminders.push({
             user: user,
             message: message,
-            time: (Date.now() / 1000) + formattedTime,
+            time: Math.floor((Date.now() / 1000) + formattedTime),
             channel: this.message.mentions.channels.first(),
             guild: this.message.guild
         });
