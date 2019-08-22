@@ -54,6 +54,7 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'cases',
         component: CasesCommand,
+        canActivate: IsModerator
     },
     {
         trigger: 'removecase',

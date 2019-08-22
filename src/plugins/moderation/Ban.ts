@@ -26,7 +26,7 @@ export class BanCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlu
                 try {
                     user = await this.client.fetchUser(this.args[1]);
                 } catch (e) {
-                    return this.error('User not found.');
+                    return this.error('User doesn\'t exist.');
                 }
             }
         }
@@ -37,6 +37,11 @@ export class BanCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlu
 
         let reason: string = this.args.slice(2).join(' ');
         if (user.id == this.message.author.id) { return this.error('You cannot ban yourself!'); }
+        let bans = await this.message.guild.fetchBans();
+
+        if (bans.has(user.id)) {
+            return this.error('User is already banned.');
+        }
 
         let item: Case = {
             type: 'ban',

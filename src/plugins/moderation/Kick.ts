@@ -23,10 +23,9 @@ export class KickCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
         let user: GuildMember = this.message.mentions.members.first();
         if (!user) {
             if (this.args[1]) {
-                try {
-                    user = await this.message.guild.members.get(this.args[1]);
-                } catch (e) {
-                    return this.error('User is not in this server, or the ID is invalid.');
+                user = await this.message.guild.members.get(this.args[1]);
+                if (!user) {
+                    return this.error('User doesn\'t exist, or isn\'t in this server.');
                 }
             }
         }

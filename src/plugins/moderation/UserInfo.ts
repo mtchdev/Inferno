@@ -26,7 +26,7 @@ export class UserInfoCommand extends Ignite.IgniteCommand implements Ignite.Igni
                 }
             }
         }
-        if (!user) { return this.error('Please @mention a user or type their user ID to see their info.'); }
+        if (!user) { return this.error('User not found.'); }
 
         this.message.channel.send({embed: {
             color: 16553987,
