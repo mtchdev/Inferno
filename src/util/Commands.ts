@@ -98,6 +98,11 @@ export const COMMANDS: Array<Command> = [
         name: 'purge [count]',
         description: 'Bulk-delete (purge) a number of messages.',
         level: 'moderator'
+    },
+    {
+        name: '8ball [question]',
+        description: 'Ask the magic 8ball.',
+        level: 'everyone'
     }
 ];
 
