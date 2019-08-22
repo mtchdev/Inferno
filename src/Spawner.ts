@@ -1,4 +1,5 @@
 import { Client } from 'discord.js';
+import { ReminderService } from 'src/util/ReminderService';
 import Log from 'src/util/Logger';
 
 export abstract class Spawner {
@@ -11,6 +12,7 @@ export abstract class Spawner {
                 client.user.setActivity(process.env.DEFAULT_STATUS);
 
                 Log(`Authenticated as ${client.user.username}#${client.user.discriminator}`, 'success');
+                ReminderService.init();
                 resolve(client)
             } catch (e) {
                 Log(e, 'error');

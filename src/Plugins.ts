@@ -27,6 +27,7 @@ import { UserInfoCommand } from './plugins/moderation/UserInfo';
 import { KickCommand } from './plugins/moderation/Kick';
 import { BanCommand } from './plugins/moderation/Ban';
 import { UnbanCommand } from './plugins/moderation/Unban';
+import { RemindCommand } from './plugins/utility/Remind';
 
 /**
  * Middleware
@@ -128,5 +129,9 @@ export const plugins: Array<Plugin> = [
         trigger: 'unban',
         component: UnbanCommand,
         canActivate: IsModerator
+    },
+    {
+        trigger: 'remind',
+        component: RemindCommand
     }
 ];
