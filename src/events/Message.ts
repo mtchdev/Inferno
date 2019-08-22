@@ -38,8 +38,9 @@ export class MessageHandler {
             if (this.command == x.trigger) {
                 if (x.canActivate) {
                     let passed: boolean = await new x.canActivate(this.message, this.message.client).run();
-    
-                    if (!passed) {
+                    if (!passed && (!this.guild.admin_role || !this.guild.mod_role)) {
+                        return this.message.reply('roles have not been set up yet. Please run `' + this.guild.prefix + 'settings list` to get started.');
+                    } else if (!passed) {
                         return this.message.reply('you don\'t have permission to use that command.');
                     }
                 }

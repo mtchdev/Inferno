@@ -3,9 +3,9 @@ import { Client, Message, GuildMember, User } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
-import Log from 'src/util/Logger';
+import Log from 'api/vendor/astro/util/Logger';
 
-export class BanCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
+export class ForceBanCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     constructor(client: Client, message: Message) {
         super({
@@ -17,12 +17,15 @@ export class BanCommand extends Inferno.InfernoCommand implements Inferno.Infern
     }
 
     async run() {
-        if (!this.args[1]) { return this.error('Please @mention a user or type their ID.'); }
+        if (!this.args[1]) { return this.error('Please specify a user ID to ban.'); }
         if (!this.args[2]) { return this.error('Please enter a reason.'); }
 
-        let user: GuildMember = this.message.mentions.members.first();
-
-        if (!user) { return this.error('Please @mention a user to ban. If you wan\'t to ban via **user ID** please use `'+this.guild.prefix+'forceban`'); }
+        let user: User;
+        try {
+            user = await this.client.fetchUser(this.args[1]);
+        } catch (e) {
+            return this.error('User not found.');
+        }
 
         let reason: string = this.args.slice(2).join(' ');
         if (user.id == this.message.author.id) { return this.error('You cannot ban yourself!'); }
@@ -40,14 +43,9 @@ export class BanCommand extends Inferno.InfernoCommand implements Inferno.Infern
         }
 
         try {
-            if (!user.bannable) { return this.error('You cannot ban that user.'); }
-            try {
-                await user.send(`You have been banned from **${this.message.guild.name}** for ${reason}`);
-            } catch (e) {}
             await this.message.guild.ban(user);
-
             let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
-            this.success(`\`[CASE #${response.data.data.id}]\` Banned ${user} for *${reason}*`);
+            this.success(`\`[CASE #${response.data.data.id}]\` Force banned ${user} for *${reason}*`);
         } catch (e) {
             this.error('Failed to ban user, are you sure I have sufficient permissions?');
         }

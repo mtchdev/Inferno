@@ -15,6 +15,11 @@ export const COMMANDS: Array<Command> = [
         level: 'moderator'
     },
     {
+        name: 'forceban [userId] [reason]',
+        description: 'Force-ban a user if they\'ve left the server.',
+        level: 'moderator'
+    },
+    {
         name: 'unban [userId]',
         description: 'Unban a user (by ID) from the server.',
         level: 'moderator'

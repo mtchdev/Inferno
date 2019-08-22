@@ -40,15 +40,12 @@ export class KickCommand extends Inferno.InfernoCommand implements Inferno.Infer
             reason: reason
         }
 
-        let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
         try {
+            if (!user.kickable) { return this.error('You cannot kick that user.'); }
             await user.send(`You have been kicked from **${this.message.guild.name}** for ${reason}`);
-        } catch (e) {
-            Log('Failed to send message to user.', 'warn');
-        }
-
-        try {
             await user.kick(reason);
+
+            let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
             this.success(`\`[CASE #${response.data.data.id}]\` Kicked ${user} for *${reason}*`);
         } catch (e) {
             this.error('Failed to kick user, are you sure I have sufficient permissions?');

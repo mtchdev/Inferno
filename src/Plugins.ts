@@ -28,6 +28,7 @@ import { KickCommand } from './plugins/moderation/Kick';
 import { BanCommand } from './plugins/moderation/Ban';
 import { UnbanCommand } from './plugins/moderation/Unban';
 import { RemindCommand } from './plugins/utility/Remind';
+import { ForceBanCommand } from './plugins/moderation/ForceBan';
 
 /**
  * Middleware
@@ -133,5 +134,10 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'remind',
         component: RemindCommand
+    },
+    {
+        trigger: 'forceban',
+        component: ForceBanCommand,
+        canActivate: IsModerator
     }
 ];

@@ -22,7 +22,7 @@ const SETTINGS: Array<Setting> = [
         displayAs: '--set-mod-role @Moderator'
     },
     {
-        trigger: '--set-mod-role',
+        trigger: '--set-admin-role',
         description: 'Change the admin permission role.',
         displayAs: '--set-admin-role @Admin'
     }

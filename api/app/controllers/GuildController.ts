@@ -94,6 +94,7 @@ export class GuildController extends Controller {
             let config: Config = await this.db.findOneOrFail(Config, {where:{guild_id: guildId}});
             config.admin_role = input.adminrole;
             this.db.save(config);
+            console.log(config)
 
             return this.respondWithSuccess(config);
         } catch (e) {
