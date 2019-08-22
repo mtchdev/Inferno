@@ -26,6 +26,7 @@
     "discord.js": "^11.5.1",
     "dotenv": "^8.0.0",
     "moment": "^2.24.0",
+    "timestring": "^6.0.0",
     "typescript": "^3.5.3"
   },
   "devDependencies": {
