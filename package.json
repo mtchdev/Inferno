@@ -1,12 +1,13 @@
 {
-  "name": "Inferno",
+  "name": "inferno",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:watch": "cross-env NODE_ENV=dev nodemon --watch \"**/*.ts\" --ignore \"**/*.spec.ts\" --exec \"ts-node\" -r tsconfig-paths/register index.ts",
-    "build": "tsc && node ./env-factory.js"
+    "build": "tsc && node ./env-factory.js",
+    "start": "cross-env NODE_ENV=prod node -r ./tsconfig-paths-bootstrap.js build/index.js"
   },
   "repository": {
     "type": "git",
