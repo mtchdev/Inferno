@@ -1,10 +1,9 @@
 import { Ignite } from '../IgnitePlugin';
-import { Client, Message, GuildMember } from 'discord.js';
+import { Client, Message, GuildMember, User } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import Log from 'src/util/Logger';
-import { runInThisContext } from 'vm';
 
 export class BanCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
 
@@ -21,16 +20,19 @@ export class BanCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlu
         if (!this.args[1]) { return this.error('Please @mention a user or type their ID.'); }
         if (!this.args[2]) { return this.error('Please enter a reason.'); }
 
-        let user: GuildMember = this.message.mentions.members.first();
+        let user: GuildMember | User = this.message.mentions.members.first();
         if (!user) {
             if (this.args[1]) {
                 try {
-                    // should replace with the User object because what if they're not in the server?
-                    user = await this.message.guild.members.get(this.args[1]);
+                    user = await this.client.fetchUser(this.args[1]);
                 } catch (e) {
-                    return this.error('User is not in this server, or the ID is invalid.');
+                    return this.error('User not found.');
                 }
             }
+        }
+
+        if (user instanceof GuildMember) {
+            user = user.user;
         }
 
         let reason: string = this.args.slice(2).join(' ');
@@ -51,7 +53,7 @@ export class BanCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlu
         }
 
         try {
-            await user.ban(reason);
+            await this.message.guild.ban(user);
             this.success(`\`[CASE #${response.data.data.id}]\` Banned ${user} for *${reason}*`);
         } catch (e) {
             this.error('Failed to ban user, are you sure I have sufficient permissions?');
