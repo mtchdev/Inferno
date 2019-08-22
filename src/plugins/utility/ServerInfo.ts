@@ -1,11 +1,11 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message, Channel } from 'discord.js';
 import moment from 'moment';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import { getFromCache } from 'src/util/Cache';
 
-export class ServerInfoCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class ServerInfoCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     constructor(client: Client, message: Message) {
         super({
@@ -74,7 +74,7 @@ export class ServerInfoCommand extends Ignite.IgniteCommand implements Ignite.Ig
                     inline: true
                 },
                 {
-                    name: 'Ignite Prefix',
+                    name: 'Inferno Prefix',
                     value: `\`${this.guild.prefix}\``,
                     inline: true
                 }

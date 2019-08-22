@@ -1,5 +1,5 @@
 {
-  "name": "ignite",
+  "name": "Inferno",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spliitzx/Ignite.git"
+    "url": "git+https://github.com/spliitzx/Inferno.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/spliitzx/Ignite/issues"
+    "url": "https://github.com/spliitzx/Inferno/issues"
   },
-  "homepage": "https://github.com/spliitzx/Ignite#readme",
+  "homepage": "https://github.com/spliitzx/Inferno#readme",
   "dependencies": {
     "@types/node": "^12.7.2",
     "axios": "^0.19.0",

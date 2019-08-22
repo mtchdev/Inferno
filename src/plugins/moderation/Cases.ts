@@ -1,11 +1,11 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message, GuildMember, User } from 'discord.js';
 import { Case, CasesWithNotes } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import moment from 'moment';
 
-export class CasesCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class CasesCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     constructor(client: Client, message: Message) {
         super({

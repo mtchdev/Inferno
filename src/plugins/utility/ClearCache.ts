@@ -1,8 +1,8 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message } from 'discord.js';
 import { getFromCache, removeFromCache, removeAll } from 'src/util/Cache';
 
-export class ClearCacheCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class ClearCacheCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     constructor(client: Client, message: Message) {
         super({
@@ -22,7 +22,7 @@ export class ClearCacheCommand extends Ignite.IgniteCommand implements Ignite.Ig
         if (this.args[1] == '*') {
             // clear all
             removeAll();
-            this.success('Successfully cleared Ignite cache.');
+            this.success('Successfully cleared Inferno cache.');
         } else {
             let cacheId = `config::${this.args[1]}`;
             if (!getFromCache(cacheId)) {

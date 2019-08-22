@@ -5,22 +5,22 @@ import { AxiosResponse } from "axios";
 import APIResponse from 'src/util/APIResponse';
 import axios from 'axios';
 
-export namespace Ignite {
+export namespace Inferno {
 
     type PluginCategories = 'utility' | 'moderation' | 'entertainment' | 'admin';
 
-    interface IgniteCommandUsage {
+    interface InfernoCommandUsage {
         name: string;
         description: string;
         usage: string | Array<string>;
         category: PluginCategories;
     }
 
-    export class IgniteCommand {
+    export class InfernoCommand {
         public args: Array<string> = [];
         protected guild: GuildConfig;
 
-        constructor(public usage: IgniteCommandUsage, protected message: Message, protected client: Client) {
+        constructor(public usage: InfernoCommandUsage, protected message: Message, protected client: Client) {
             this.init();
         }
 
@@ -58,7 +58,7 @@ export namespace Ignite {
                   "description": "Find information for any command using `"+this.guild.prefix+"[command] help`",
                   "color": 16553987,
                   "author": {
-                    "name": "Neo Command Help",
+                    "name": "Inferno Command Help",
                   },
                   "fields": [
                     {
@@ -107,7 +107,7 @@ export namespace Ignite {
         }
     }
 
-    export interface IgnitePlugin {
+    export interface InfernoPlugin {
         run(): void;
     }
 

@@ -1,8 +1,8 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message } from 'discord.js';
 import { COMMANDS, Command } from 'src/util/Commands';
 
-export class HelpCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class HelpCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     private everyoneCommands: Array<string> = [];
     private modCommands: Array<string> = [];
@@ -23,7 +23,7 @@ export class HelpCommand extends Ignite.IgniteCommand implements Ignite.IgnitePl
         this.message.channel.send({embed: {
             color: 16553987,
             author: {
-                name: `Ignite Command Help`
+                name: `Inferno Command Help`
             },
             thumbnail: {
                 url: null

@@ -1,10 +1,10 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message, Channel, User, TextChannel } from 'discord.js';
 import timestring from 'timestring';
 import moment from 'moment';
 import { ReminderService } from 'src/util/ReminderService';
 
-export class RemindCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class RemindCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     constructor(client: Client, message: Message) {
         super({

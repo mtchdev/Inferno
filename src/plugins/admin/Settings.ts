@@ -1,4 +1,4 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message, Role } from 'discord.js';
 import { removeFromCache } from 'src/util/Cache';
 import axios from 'axios';
@@ -28,7 +28,7 @@ const SETTINGS: Array<Setting> = [
     }
 ];
 
-export class SettingsCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class SettingsCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     private canSave: boolean = false;
 

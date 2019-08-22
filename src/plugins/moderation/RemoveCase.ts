@@ -1,8 +1,8 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message } from 'discord.js';
 import axios, { AxiosResponse } from 'axios';
 
-export class RemoveCaseCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class RemoveCaseCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     constructor(client: Client, message: Message) {
         super({

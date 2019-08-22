@@ -1,8 +1,8 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message, GuildMember, User } from 'discord.js';
 import axios from 'axios';
 
-export class NoteCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class NoteCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     constructor(client: Client, message: Message) {
         super({

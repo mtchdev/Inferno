@@ -34,7 +34,7 @@ import { RemindCommand } from './plugins/utility/Remind';
  */
 import { IsAdmin } from 'src/util/middleware/IsAdmin';
 import { IsModerator } from 'src/util/middleware/isModerator';
-import { IsIgniteAdmin } from 'src/util/middleware/IsIgniteAdmin';
+import { IsInfernoAdmin } from 'src/util/middleware/IsInfernoAdmin';
 
 export const plugins: Array<Plugin> = [
     {
@@ -108,7 +108,7 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'clearcache',
         component: ClearCacheCommand,
-        canActivate: IsIgniteAdmin
+        canActivate: IsInfernoAdmin
     },
     {
         trigger: 'userinfo',

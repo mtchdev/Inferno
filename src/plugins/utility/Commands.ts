@@ -1,10 +1,10 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message } from 'discord.js';
 import { CustomCommand } from 'src/entities/CustomCommand';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 
-export class CustomCommandsCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class CustomCommandsCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     constructor(client: Client, message: Message) {
         super({

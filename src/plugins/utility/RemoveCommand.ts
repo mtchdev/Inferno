@@ -1,11 +1,11 @@
-import { Ignite } from '../IgnitePlugin';
+import { Inferno } from '../InfernoPlugin';
 import { Client, Message } from 'discord.js';
 import { removeFromCache } from 'src/util/Cache';
 import { CustomCommand } from 'src/entities/CustomCommand';
 import { plugins, Plugin } from 'src/Plugins';
 import axios, { AxiosResponse } from 'axios';
 
-export class RemoveCommandCommand extends Ignite.IgniteCommand implements Ignite.IgnitePlugin {
+export class RemoveCommandCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
     constructor(client: Client, message: Message) {
         super({
@@ -20,7 +20,7 @@ export class RemoveCommandCommand extends Ignite.IgniteCommand implements Ignite
         if (!this.args[1]) { return this.error('Please enter a command name.'); }
 
         if (plugins.some((plugin: Plugin) => plugin.trigger === this.args[1])) {
-            return this.error('That command is reserved by Ignite.');
+            return this.error('That command is reserved by Inferno.');
         }
 
         let res: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'guild/' + this.message.guild.id + '/command/' + this.args[1].toLowerCase());
