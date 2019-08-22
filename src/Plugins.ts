@@ -30,6 +30,7 @@ import { UnbanCommand } from './plugins/moderation/Unban';
 import { RemindCommand } from './plugins/utility/Remind';
 import { ForceBanCommand } from './plugins/moderation/ForceBan';
 import { PurgeCommand } from './plugins/moderation/Purge';
+import { EightBallCommand } from './plugins/entertainment/8ball';
 
 /**
  * Middleware
@@ -145,5 +146,9 @@ export const plugins: Array<Plugin> = [
         trigger: 'purge',
         component: PurgeCommand,
         canActivate: IsModerator
+    },
+    {
+        trigger: '8ball',
+        component: EightBallCommand
     }
 ];
