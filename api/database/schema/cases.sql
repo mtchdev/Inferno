@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS cases (
     `user_id` VARCHAR(255) NOT NULL,
     `actor_id` VARCHAR(255) NOT NULL,
     reason VARCHAR(255),
+		guild_id VARCHAR(255) NOT NULL,
     unix_added INT(4) UNSIGNED NOT NULL,
     unix_updated INT(4) UNSIGNED NOT NULL,
 

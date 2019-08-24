@@ -24,10 +24,10 @@ http.post('guild/:id/roles/admin', (req: Request, res: Response) => new GuildCon
 
 // Cases
 http.post('case', (req: Request, res: Response) => new CaseController(res).addCase(req));
-http.get('case/:id', (req: Request, res: Response) => new CaseController(res).getCase(req));
+http.get('case/:id/:guildId', (req: Request, res: Response) => new CaseController(res).getCase(req));
 http.put('case/:id', (req: Request, res: Response) => new CaseController(res).editCase(req));
-http.delete('case/:id', (req: Request, res: Response) => new CaseController(res).removeCase(req));
-http.get('cases/:uid', (req: Request, res: Response) => new CaseController(res).getCasesForUser(req));
+http.delete('case/:id/:guildId', (req: Request, res: Response) => new CaseController(res).removeCase(req));
+http.get('cases/:uid/:guildId', (req: Request, res: Response) => new CaseController(res).getCasesForUser(req));
 
 // Notes
 http.post('note/:userId', (req: Request, res: Response) => new NoteController(res).addNoteToUser(req));

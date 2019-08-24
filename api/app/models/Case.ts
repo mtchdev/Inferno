@@ -13,7 +13,9 @@ export class Case extends Model {
     @Column()
     public actor_id: string;
     @Column()
-    public reason: string;
+		public reason: string;
+		@Column()
+		public guild_id: string;
     @Column()
     public unix_added: number;
     @Column()

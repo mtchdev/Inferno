@@ -17,7 +17,7 @@ export class RemoveCaseCommand extends Inferno.InfernoCommand implements Inferno
         if (!this.args[1]) { return this.error('Please enter a case ID.'); }
         let caseId = this.args[1];
 
-        let response: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'case/' + caseId);
+			let response: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'case/' + caseId + '/' + this.message.guild.id);
         if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
             return this.error(`Couldn't find a case with an ID of **${caseId}**`);
         }

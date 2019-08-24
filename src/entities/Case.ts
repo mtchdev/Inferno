@@ -5,7 +5,8 @@ export interface Case {
     reason?: string;
     id?: number;
     unix_added?: number;
-    unix_updated?: number;
+		unix_updated?: number;
+		guild_id: string;
 }
 
 export interface CasesWithNotes<T> {

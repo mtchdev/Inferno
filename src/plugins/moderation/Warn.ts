@@ -30,7 +30,8 @@ export class WarnCommand extends Inferno.InfernoCommand implements Inferno.Infer
             type: 'warn',
             user_id: user.id,
             actor_id: this.message.author.id,
-            reason: reason
+            reason: reason,
+            guild_id: this.message.guild.id
         }
 
         let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);

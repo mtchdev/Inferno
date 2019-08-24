@@ -24,7 +24,11 @@ export class CaseController extends Controller {
             newCase.reason = input.reason;
         }
         newCase.unix_added = Date.now() / 1000;
-        newCase.unix_updated = Date.now() / 1000;
+				newCase.unix_updated = Date.now() / 1000;
+				newCase.guild_id = input.guild_id;
+
+			console.log(newCase);
+			console.log(input);
 
         await this.db.save(newCase);
 
@@ -36,10 +40,10 @@ export class CaseController extends Controller {
      * @param request The API request
      */
     async getCasesForUser(request: Request) {
-        let params: any = request.params;
+				let params: any = request.params;
 
-        let cases = await this.db.find(Case, {where: {user_id: params.uid}});
-        let notes = await this.db.count(Note, {where:{user_id: params.uid}});
+        let cases = await this.db.find(Case, {where: {user_id: params.uid, guild_id: params.guildId}});
+				let notes = await this.db.count(Note, {where:{user_id: params.uid, guild_id: params.guildId}});
         return this.respondWithSuccess({cases: cases, notes: notes});
     }
 
@@ -48,9 +52,9 @@ export class CaseController extends Controller {
      * @param request The API request
      */
     async removeCase(request: Request) {
-        let item: string = request.params.id;
+				let params: any = request.params;
 
-        let exists = await this.db.findOne(Case, {where:{id: item}});
+        let exists = await this.db.findOne(Case, {where:{id: params.id, guild_id: params.guildId}});
         if (!exists) {
             return this.respondWithError('CASE_NOT_FOUND');
         }
@@ -69,7 +73,7 @@ export class CaseController extends Controller {
         let caseItem: Case;
 
         try {
-            caseItem = await this.db.findOneOrFail(Case, {where:{id: item}});
+            caseItem = await this.db.findOneOrFail(Case, {where:{id: item, guild_id: request.params.guildId}});
         } catch (e) {
             return this.respondWithError('CASE_NOT_FOUND');
         }
@@ -83,7 +87,7 @@ export class CaseController extends Controller {
         let obj: Case;
        
         try {
-            obj = await this.db.findOneOrFail(Case, caseId);
+					obj = await this.db.findOneOrFail(Case, {where:{id: caseId, guild_id: request.body.guild_id}});
         } catch (e) {
             return this.respondWithError('CASE_NOT_FOUND');
         }

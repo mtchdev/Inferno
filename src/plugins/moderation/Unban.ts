@@ -28,7 +28,8 @@ export class UnbanCommand extends Inferno.InfernoCommand implements Inferno.Infe
         let item: Case = {
             type: 'unban',
             user_id: user.id,
-            actor_id: this.message.author.id
+            actor_id: this.message.author.id,
+            guild_id: this.message.guild.id
         }
 
         try {

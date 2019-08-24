@@ -33,7 +33,7 @@ export class CaseCommand extends Inferno.InfernoCommand implements Inferno.Infer
 
     
     async getCase() {
-        let response: AxiosResponse<APIResponse<Case>> = await axios.get(process.env.API_URL + 'case/' + this.args[1]);
+			let response: AxiosResponse<APIResponse<Case>> = await axios.get(process.env.API_URL + 'case/' + this.args[1] + '/' + this.message.guild.id);
         if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
             return this.error(`Couldn't find a case with an ID of **${this.args[1]}**`);
         }
@@ -106,7 +106,7 @@ export class CaseCommand extends Inferno.InfernoCommand implements Inferno.Infer
         let reason: string = this.args.slice(3).join(' ');
         let caseId = this.args[1];
         
-        let response: AxiosResponse<any> = await axios.put(process.env.API_URL + 'case/' + caseId, {reason: reason});
+        let response: AxiosResponse<any> = await axios.put(process.env.API_URL + 'case/' + caseId, {reason: reason, guild_id: this.message.guild.id});
         if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
             return this.error(`Couldn't find a case with an ID of **${caseId}**`);
         }
@@ -116,7 +116,7 @@ export class CaseCommand extends Inferno.InfernoCommand implements Inferno.Infer
 
     async deleteCase() {
         let caseId = this.args[1];
-        let response: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'case/' + caseId);
+			let response: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'case/' + caseId + '/' + this.message.guild.id);
         if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
             return this.error(`Couldn't find a case with an ID of **${caseId}**`);
         }

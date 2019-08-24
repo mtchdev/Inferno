@@ -32,7 +32,8 @@ export class SoftBanCommand extends Inferno.InfernoCommand implements Inferno.In
             type: 'softban',
             user_id: user.id,
             actor_id: this.message.author.id,
-            reason: reason
+            reason: reason,
+            guild_id: this.message.guild.id
         }
 
         try {
