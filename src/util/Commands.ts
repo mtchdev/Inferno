@@ -108,6 +108,11 @@ export const COMMANDS: Array<Command> = [
         name: '8ball [question]',
         description: 'Ask the magic 8ball.',
         level: 'everyone'
+    },
+    {
+        name: 'version',
+        description: 'Get the current Inferno version.',
+        level: 'everyone'
     }
 ];
 

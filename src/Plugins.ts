@@ -32,6 +32,8 @@ import { ForceBanCommand } from './plugins/moderation/ForceBan';
 import { PurgeCommand } from './plugins/moderation/Purge';
 import { EightBallCommand } from './plugins/entertainment/8ball';
 import { SoftBanCommand } from './plugins/moderation/SoftBan';
+import { DebugCommand } from './plugins/utility/Debug';
+import { VersionCommand } from './plugins/utility/Version';
 
 /**
  * Middleware
@@ -156,5 +158,14 @@ export const plugins: Array<Plugin> = [
         trigger: 'softban',
         component: SoftBanCommand,
         canActivate: IsModerator
+    },
+    {
+        trigger: 'debug',
+        component: DebugCommand,
+        canActivate: IsInfernoAdmin
+    },
+    {
+        trigger: 'version',
+        component: VersionCommand
     }
 ];
