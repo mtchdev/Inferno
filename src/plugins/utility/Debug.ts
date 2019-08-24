@@ -43,11 +43,6 @@ export class DebugCommand extends Inferno.InfernoCommand implements Inferno.Infe
                     inline: true
                 },
                 {
-                    name: 'System Memory',
-                    value: `${Math.round((os.totalmem() / (1024*1024)) - (os.freemem() / (1024*1024)))} / ${Math.round(os.totalmem() / (1024*1024))} MB`,
-                    inline: true
-                },
-                {
                     name: 'CPU Usage',
                     value: Math.round(cpu.usage().percent.toString()) + '%',
                     inline: true
@@ -64,7 +59,8 @@ export class DebugCommand extends Inferno.InfernoCommand implements Inferno.Infe
                 },
                 {
                     name: 'Guild Count',
-                    value: this.client.guilds.size
+                    value: this.client.guilds.size,
+                    inline: true
                 },
                 {
                     name: 'Client ID',
