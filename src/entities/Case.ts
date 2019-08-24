@@ -13,4 +13,4 @@ export interface CasesWithNotes<T> {
     notes: number;
 }
 
-export type CaseTypes = 'warn' | 'mute' | 'ban' | 'tempban' | 'mute' | 'unmute' | 'unban' | 'kick';
+export type CaseTypes = 'warn' | 'mute' | 'ban' | 'tempban' | 'mute' | 'unmute' | 'unban' | 'kick' | 'softban';

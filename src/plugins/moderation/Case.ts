@@ -60,7 +60,10 @@ export class CaseCommand extends Inferno.InfernoCommand implements Inferno.Infer
                 break;
             case "kick":
                 color = 15302461;
-                break;
+								break;
+						case "softban":
+								color = 8797666;
+								break;
         }
 
         let user = await this.client.fetchUser(obj.user_id);

@@ -3,7 +3,7 @@ export const COMMANDS: Array<Command> = [
         name: 'help',
         description: 'Get a list of available commands.',
         level: 'everyone'
-    },
+		},
     {
         name: 'warn @user [reason]',
         description: 'Warn a user.',
@@ -28,6 +28,11 @@ export const COMMANDS: Array<Command> = [
         name: 'kick @user [reason]',
         description: 'Kick a user from the server.',
         level: 'moderator'
+    },
+    {
+	name: 'softban @user [reason]',
+	description: 'Kicks and removes all messages from a user, then unbans.',
+	level: 'moderator'
     },
     {
         name: 'cases @user|userId',
