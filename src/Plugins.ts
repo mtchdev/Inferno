@@ -35,6 +35,7 @@ import { SoftBanCommand } from './plugins/moderation/SoftBan';
 import { DebugCommand } from './plugins/utility/Debug';
 import { VersionCommand } from './plugins/utility/Version';
 import { CoinFlipCommand } from './plugins/entertainment/CoinFlip';
+import { WhereIsCommand } from './plugins/moderation/WhereIs';
 
 /**
  * Middleware
@@ -172,5 +173,10 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'coinflip',
         component: CoinFlipCommand
+    },
+    {
+        trigger: 'whereis',
+        component: WhereIsCommand,
+        canActivate: IsModerator
     }
 ];

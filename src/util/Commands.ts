@@ -118,6 +118,11 @@ export const COMMANDS: Array<Command> = [
         name: 'version',
         description: 'Get the current Inferno version.',
         level: 'everyone'
+    },
+    {
+        name: 'whereis @user|userId',
+        description: 'Find which voice channel a user is in.',
+        level: 'moderator'
     }
 ];
 
