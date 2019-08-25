@@ -34,6 +34,7 @@ import { EightBallCommand } from './plugins/entertainment/8ball';
 import { SoftBanCommand } from './plugins/moderation/SoftBan';
 import { DebugCommand } from './plugins/utility/Debug';
 import { VersionCommand } from './plugins/utility/Version';
+import { CoinFlipCommand } from './plugins/entertainment/CoinFlip';
 
 /**
  * Middleware
@@ -167,5 +168,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'version',
         component: VersionCommand
+    },
+    {
+        trigger: 'coinflip',
+        component: CoinFlipCommand
     }
 ];

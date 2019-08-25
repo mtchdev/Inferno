@@ -30,9 +30,9 @@ export const COMMANDS: Array<Command> = [
         level: 'moderator'
     },
     {
-	name: 'softban @user [reason]',
-	description: 'Kicks and removes all messages from a user, then unbans.',
-	level: 'moderator'
+        name: 'softban @user [reason]',
+        description: 'Kicks and removes all messages from a user, then unbans.',
+        level: 'moderator'
     },
     {
         name: 'cases @user|userId',
@@ -107,6 +107,11 @@ export const COMMANDS: Array<Command> = [
     {
         name: '8ball [question]',
         description: 'Ask the magic 8ball.',
+        level: 'everyone'
+    },
+    {
+        name: 'coinflip',
+        description: 'Flip a coin!',
         level: 'everyone'
     },
     {
