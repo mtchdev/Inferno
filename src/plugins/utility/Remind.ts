@@ -41,7 +41,11 @@ export class RemindCommand extends Inferno.InfernoCommand implements Inferno.Inf
             message = this.args.slice(4).join(' ');
         }
         time = this.args[1];
-        formattedTime = timestring(time);
+        try {
+            formattedTime = await timestring(time);
+        } catch (e) {
+            return this.error('Please enter a valid time. For example: `2h15m`');
+        }
 
         if (formattedTime > 2.628E6) { return this.error('The time must be less than 1 month.'); }
         if (formattedTime < 60) { return this.error('The time must be greater than 1 minute.'); }
