@@ -123,6 +123,11 @@ export const COMMANDS: Array<Command> = [
         name: 'whereis @user|userId',
         description: 'Find which voice channel a user is in.',
         level: 'moderator'
+    },
+    {
+        name: 'move @user|userId',
+        description: 'Move a user to another voice channel.',
+        level: 'moderator'
     }
 ];
 
