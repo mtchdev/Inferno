@@ -36,6 +36,59 @@ export class MessageHandler {
             let x = plugins[i];
             
             if (this.command == x.trigger) {
+                if (x.permissionRule && x.permissionRule == 'or') {
+                    let permissions: boolean = false;
+                    let activate: boolean = false;
+                    if (x.permissions) {
+                        if (this.message.member.hasPermission(x.permissions)) {
+                            permissions = true;
+                        }
+                    }
+    
+                    if (x.canActivate) {
+                        let passed: boolean = await new x.canActivate(this.message, this.message.client).run();
+                        if (passed) {
+                            activate = true;
+                        }
+                    }
+
+                    if (permissions || activate) {
+                        return this.startCommand(x);
+                    }
+
+                    break;
+                }
+                if (x.permissions && x.canActivate) {
+                    if (this.message.member.hasPermission(x.permissions)) {
+                        if (x.canActivate) {
+                            let passed: boolean = await new x.canActivate(this.message, this.message.client).run();
+                            if (!passed && (!this.guild.admin_role || !this.guild.mod_role)) {
+                                return this.message.reply('this command requires the moderator role or admin role to run. Please run `' + this.guild.prefix + 'settings list` to get started.');
+                            } else if (!passed) {
+                                return this.message.reply('you don\'t have permission to use that command.');
+                            }
+        
+                            if (passed) {
+                                this.startCommand(x);
+                                break;
+                            }
+                        }
+                    } else {
+                        this.message.reply(`you don't have permission to use that command. This command requires: \`${x.permissions.join(', ')}\`.`);
+                        break;
+                    }
+                }
+
+                if (x.permissions) {
+                    if (this.message.member.hasPermission(x.permissions)) {
+                        this.startCommand(x);
+                        break;
+                    } else {
+                        this.message.reply(`you don't have permission to use that command. This command requires: \`${x.permissions.join(', ')}\`.`);
+                        break;
+                    }
+                }
+
                 if (x.canActivate) {
                     let passed: boolean = await new x.canActivate(this.message, this.message.client).run();
                     if (!passed && (!this.guild.admin_role || !this.guild.mod_role)) {
@@ -43,11 +96,14 @@ export class MessageHandler {
                     } else if (!passed) {
                         return this.message.reply('you don\'t have permission to use that command.');
                     }
+
+                    if (passed) {
+                        this.startCommand(x);
+                        break;
+                    }
                 }
 
-                Log(`Command ${this.guild.prefix}${x.trigger} executed by ${this.message.author.username}#${this.message.author.discriminator}`);
-                new x.component(this.message.client, this.message);
-                break;
+                return this.startCommand(x);
             }
 
             if (Number(i) == plugins.length - 1) {
@@ -64,6 +120,11 @@ export class MessageHandler {
                 }
             }
         }
+    }
+
+    private startCommand(x: any) {
+        Log(`Command ${this.guild.prefix}${x.trigger} executed by ${this.message.author.username}#${this.message.author.discriminator}`);
+        new x.component(this.message.client, this.message);
     }
 
     private getGuildConfig(): Promise<GuildConfig> {

@@ -2,7 +2,8 @@ import { PluginMiddlewareObject } from './Middleware';
 import { Message, Client } from 'discord.js';
 
 const InfernoAdminIds: Array<string> = [
-    '308550329216270338'
+    '308550329216270338',
+    '543891397737054212'
 ];
 
 export class IsInfernoAdmin implements PluginMiddlewareObject {

@@ -1,7 +1,9 @@
 export interface Plugin {
     trigger: string;
     component: any
-    canActivate?: any
+    canActivate?: any,
+    permissions?: Array<PermissionResolvable>,
+    permissionRule?: 'or' | 'all'
 }
 
 /**
@@ -46,17 +48,15 @@ import { SupportCommand } from './plugins/utility/Support';
 import { IsAdmin } from 'src/util/middleware/IsAdmin';
 import { IsModerator } from 'src/util/middleware/isModerator';
 import { IsInfernoAdmin } from 'src/util/middleware/IsInfernoAdmin';
+import { PermissionResolvable } from 'discord.js';
 
 export const plugins: Array<Plugin> = [
     {
-        trigger: 'test',
-        component: TestCommand,
-        canActivate: IsAdmin
-    },
-    {
         trigger: 'settings',
         component: SettingsCommand,
-        canActivate: IsAdmin
+        canActivate: IsAdmin,
+        permissions: ['MANAGE_GUILD'],
+        permissionRule: 'or'
     },
     {
         trigger: 'warn',
@@ -96,7 +96,8 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'serverinfo',
         component: ServerInfoCommand,
-        canActivate: IsAdmin
+        permissions: ['ADMINISTRATOR'],
+        permissionRule: 'or'
     },
     {
         trigger: 'help',
@@ -129,17 +130,23 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'kick',
         component: KickCommand,
-        canActivate: IsModerator
+        canActivate: IsModerator,
+        permissions: ['KICK_MEMBERS'],
+        permissionRule: 'or'
     },
     {
         trigger: 'ban',
         component: BanCommand,
-        canActivate: IsModerator
+        canActivate: IsModerator,
+        permissions: ['BAN_MEMBERS'],
+        permissionRule: 'or'
     },
     {
         trigger: 'unban',
         component: UnbanCommand,
-        canActivate: IsModerator
+        canActivate: IsModerator,
+        permissions: ['BAN_MEMBERS'],
+        permissionRule: 'or'
     },
     {
         trigger: 'remind',
@@ -148,12 +155,16 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'forceban',
         component: ForceBanCommand,
-        canActivate: IsModerator
+        canActivate: IsModerator,
+        permissions: ['BAN_MEMBERS'],
+        permissionRule: 'or'
     },
     {
         trigger: 'purge',
         component: PurgeCommand,
-        canActivate: IsModerator
+        canActivate: IsModerator,
+        permissions: ['MANAGE_MESSAGES'],
+        permissionRule: 'or'
     },
     {
         trigger: '8ball',
@@ -162,7 +173,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'softban',
         component: SoftBanCommand,
-        canActivate: IsModerator
+        canActivate: IsModerator,
+        permissions: ['BAN_MEMBERS'],
+        permissionRule: 'or'
     },
     {
         trigger: 'debug',
@@ -185,7 +198,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'move',
         component: MoveCommand,
-        canActivate: IsModerator
+        canActivate: IsModerator,
+        permissions: ['MOVE_MEMBERS'],
+        permissionRule: 'or'
     },
     {
         trigger: 'suggest',
