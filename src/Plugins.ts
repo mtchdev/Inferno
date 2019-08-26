@@ -37,6 +37,8 @@ import { VersionCommand } from './plugins/utility/Version';
 import { CoinFlipCommand } from './plugins/entertainment/CoinFlip';
 import { WhereIsCommand } from './plugins/moderation/WhereIs';
 import { MoveCommand } from './plugins/moderation/Move';
+import { SuggestCommand } from './plugins/utility/Suggest';
+import { SupportCommand } from './plugins/utility/Support';
 
 /**
  * Middleware
@@ -184,5 +186,13 @@ export const plugins: Array<Plugin> = [
         trigger: 'move',
         component: MoveCommand,
         canActivate: IsModerator
+    },
+    {
+        trigger: 'suggest',
+        component: SuggestCommand
+    },
+    {
+        trigger: 'support',
+        component: SupportCommand
     }
 ];

@@ -46,7 +46,7 @@ export const COMMANDS: Array<Command> = [
     },
     {
         name: 'removecase [id]',
-        description: 'Remove a case by it\'s ID',
+        description: 'Remove a case by it\'s ID.',
         level: 'moderator'
     },
     {
@@ -61,7 +61,7 @@ export const COMMANDS: Array<Command> = [
     },
     {
         name: 'removenote [id]',
-        description: 'Remove a note by it\'s ID',
+        description: 'Remove a note by it\'s ID.',
         level: 'moderator'
     },
     {
@@ -128,6 +128,11 @@ export const COMMANDS: Array<Command> = [
         name: 'move @user|userId',
         description: 'Move a user to another voice channel.',
         level: 'moderator'
+    },
+    {
+        name: 'suggest [message]',
+        description: 'Send a suggestion to the developers.',
+        level: 'everyone'
     }
 ];
 
