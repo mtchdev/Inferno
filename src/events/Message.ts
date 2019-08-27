@@ -6,6 +6,7 @@ import APIResponse from 'src/util/APIResponse';
 import axios, { AxiosResponse } from 'axios';
 import { getFromCache, addToCache } from 'src/util/Cache';
 import { CustomCommand } from 'src/entities/CustomCommand';
+import { Statistics } from '../util/Stats';
 
 export class MessageHandler {
     public guild: GuildConfig;
@@ -16,6 +17,7 @@ export class MessageHandler {
     }
 
     private async handle() {
+        Statistics.totalMessages++;
         if (!this.message.guild) { return; }
         if (this.message.author.bot) { return; }
 
