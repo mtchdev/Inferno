@@ -95,8 +95,8 @@ export const COMMANDS: Array<Command> = [
         level: 'moderator'
     },
     {
-        name: 'remind [time] #channel @user? [message]',
-        description: 'Remind a user (or self) in a channel.',
+        name: 'remind [time] @user? [message]',
+        description: 'Remind a user (or self) in the current channel.',
         level: 'everyone'
     },
     {

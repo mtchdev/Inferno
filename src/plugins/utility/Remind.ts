@@ -10,7 +10,7 @@ export class RemindCommand extends Inferno.InfernoCommand implements Inferno.Inf
         super({
             name: 'Add A Reminder',
             description: 'Add a reminder. The user field is optional, and will default to you',
-            usage: 'remind [time] #channel @user? [message]',
+            usage: 'remind [time] @user? [message]',
             category: 'utility'
         }, message, client);
     }
