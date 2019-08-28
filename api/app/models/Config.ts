@@ -16,5 +16,7 @@ export class Config extends Model {
     public mod_role: number;
     @Column()
     public admin_role: number;
+    @Column()
+    public mute_role: number;
 
 }

@@ -41,6 +41,7 @@ import { WhereIsCommand } from './plugins/moderation/WhereIs';
 import { MoveCommand } from './plugins/moderation/Move';
 import { SuggestCommand } from './plugins/utility/Suggest';
 import { SupportCommand } from './plugins/utility/Support';
+import { MuteCommand } from './plugins/moderation/Mute';
 
 /**
  * Middleware
@@ -209,5 +210,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'support',
         component: SupportCommand
+    },
+    {
+        trigger: 'mute',
+        component: MuteCommand
     }
 ];
