@@ -19,6 +19,8 @@ export class HelpCommand extends Inferno.InfernoCommand implements Inferno.Infer
 
     async run() {
         let prefix = this.guild.prefix;
+        let modRole = this.guild.mod_role;
+        let adminRole = this.guild.admin_role;
 
         this.message.channel.send({embed: {
             color: 16553987,
@@ -34,11 +36,11 @@ export class HelpCommand extends Inferno.InfernoCommand implements Inferno.Infer
                     value: COMMANDS.filter((x: Command) => x.level === 'everyone').map((c: Command) => `\`${prefix}${c.name}\` - ${c.description}`).join('\n'),
                 },
                 {
-                    name: 'Moderator',
+                    name: `Moderator ${!modRole ? '(**Not Configured**)' : ''}`,
                     value: COMMANDS.filter((x: Command) => x.level === 'moderator').map((c: Command) => `\`${prefix}${c.name}\` - ${c.description}`).join('\n'),
                 },
                 {
-                    name: 'Admin',
+                    name: `Admin ${!adminRole ? '(**Not Configured**)' : ''}`,
                     value: COMMANDS.filter((x: Command) => x.level === 'admin').map((c: Command) => `\`${prefix}${c.name}\` - ${c.description}`).join('\n'),
                 }
             ]
