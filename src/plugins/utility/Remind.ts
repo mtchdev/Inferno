@@ -50,12 +50,12 @@ export class RemindCommand extends Inferno.InfernoCommand implements Inferno.Inf
         if (formattedTime > 2.628E6) { return this.error('The time must be less than 1 month.'); }
         if (formattedTime < 60) { return this.error('The time must be greater than 1 minute.'); }
 
-        ReminderService.Reminders.push({
-            user: user,
+        ReminderService.addReminder({
+            user_id: user.id,
             message: message,
-            time: Math.floor((Date.now() / 1000) + formattedTime),
-            channel: this.message.mentions.channels.first(),
-            guild: this.message.guild
+            time:  Math.floor((Date.now() / 1000) + formattedTime),
+            channel_id: this.message.mentions.channels.first().id,
+            guild_id: this.message.guild.id
         });
 
         this.message.channel.send(`Okay, I'll remind ${user.id === this.message.author.id ? 'you' : user.username} ${moment.unix((Date.now() / 1000) + formattedTime).fromNow()} in ${this.message.mentions.channels.first()}`);

@@ -13,6 +13,8 @@ export class Reminder extends Model {
     @Column()
     public channel_id: string;
     @Column()
-    public unix_remind: number;
+    public time: number;
+    @Column()
+    public message: string;
 
 }

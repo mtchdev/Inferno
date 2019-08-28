@@ -12,7 +12,7 @@ export abstract class Spawner {
                 client.user.setActivity(process.env.DEFAULT_STATUS);
 
                 Log(`Authenticated as ${client.user.username}#${client.user.discriminator}`, 'success');
-                ReminderService.init();
+                ReminderService.init(client);
                 resolve(client)
             } catch (e) {
                 Log(e, 'error');
