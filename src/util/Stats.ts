@@ -1,9 +1,11 @@
 import { writeFileSync, existsSync, mkdirSync } from "fs";
+import Log from './Logger';
 
 export class Statistics {
     public static totalMessages: number = 0;
     
     public static startStatisticsHandler(): void {
+        if (process.env.NODE_ENV == 'dev') { return Log('Stats service disabled: dev env', 'warn'); }
         setInterval(() => {
             this.writeStatistics();
         }, 15 * 1000)
