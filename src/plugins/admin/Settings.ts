@@ -19,12 +19,12 @@ const SETTINGS: Array<Setting> = [
     {
         trigger: '--set-mod-role',
         description: 'Change the moderator permission role.',
-        displayAs: '--set-mod-role @Moderator'
+        displayAs: '--set-mod-role @role'
     },
     {
         trigger: '--set-admin-role',
         description: 'Change the admin permission role.',
-        displayAs: '--set-admin-role @Admin'
+        displayAs: '--set-admin-role @role'
     }
 ];
 
@@ -109,7 +109,7 @@ export class SettingsCommand extends Inferno.InfernoCommand implements Inferno.I
 
         for (let i in SETTINGS) {
             let x = SETTINGS[i];
-            attributes.push(`\`${x.displayAs}\` - ${x.description}`);
+            attributes.push(`\`${this.guild.prefix}settings ${x.displayAs}\` - ${x.description}`);
         }
 
         this.message.channel.send({embed: {
