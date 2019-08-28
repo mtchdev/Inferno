@@ -19,8 +19,7 @@ export class RemindCommand extends Inferno.InfernoCommand implements Inferno.Inf
         /**
          * ARGS:
          * 1: time
-         * 2: #channel
-         * 3: user
+         * 3: user?
          * 4: message.join
          */
         let user: User
@@ -29,16 +28,14 @@ export class RemindCommand extends Inferno.InfernoCommand implements Inferno.Inf
         ,   formattedTime: number;
 
         if (!this.args[1]) { return this.error('Please provide a time in relative format.'); }
-        if (!this.args[2]) { return this.error('Please provide a #channel to remind.'); }
-        if (!this.args[3]) { return this.error('Please provide a message.'); }
-        if (!this.message.mentions.channels.first()) { return this.error('Please provide a #channel to remind.') }
+        if (!this.args[2]) { return this.error('Please provide a message or a user.'); }
         if (!this.message.mentions.users.first()) {
             // has no user mentioned
             user = this.message.author;
-            message = this.args.slice(3).join(' ');
+            message = this.args.slice(2).join(' ');
         } else {
             user = this.message.mentions.users.first();
-            message = this.args.slice(4).join(' ');
+            message = this.args.slice(2).join(' ');
         }
         time = this.args[1];
         try {
@@ -54,11 +51,11 @@ export class RemindCommand extends Inferno.InfernoCommand implements Inferno.Inf
             user_id: user.id,
             message: message,
             time:  Math.floor((Date.now() / 1000) + formattedTime),
-            channel_id: this.message.mentions.channels.first().id,
+            channel_id: this.message.channel.id,
             guild_id: this.message.guild.id
         });
 
-        this.message.channel.send(`Okay, I'll remind ${user.id === this.message.author.id ? 'you' : user.username} ${moment.unix((Date.now() / 1000) + formattedTime).fromNow()} in ${this.message.mentions.channels.first()}`);
+        this.message.channel.send(`Okay, I'll remind ${user.id === this.message.author.id ? 'you' : user.username} ${moment.unix((Date.now() / 1000) + formattedTime).fromNow()} in ${this.message.channel}`);
     }
 
 }
