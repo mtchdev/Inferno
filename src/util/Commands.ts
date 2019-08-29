@@ -30,6 +30,16 @@ export const COMMANDS: Array<Command> = [
         level: 'moderator'
     },
     {
+        name: 'mute @user|userId [time?] [reason]',
+        description: 'Mute a user permanently, or temporarily with a relative time',
+        level: 'moderator'
+    },
+    {
+        name: 'unmute @user|userId',
+        description: 'Unmute a user',
+        level: 'moderator'
+    },
+    {
         name: 'softban @user [reason]',
         description: 'Kicks and removes all messages from a user, then unbans.',
         level: 'moderator'

@@ -10,7 +10,6 @@ export interface Plugin {
  * Import plugins
  */
 
-import { TestCommand } from 'src/plugins/test';
 import { SettingsCommand } from 'src/plugins/admin/Settings';
 import { WarnCommand } from 'src/plugins/moderation/Warn';
 import { CasesCommand } from 'src/plugins/moderation/Cases';
@@ -214,10 +213,12 @@ export const plugins: Array<Plugin> = [
     },
     {
         trigger: 'mute',
-        component: MuteCommand
+        component: MuteCommand,
+        canActivate: IsModerator
     },
     {
         trigger: 'unmute',
-        component: UnmuteCommand
+        component: UnmuteCommand,
+        canActivate: IsModerator
     }
 ];
