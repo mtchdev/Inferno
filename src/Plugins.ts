@@ -42,6 +42,7 @@ import { SuggestCommand } from './plugins/utility/Suggest';
 import { SupportCommand } from './plugins/utility/Support';
 import { MuteCommand } from './plugins/moderation/Mute';
 import { UnmuteCommand } from './plugins/moderation/Unmute';
+import { NickCommand } from './plugins/moderation/Nick';
 
 /**
  * Middleware
@@ -220,5 +221,12 @@ export const plugins: Array<Plugin> = [
         trigger: 'unmute',
         component: UnmuteCommand,
         canActivate: IsModerator
+    },
+    {
+        trigger: 'nick',
+        component: NickCommand,
+        canActivate: IsModerator,
+        permissions: ['MANAGE_NICKNAMES'],
+        permissionRule: 'or'
     }
 ];

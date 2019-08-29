@@ -3,3 +3,4 @@ Inferno v1.2.0
 + Added mute command. You can now mute users permanently or temporarily using the mute command. Type ;mute help to see how to use it!
 + Added unmute command.
 + Increased purge limit from 99 to 100.
++ Added nick command (change nickname).
