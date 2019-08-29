@@ -13,7 +13,7 @@ export class MuteCommand extends Inferno.InfernoCommand implements Inferno.Infer
         super({
             name: 'Mute',
             description: 'Mute a user',
-            usage: 'mute @user [time?] [reason]',
+            usage: 'mute @user|userId [time?] [reason]',
             category: 'moderation'
         }, message, client);
     }
