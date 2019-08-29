@@ -11,6 +11,7 @@ export abstract class MuteService {
 
     public static init(client: Client): void {
         this.client = client;
+        this.refreshMutes();
         setInterval(async () => {
             await this.refreshMutes();
             for (let i in this.Mutes) {
@@ -61,7 +62,7 @@ export abstract class MuteService {
         }
     }
 
-    private static async removeMute(item: Mute) {
+    public static async removeMute(item: Mute) {
         try {
             await axios.delete(process.env.API_URL + 'tempmute/' + item.id);
         } catch (e) {

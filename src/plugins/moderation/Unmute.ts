@@ -3,6 +3,8 @@ import { Client, Message, GuildMember } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
+import { MuteService } from 'src/services/MuteService';
+import { Mute } from 'src/entities/Mute';
 
 export class UnmuteCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -42,6 +44,11 @@ export class UnmuteCommand extends Inferno.InfernoCommand implements Inferno.Inf
             await user.removeRole(this.guild.mute_role.toString());
             let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
             this.success(`\`[CASE #${response.data.data.id}]\` Unmuted ${user}`);
+
+            // Remove mute from tempmute database because a user can only have 1 mute per guild
+            let cacheIndex: number = MuteService.Mutes.findIndex((mute: Mute) => mute.user_id === user.id && mute.guild_id === this.message.guild.id);
+            if (cacheIndex < 0) { return; }
+            MuteService.removeMute(MuteService.Mutes[cacheIndex]);
         } catch (e) {
             this.error('Failed to unmute user.');
         }
