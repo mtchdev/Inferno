@@ -42,6 +42,7 @@ import { MoveCommand } from './plugins/moderation/Move';
 import { SuggestCommand } from './plugins/utility/Suggest';
 import { SupportCommand } from './plugins/utility/Support';
 import { MuteCommand } from './plugins/moderation/Mute';
+import { UnmuteCommand } from './plugins/moderation/Unmute';
 
 /**
  * Middleware
@@ -214,5 +215,9 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'mute',
         component: MuteCommand
+    },
+    {
+        trigger: 'unmute',
+        component: UnmuteCommand
     }
 ];
