@@ -1,7 +1,7 @@
 import { Mute } from 'src/entities/Mute';
-import { Client, TextChannel, GuildMember } from 'discord.js';
+import { Client, GuildMember } from 'discord.js';
 import Log from '../../api/vendor/astro/util/Logger';
-import APIResponse from './APIResponse';
+import APIResponse from '../util/APIResponse';
 import axios, { AxiosResponse } from 'axios';
 import { ConfigService } from './ConfigService';
 

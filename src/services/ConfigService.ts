@@ -1,7 +1,7 @@
-import { getFromCache } from './Cache';
-import GuildConfig from './GuildConfig';
+import { getFromCache } from '../util/Cache';
+import GuildConfig from '../util/GuildConfig';
 import axios, { AxiosResponse } from 'axios';
-import APIResponse from './APIResponse';
+import APIResponse from '../util/APIResponse';
 
 export abstract class ConfigService {
     public static async getById(guildId: string): Promise<GuildConfig> {

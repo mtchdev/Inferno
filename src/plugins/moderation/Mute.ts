@@ -1,7 +1,7 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message, GuildMember, Role } from 'discord.js';
 import { Case } from 'src/entities/Case';
-import { MuteService } from 'src/util/MuteService';
+import { MuteService } from 'src/services/MuteService';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import timestring from 'timestring';

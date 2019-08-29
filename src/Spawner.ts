@@ -1,6 +1,6 @@
 import { Client } from 'discord.js';
-import { ReminderService } from 'src/util/ReminderService';
-import { MuteService } from 'src/util/MuteService';
+import { ReminderService } from 'src/services/ReminderService';
+import { MuteService } from 'src/services/MuteService';
 import Log from 'src/util/Logger';
 
 export abstract class Spawner {

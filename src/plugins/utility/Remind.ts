@@ -1,8 +1,8 @@
 import { Inferno } from '../InfernoPlugin';
-import { Client, Message, Channel, User, TextChannel } from 'discord.js';
+import { Client, Message, User } from 'discord.js';
 import timestring from 'timestring';
 import moment from 'moment';
-import { ReminderService } from 'src/util/ReminderService';
+import { ReminderService } from 'src/services/ReminderService';
 
 export class RemindCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -50,7 +50,7 @@ export class RemindCommand extends Inferno.InfernoCommand implements Inferno.Inf
         ReminderService.addReminder({
             user_id: user.id,
             message: message,
-            time:  Math.floor((Date.now() / 1000) + formattedTime),
+            time: Math.floor((Date.now() / 1000) + formattedTime),
             channel_id: this.message.channel.id,
             guild_id: this.message.guild.id
         });

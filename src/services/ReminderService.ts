@@ -1,9 +1,8 @@
 import { Reminder } from 'src/entities/Reminder';
 import { Client, TextChannel } from 'discord.js';
 import Log from '../../api/vendor/astro/util/Logger';
-import APIResponse from './APIResponse';
+import APIResponse from '../util/APIResponse';
 import axios, { AxiosResponse } from 'axios';
-
 
 export abstract class ReminderService {
     public static Reminders: Array<Reminder> = [];
