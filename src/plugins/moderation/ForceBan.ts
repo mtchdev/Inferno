@@ -3,7 +3,6 @@ import { Client, Message, GuildMember, User } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
-import Log from 'api/vendor/astro/util/Logger';
 
 export class ForceBanCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 

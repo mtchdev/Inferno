@@ -4,10 +4,6 @@ import { COMMANDS, Command } from 'src/util/Commands';
 
 export class HelpCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
-    private everyoneCommands: Array<string> = [];
-    private modCommands: Array<string> = [];
-    private adminCommands: Array<string> = [];
-
     constructor(client: Client, message: Message) {
         super({
             name: 'Help',

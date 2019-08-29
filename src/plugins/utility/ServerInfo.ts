@@ -1,9 +1,6 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message, Channel } from 'discord.js';
 import moment from 'moment';
-import axios, { AxiosResponse } from 'axios';
-import APIResponse from 'src/util/APIResponse';
-import { getFromCache } from 'src/util/Cache';
 
 export class ServerInfoCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 

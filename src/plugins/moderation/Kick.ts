@@ -3,7 +3,6 @@ import { Client, Message, GuildMember } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
-import Log from 'src/util/Logger';
 
 export class KickCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 

@@ -1,5 +1,5 @@
 import { Inferno } from '../InfernoPlugin';
-import { Client, Message, GuildChannel, TextChannel } from 'discord.js';
+import { Client, Message, TextChannel } from 'discord.js';
 import Log from 'api/vendor/astro/util/Logger';
 
 const SUGGESTION_CHANNEL_ID = '615388340543553554';

@@ -50,9 +50,8 @@ export abstract class ReminderService {
         try {
             let user = await this.client.fetchUser(reminder.user_id);
             if (!user) { return Log('User on reminder does not exist.', 'warn'); }
-            let channel = this.client.guilds.get(reminder.guild_id).channels.get(reminder.channel_id);
+            let channel = this.client.guilds.get(reminder.guild_id).channels.get(reminder.channel_id) as TextChannel;
             if (!channel) { return Log('Failed to send reminder, channel does not exist.', 'warn'); }
-            if (!((channel): channel is TextChannel => channel.type === 'text')(channel)) { return Log('Channel not a typeof TextChannel', 'warn'); }
             await channel.send(`**Reminder**: ${user} ${reminder.message}`);
             this.removeReminder(reminder);
         } catch (e) {

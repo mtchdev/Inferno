@@ -1,5 +1,5 @@
 import { Inferno } from '../InfernoPlugin';
-import { Client, Message, GuildMember, VoiceChannel, GuildChannel } from 'discord.js';
+import { Client, Message, GuildMember, GuildChannel, VoiceChannel } from 'discord.js';
 
 export class MoveCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -28,7 +28,7 @@ export class MoveCommand extends Inferno.InfernoCommand implements Inferno.Infer
         let vc = user.voiceChannel;
         if (vc) {
             try {
-                let channel: GuildChannel = this.message.guild.channels.find((x: GuildChannel) => x.type === 'voice' && x.name === channelName);
+                let channel = this.message.guild.channels.find((x: GuildChannel) => x.type === 'voice' && x.name === channelName) as VoiceChannel;
                 if (!channel) {
                     return this.error('Channel not found. The channel name is **cAsE sEnsItIve**.');
                 }
