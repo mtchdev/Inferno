@@ -37,7 +37,7 @@ export class MessageHandler {
         for (let i in plugins) {
             let x = plugins[i];
             
-            if (this.command == x.trigger) {
+            if (this.command == x.trigger || (x.alias && x.alias.includes(this.command))) {
                 if (x.permissionRule && x.permissionRule == 'or') {
                     let permissions: boolean = false;
                     let activate: boolean = false;

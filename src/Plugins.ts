@@ -1,9 +1,10 @@
 export interface Plugin {
     trigger: string;
-    component: any
-    canActivate?: any,
-    permissions?: Array<PermissionResolvable>,
-    permissionRule?: 'or' | 'all'
+    component: any;
+    canActivate?: any;
+    permissions?: Array<PermissionResolvable>;
+    permissionRule?: 'or' | 'all';
+    alias?: Array<string>;
 }
 
 /**
@@ -108,12 +109,14 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'addcommand',
         component: AddCommandCommand,
-        canActivate: IsAdmin
+        canActivate: IsAdmin,
+        alias: ['addcmd']
     },
     {
         trigger: 'removecommand',
         component: RemoveCommandCommand,
-        canActivate: IsAdmin
+        canActivate: IsAdmin,
+        alias: ['removecmd']
     },
     {
         trigger: 'commands',
@@ -182,7 +185,8 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'debug',
         component: DebugCommand,
-        canActivate: IsInfernoAdmin
+        canActivate: IsInfernoAdmin,
+        alias: ['db']
     },
     {
         trigger: 'version',
@@ -202,7 +206,8 @@ export const plugins: Array<Plugin> = [
         component: MoveCommand,
         canActivate: IsModerator,
         permissions: ['MOVE_MEMBERS'],
-        permissionRule: 'or'
+        permissionRule: 'or',
+        alias: ['mv']
     },
     {
         trigger: 'suggest',
@@ -227,6 +232,7 @@ export const plugins: Array<Plugin> = [
         component: NickCommand,
         canActivate: IsModerator,
         permissions: ['MANAGE_NICKNAMES'],
-        permissionRule: 'or'
+        permissionRule: 'or',
+        alias: ['nickname']
     }
 ];
