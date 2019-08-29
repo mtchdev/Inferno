@@ -1,5 +1,6 @@
 import { Client } from 'discord.js';
 import { ReminderService } from 'src/util/ReminderService';
+import { MuteService } from 'src/util/MuteService';
 import Log from 'src/util/Logger';
 
 export abstract class Spawner {
@@ -13,6 +14,7 @@ export abstract class Spawner {
 
                 Log(`Authenticated as ${client.user.username}#${client.user.discriminator}`, 'success');
                 ReminderService.init(client);
+                MuteService.init(client);
                 resolve(client)
             } catch (e) {
                 Log(e, 'error');

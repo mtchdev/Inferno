@@ -1,6 +1,7 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message, GuildMember, Role } from 'discord.js';
 import { Case } from 'src/entities/Case';
+import { MuteService } from 'src/util/MuteService';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import timestring from 'timestring';
@@ -65,6 +66,11 @@ export class MuteCommand extends Inferno.InfernoCommand implements Inferno.Infer
             }
 
             this.addCase(item, user, formattedTime);
+            MuteService.addMute({
+                guild_id: item.guild_id,
+                user_id: item.user_id,
+                time: Math.floor((Date.now() / 1000) + formattedTime)
+            });
         }
     }
 
