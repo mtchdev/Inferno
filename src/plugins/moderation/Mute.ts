@@ -84,13 +84,13 @@ export class MuteCommand extends Inferno.InfernoCommand implements Inferno.Infer
             return this.error('Failed to add mute role to user, cancelled operation.');
         }
 
-        user.send(`You have been muted on **${this.message.guild.name}** for ${item.reason}`).catch();
-
         let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
         if (formattedTime) {
             let time = moment.unix((Date.now() / 1000) + formattedTime).fromNow(true);
+            user.send(`You have been temporarily muted for ${time} on **${this.message.guild.name}** for ${item.reason}`).catch();
             this.success(`\`[CASE #${response.data.data.id}]\` Temporarily muted ${user} for ${time} for *${item.reason}*`);
         } else {
+            user.send(`You have been muted on **${this.message.guild.name}** for ${item.reason}`).catch();
             this.success(`\`[CASE #${response.data.data.id}]\` Muted ${user} for *${item.reason}*`);
         }
     }
