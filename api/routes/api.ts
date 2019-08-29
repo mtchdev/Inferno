@@ -23,6 +23,7 @@ http.delete('guild/:guildId/command/:command', (req: Request, res: Response) => 
 http.post('guild/prefix', (req: Request, res: Response) => new GuildController(res).setPrefix(req));
 http.post('guild/:id/roles/mod', (req: Request, res: Response) => new GuildController(res).setModRole(req));
 http.post('guild/:id/roles/admin', (req: Request, res: Response) => new GuildController(res).setAdminRole(req));
+http.post('guild/:id/roles/mute', (req: Request, res: Response) => new GuildController(res).setMuteRole(req));
 
 // Cases
 http.post('case', (req: Request, res: Response) => new CaseController(res).addCase(req));

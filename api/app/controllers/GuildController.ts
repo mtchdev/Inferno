@@ -94,7 +94,21 @@ export class GuildController extends Controller {
             let config: Config = await this.db.findOneOrFail(Config, {where:{guild_id: guildId}});
             config.admin_role = input.adminrole;
             this.db.save(config);
-            console.log(config)
+
+            return this.respondWithSuccess(config);
+        } catch (e) {
+            return this.respondWithError(e);
+        }
+    }
+
+    async setMuteRole(request: Request) {
+        let guildId: string = request.params.id;
+        let input: any = request.body;
+
+        try {
+            let config: Config = await this.db.findOneOrFail(Config, {where:{guild_id: guildId}});
+            config.mute_role = input.muterole;
+            this.db.save(config);
 
             return this.respondWithSuccess(config);
         } catch (e) {

@@ -25,6 +25,11 @@ const SETTINGS: Array<Setting> = [
         trigger: '--set-admin-role',
         description: 'Change the admin permission role.',
         displayAs: '--set-admin-role @role'
+    },
+    {
+        trigger: '--set-mute-role',
+        description: 'Change the role applied to a muted user',
+        displayAs: '--set-mute-role @role'
     }
 ];
 
@@ -91,6 +96,19 @@ export class SettingsCommand extends Inferno.InfernoCommand implements Inferno.I
                         } catch (e) {
                             this.message.reply('An unexpected error occurred while setting an admin role.');
                             Log('Failed to set admin role.', 'error');
+                            console.log(e); 
+                        }
+                        break;
+
+                    case '--set-mute-role':
+                        let inputMuteRole: string = this.args[this.args.indexOf('--set-mute-role') + 1];
+                        let actualMuteRole: Role = this.message.mentions.roles.find((role: Role) => role.toString() === inputMuteRole);
+                        try {
+                            await axios.post(process.env.API_URL + `guild/${this.message.guild.id}/roles/mute`, {muterole: actualMuteRole.id});
+                            removeFromCache(`config::${this.message.guild.id}`);
+                        } catch (e) {
+                            this.message.reply('An unexpected error occurred while setting a mute role.');
+                            Log('Failed to set mute role.', 'error');
                             console.log(e); 
                         }
                         break;
