@@ -143,6 +143,11 @@ export const COMMANDS: Array<Command> = [
         name: 'suggest [message]',
         description: 'Send a suggestion to the developers.',
         level: 'everyone'
+    },
+    {
+        name: 'nick @user|userId [nickname]',
+        description: 'Change the nickname for a user',
+        level: 'moderator'
     }
 ];
 
