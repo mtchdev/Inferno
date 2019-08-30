@@ -21,9 +21,8 @@ export class SuggestCommand extends Inferno.InfernoCommand implements Inferno.In
 
         let channel: any;
         try {
-            channel = this.client.guilds.get('613737296528801832').channels.get(SUGGESTION_CHANNEL_ID);
+            channel = this.client.channels.get(SUGGESTION_CHANNEL_ID) as TextChannel;
             if (!channel) { return this.error('Failed to send suggestion, try again later.'); }
-            if (!((channel): channel is TextChannel => channel.type === 'text')(channel)) { return Log('Channel not a typeof TextChannel', 'warn'); }
             await channel.send(`**Suggestion** by ${this.message.author.username}#${this.message.author.discriminator}: ${suggestion}`);
             return this.success('Successfully sent suggestion. Thanks for your feedback!');
         } catch (e) {

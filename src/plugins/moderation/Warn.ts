@@ -17,15 +17,21 @@ export class WarnCommand extends Inferno.InfernoCommand implements Inferno.Infer
     }
 
     async run() {
-        if (this.args.length < 2) { return this.sendHelp(); }
+        if (!this.args[1]) { return this.error('Please @mention a user or type their ID.'); }
+        if (!this.args[2]) { return this.error('Please enter a reason.'); }
 
         let user: GuildMember = this.message.mentions.members.first();
-        let reason: string = this.args.slice(2).join(' ');
-
-        if (!user) { return this.error('Please @mention a user to warn.'); }
-        if (!reason) { return this.error('Please enter a reason.'); }
+        if (!user) {
+            if (this.args[1]) {
+                user = this.message.guild.members.get(this.args[1]);
+                if (!user) {
+                    return this.error('User doesn\'t exist, or isn\'t in this server.');
+                }
+            }
+        }
         if (user.id == this.message.author.id) { return this.error('You cannot warn yourself!'); }
 
+        let reason: string = this.args.slice(2).join(' ');
         let item: Case = {
             type: 'warn',
             user_id: user.id,

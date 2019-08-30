@@ -22,7 +22,7 @@ export class KickCommand extends Inferno.InfernoCommand implements Inferno.Infer
         let user: GuildMember = this.message.mentions.members.first();
         if (!user) {
             if (this.args[1]) {
-                user = await this.message.guild.members.get(this.args[1]);
+                user = this.message.guild.members.get(this.args[1]);
                 if (!user) {
                     return this.error('User doesn\'t exist, or isn\'t in this server.');
                 }
