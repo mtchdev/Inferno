@@ -4,3 +4,4 @@ Inferno v1.2.0
 + Added unmute command.
 + Increased purge limit from 99 to 100.
 + Added nick command (change nickname).
++ Fix help command bug (now via DM!).
