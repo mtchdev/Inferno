@@ -12,7 +12,7 @@ export class MuteCommand extends Inferno.InfernoCommand implements Inferno.Infer
     constructor(client: Client, message: Message) {
         super({
             name: 'Mute',
-            description: 'Mute a user',
+            description: 'Mute a user. The time field is optional but allows temporary mutes and should be in relative time such as 2h30m',
             usage: 'mute @user|userId [time?] [reason]',
             category: 'moderation'
         }, message, client);
