@@ -23,7 +23,7 @@ export abstract class MuteService {
                     this.removeMute(x);
                 }
             }
-        }, 30 * 1000);
+        }, 60 * 1000);
     }
 
     private static refreshMutes(): Promise<void | any> {

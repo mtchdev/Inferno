@@ -20,7 +20,7 @@ export abstract class ReminderService {
                     this.sendReminder(x);
                 }
             }
-        }, 30 * 1000);
+        }, 45 * 1000);
     }
 
     private static refreshReminders(): Promise<void | any> {
