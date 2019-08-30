@@ -9,6 +9,7 @@ export default class EventHandler {
 
     private initHandlers() {
         this.client.on('message', (message: Message) => {
+            console.log('message');
             new MessageHandler(message);
         });
 
