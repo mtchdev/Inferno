@@ -24,11 +24,8 @@ export class CaseController extends Controller {
             newCase.reason = input.reason;
         }
         newCase.unix_added = Date.now() / 1000;
-				newCase.unix_updated = Date.now() / 1000;
-				newCase.guild_id = input.guild_id;
-
-			console.log(newCase);
-			console.log(input);
+        newCase.unix_updated = Date.now() / 1000;
+        newCase.guild_id = input.guild_id;
 
         await this.db.save(newCase);
 
