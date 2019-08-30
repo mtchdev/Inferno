@@ -1,6 +1,13 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message } from 'discord.js';
-import { COMMANDS, Command } from 'src/util/Commands';
+import { COMMANDS } from 'src/util/Commands';
+import Log from 'src/util/Logger';
+
+interface Value {
+    name: string;
+    value: string;
+    level: 'everyone' | 'moderator' | 'admin'
+}
 
 export class HelpCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -18,29 +25,74 @@ export class HelpCommand extends Inferno.InfernoCommand implements Inferno.Infer
         let modRole = this.guild.mod_role;
         let adminRole = this.guild.admin_role;
 
-        this.message.channel.send({embed: {
-            color: 16553987,
-            author: {
-                name: `Inferno Command Help`
-            },
-            thumbnail: {
-                url: null
-            },
-            fields: [
-                {
-                    name: 'Everyone',
-                    value: COMMANDS.filter((x: Command) => x.level === 'everyone').map((c: Command) => `\`${prefix}${c.name}\` - ${c.description}`).join('\n'),
+        let values: Array<Value> = [];
+        for (let i of COMMANDS) {
+            values.push({
+                name: `\`${prefix}${i.name}\``,
+                value: i.description,
+                level: i.level
+            });
+        }
+
+        this.message.reply(`I've sent you a list commands via DM. If you haven't got it make sure you have direct messages **enabled**!`).then((msg: Message) => msg.delete(5000));
+    
+        try {
+            /**
+             * EVERYONE COMMANDS
+             * @everyone
+             */
+
+            this.message.author.send({embed: {
+                color: 5627270,
+                author: {
+                    name: `Inferno - Commands (@everyone)`
                 },
-                {
-                    name: `Moderator ${!modRole ? '(**Not Configured**)' : ''}`,
-                    value: COMMANDS.filter((x: Command) => x.level === 'moderator').map((c: Command) => `\`${prefix}${c.name}\` - ${c.description}`).join('\n'),
+                thumbnail: {
+                    url: null
                 },
-                {
-                    name: `Admin ${!adminRole ? '(**Not Configured**)' : ''}`,
-                    value: COMMANDS.filter((x: Command) => x.level === 'admin').map((c: Command) => `\`${prefix}${c.name}\` - ${c.description}`).join('\n'),
+                fields: values.filter((v: Value) => v.level === 'everyone')
+            }});
+    
+            /**
+             * MODERATOR COMMANDS
+             * @moderator
+             */
+            if (modRole && !this.message.member.roles.has(modRole.toString())) {
+                if (adminRole && !this.message.member.roles.has(adminRole.toString())) {
+                    return;
+                } else {
+                    return;
                 }
-            ]
-        }});
+            }
+            this.message.author.send({embed: {
+                color: 2313925,
+                author: {
+                    name: `Inferno - Moderator Commands`
+                },
+                thumbnail: {
+                    url: null
+                },
+                fields: values.filter((v: Value) => v.level === 'moderator')
+            }});
+    
+            /**
+             * ADMIN COMMANDS
+             * @admin
+             */
+            if (adminRole && !this.message.member.roles.has(adminRole.toString())) { return; }
+            this.message.author.send({embed: {
+                color: 15819316,
+                author: {
+                    name: `Inferno - Admin Commands`
+                },
+                thumbnail: {
+                    url: null
+                },
+                fields: values.filter((v: Value) => v.level === 'admin')
+            }});
+        } catch (e) {
+            Log('Failed to send some help commands', 'warn');
+        }
     }
 
 }
