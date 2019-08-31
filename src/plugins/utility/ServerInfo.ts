@@ -22,10 +22,10 @@ export class ServerInfoCommand extends Inferno.InfernoCommand implements Inferno
         let icon = await GuildIconService.getIcon(guild);
         let thief: Array<number> = new ColorThief().getColor(icon);
         let rgb = '#' + (0x1000000 + (thief[2] | (thief[1] << 8) | (thief[0] << 16))).toString(16).slice(1);
-        let color = Number.parseInt(rgb.replace('#', ''), 16)
+        let color = Number.parseInt(rgb.replace('#', ''), 16);
 
         this.message.channel.send({embed: {
-            color: color,
+            color: color || 16553987,
             author: {
                 name: guild.name
             },
