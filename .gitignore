@@ -63,3 +63,6 @@ typings/
 #build
 build/
 stats/
+
+# caching
+.imgcache
