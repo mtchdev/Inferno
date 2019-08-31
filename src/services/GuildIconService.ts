@@ -14,9 +14,12 @@ export abstract class GuildIconService {
             } else {
     
                 let file = createWriteStream(__dirname + '/../../.imgcache/' + guild.id + '.jpg');
-                http.get(guild.iconURL, function(response) {
+                http.get(guild.iconURL, (response: any) => {
                     response.pipe(file);
-                    resolve(`${process.cwd()}/../../.imgcache/${guild.id}.jpg`);
+                    setTimeout(() => {
+                        file.close();
+                        resolve(`${process.cwd()}/.imgcache/${guild.id}.jpg`);
+                    }, 100);
                 });
             } 
         });
