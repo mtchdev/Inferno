@@ -1,6 +1,10 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message, Channel } from 'discord.js';
 import moment from 'moment';
+import ColorThief from 'color-thief';
+import http from 'https';
+import { createWriteStream } from 'fs';
+import { GuildIconService } from 'src/services/GuildIconService';
 
 export class ServerInfoCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -15,8 +19,13 @@ export class ServerInfoCommand extends Inferno.InfernoCommand implements Inferno
 
     async run() {
         const guild = this.message.guild;
+        let icon = await GuildIconService.getIcon(guild);
+        let thief: Array<number> = new ColorThief().getColor(icon);
+        let rgb = '#' + (0x1000000 + (thief[2] | (thief[1] << 8) | (thief[0] << 16))).toString(16).slice(1);
+        let color = Number.parseInt(rgb.replace('#', ''), 16)
+
         this.message.channel.send({embed: {
-            color: 16553987,
+            color: color,
             author: {
                 name: guild.name
             },
