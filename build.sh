@@ -7,9 +7,11 @@ if [ ! -d "build" ]; then
   mkdir build
 fi
 
+echo Installing packages...
+npm install
+
 echo Compiling...
 tsc
-npm install
 
 cd ./api
 
@@ -18,9 +20,11 @@ echo Building Inferno API...
 npm run db:build
 node ./env-factory.js
 
+echo Installing packages...
+npm install
+
 echo Compiling...
 tsc
-npm install
 
 echo Build complete.
 exit 1
