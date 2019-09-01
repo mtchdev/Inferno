@@ -73,6 +73,8 @@ export class MessageHandler {
                             if (passed) {
                                 this.startCommand(x);
                                 break;
+                            } else {
+                                return this.message.reply('you don\'t have permission to use that command.');
                             }
                         }
                     } else {
