@@ -59,8 +59,6 @@ export class MessageHandler {
                     } else {
                         return this.message.reply('you don\'t have permission to use that command.');
                     }
-
-                    break;
                 }
                 if (x.permissions && x.canActivate) {
                     if (this.message.member.hasPermission(x.permissions)) {
