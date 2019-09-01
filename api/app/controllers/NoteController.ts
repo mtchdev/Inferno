@@ -18,6 +18,7 @@ export class NoteController extends Controller {
             note.user_id = userId;
             note.content = input.content;
             note.unix_added = Date.now() / 1000;
+            note.guild_id = input.guildId;
 
             await this.db.save(note);
 
@@ -28,15 +29,15 @@ export class NoteController extends Controller {
     }
 
     async getNotes(request: Request) {
-        let userId: string = request.params.userId;
-        let notes: Array<Note> = await this.db.find(Note, {where:{user_id: userId}});
+        let params: any = request.params;
+        let notes: Array<Note> = await this.db.find(Note, {where:{user_id: params.userId, guild_id: params.guildId}});
         return this.respondWithSuccess(notes);
     }
 
     async removeNote(request: Request) {
         let noteId: string = request.params.noteId;
 
-        let exists = await this.db.findOne(Note, noteId);
+        let exists = await this.db.findOne(Note, {where: {id: noteId, guild_id: request.params.guildId}});
         if (!exists) {
             return this.respondWithError('NOTE_NOT_FOUND');
         }

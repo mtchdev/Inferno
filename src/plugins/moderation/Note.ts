@@ -29,7 +29,7 @@ export class NoteCommand extends Inferno.InfernoCommand implements Inferno.Infer
         if (!this.args[2]) { return this.error('Please enter a note.'); }
         let note = this.args.slice(2).join(' ');
 
-        await axios.post(process.env.API_URL + 'note/' + user.id, {author: this.message.author.id, content: note});
+        await axios.post(process.env.API_URL + 'note/' + user.id, {author: this.message.author.id, content: note, guildId: this.message.guild.id});
 
         this.success(`Successfully added note to ${user}`);
     }

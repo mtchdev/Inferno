@@ -14,5 +14,7 @@ export class Note extends Model {
     public content: string;
     @Column()
     public unix_added: number;
+    @Column()
+    public guild_id: string;
 
 }

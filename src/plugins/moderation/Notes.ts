@@ -29,7 +29,7 @@ export class NotesCommand extends Inferno.InfernoCommand implements Inferno.Infe
         }
         if (!user) { return this.error('Please @mention a user or type their user ID to see their cases.'); }
 
-        let response: AxiosResponse<APIResponse<Note[]>> = await axios.get(process.env.API_URL + 'notes/' + user.id);
+        let response: AxiosResponse<APIResponse<Note[]>> = await axios.get(process.env.API_URL + 'notes/' + user.id + '/' + this.message.guild.id);
         let notes = response.data.data;
 
         if (notes.length == 0) {

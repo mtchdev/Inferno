@@ -34,8 +34,8 @@ http.get('cases/:uid/:guildId', (req: Request, res: Response) => new CaseControl
 
 // Notes
 http.post('note/:userId', (req: Request, res: Response) => new NoteController(res).addNoteToUser(req));
-http.get('notes/:userId', (req: Request, res: Response) => new NoteController(res).getNotes(req));
-http.delete('note/:noteId', (req: Request, res: Response) => new NoteController(res).removeNote(req));
+http.get('notes/:userId/:guildId', (req: Request, res: Response) => new NoteController(res).getNotes(req));
+http.delete('note/:noteId/:guildId', (req: Request, res: Response) => new NoteController(res).removeNote(req));
 
 // Reminders
 http.post('reminder', (req: Request, res: Response) => new ReminderController(res).addReminder(req));
