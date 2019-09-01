@@ -2,3 +2,4 @@ Inferno v1.2.1
 
 + Added user ID support for warnings.
 + serverinfo's side color is now the average color of the server icon.
+* Fixed a bug where you could delete notes on other servers.
