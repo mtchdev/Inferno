@@ -1,8 +1,8 @@
 import { Inferno } from '../InfernoPlugin';
-import { Client, Message, GuildMember, User } from 'discord.js';
+import { Client, Message, GuildMember } from 'discord.js';
 import { Case } from 'src/entities/Case';
-import axios, { AxiosResponse } from 'axios';
-import APIResponse from 'src/util/APIResponse';
+import { http } from 'src/services/HTTPService';
+import Log from 'src/util/Logger';
 
 export class SoftBanCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -39,12 +39,15 @@ export class SoftBanCommand extends Inferno.InfernoCommand implements Inferno.In
             if (!user.bannable) { return this.error('You cannot softban that user.'); }
             try {
                 await user.send(`You have been kicked from **${this.message.guild.name}** for ${reason}`);
-            } catch (e) {}
-						await this.message.guild.ban(user);
-						await this.message.guild.unban(user);
+            } catch (e) {
+                Log(e, 'warn');
+            }
 
-            let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
-            this.success(`\`[CASE #${response.data.data.id}]\` Softbanned ${user} for *${reason}*`);
+            await this.message.guild.ban(user);
+            await this.message.guild.unban(user);
+
+            let response = await http.post<Case>('case', item);
+            this.success(`\`[CASE #${response.data.id}]\` Softbanned ${user} for *${reason}*`);
         } catch (e) {
             this.error('Failed to softban user, are you sure I have sufficient permissions?');
         }

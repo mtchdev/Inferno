@@ -1,8 +1,7 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message, User } from 'discord.js';
 import { Case } from 'src/entities/Case';
-import axios, { AxiosResponse } from 'axios';
-import APIResponse from 'src/util/APIResponse';
+import { http } from 'src/services/HTTPService';
 
 export class UnbanCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -34,8 +33,8 @@ export class UnbanCommand extends Inferno.InfernoCommand implements Inferno.Infe
 
         try {
             await this.message.guild.unban(user);
-            let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
-            this.success(`\`[CASE #${response.data.data.id}]\` Unbanned **${user.username}#${user.discriminator}**.`);
+            let response = await http.post<Case>('case', item);
+            this.success(`\`[CASE #${response.data.id}]\` Unbanned **${user.username}#${user.discriminator}**.`);
         } catch (e) {
             this.error('Failed to unban user, are you sure the user is banned?');
         }
