@@ -1,4 +1,4 @@
-import { Inferno } from '../InfernoPlugin';
+import { Inferno } from 'src/plugins/InfernoPlugin';
 import { Client, Message, GuildMember, Role } from 'discord.js';
 import moment from 'moment';
 

@@ -1,9 +1,8 @@
 import { Mute } from 'src/entities/Mute';
 import { Client, GuildMember } from 'discord.js';
-import Log from '../../api/vendor/astro/util/Logger';
-import APIResponse from '../util/APIResponse';
-import axios, { AxiosResponse } from 'axios';
+import Log from 'src/util/Logger';
 import { ConfigService } from './ConfigService';
+import { http } from 'src/services/HTTPService';
 
 export abstract class MuteService {
     public static Mutes: Array<Mute> = [];
@@ -29,8 +28,8 @@ export abstract class MuteService {
     private static refreshMutes(): Promise<void | any> {
         return new Promise(async (resolve: Function, reject: Function) => {
             try {
-                let response: AxiosResponse<APIResponse<Mute[]>> = await axios.get(process.env.API_URL + 'tempmutes');
-                let mutes = response.data.data;
+                let response = await http.get<Array<Mute>>('tempmutes');
+                let mutes = response.data;
     
                 this.Mutes = mutes;
                 resolve();
@@ -42,10 +41,10 @@ export abstract class MuteService {
 
     public static async addMute(item: Mute) {
         try {
-            await axios.post<AxiosResponse<APIResponse<Mute>>>(process.env.API_URL + 'tempmute', item);
+            await http.post<Mute>('tempmute', item);
             this.refreshMutes();
         } catch (e) {
-            Log('Failed to add reminder.', 'warn');
+            Log(e, 'warn');
         }
     }
 
@@ -58,15 +57,15 @@ export abstract class MuteService {
 
             await user.removeRole(config.mute_role.toString());
         } catch (e) {
-            Log(e, 'error');
+            Log(e, 'warn');
         }
     }
 
     public static async removeMute(item: Mute) {
         try {
-            await axios.delete(process.env.API_URL + 'tempmute/' + item.id);
+            await http.delete<void>('tempmute/' + item.id);
         } catch (e) {
-            Log('Failed to delete mute.', 'error');
+            Log(e, 'warn');
         }
     }
 }

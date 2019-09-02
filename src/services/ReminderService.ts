@@ -1,15 +1,15 @@
 import { Reminder } from 'src/entities/Reminder';
 import { Client, TextChannel } from 'discord.js';
-import Log from '../../api/vendor/astro/util/Logger';
-import APIResponse from '../util/APIResponse';
-import axios, { AxiosResponse } from 'axios';
+import Log from 'src/util/Logger';
+import { http } from 'src/services/HTTPService';
 
 export abstract class ReminderService {
-    public static Reminders: Array<Reminder> = [];
+    public static Reminders: Array<Reminder>;
     private static client: Client;
 
     public static init(client: Client): void {
         this.client = client;
+        this.Reminders = [];
         setInterval(async () => {
             await this.refreshReminders();
             for (let i in this.Reminders) {
@@ -23,14 +23,12 @@ export abstract class ReminderService {
         }, 45 * 1000);
     }
 
-    private static refreshReminders(): Promise<void | any> {
-        return new Promise(async (resolve: Function, reject: Function) => {
+    private static refreshReminders(): Promise<Reminder[]> {
+        return new Promise(async (resolve, reject) => {
             try {
-                let response: AxiosResponse<APIResponse<Reminder[]>> = await axios.get(process.env.API_URL + 'reminders');
-                let reminders = response.data.data;
-    
-                this.Reminders = reminders;
-                resolve();
+                let response = await http.get<Reminder[]>('reminders');
+                this.Reminders = response.data;
+                resolve(response.data);
             } catch (e) {
                 reject(e);
             }
@@ -39,10 +37,10 @@ export abstract class ReminderService {
 
     public static async addReminder(reminder: Reminder) {
         try {
-            await axios.post<AxiosResponse<APIResponse<Reminder>>>(process.env.API_URL + 'reminder', reminder);
-            this.refreshReminders();
+            let response = await http.post<Reminder>('reminder', reminder);
+            this.Reminders.push(response.data);
         } catch (e) {
-            Log('Failed to add reminder.', 'warn');
+            Log(e, 'warn');
         }
     }
 
@@ -55,16 +53,16 @@ export abstract class ReminderService {
             await channel.send(`**Reminder**: ${user} ${reminder.message}`);
             this.removeReminder(reminder);
         } catch (e) {
-            Log('Failed to send reminder.', 'warn');
+            Log(e, 'warn');
             this.removeReminder(reminder);
         }
     }
 
     private static async removeReminder(reminder: Reminder) {
         try {
-            await axios.delete(process.env.API_URL + 'reminder/' + reminder.id);
+            await http.delete('reminder/' + reminder.id);
         } catch (e) {
-            Log('Failed to delete reminder.', 'error');
+            Log(e, 'warn');
         }
     }
 }

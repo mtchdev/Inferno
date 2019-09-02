@@ -1,9 +1,8 @@
-import { Inferno } from '../InfernoPlugin';
+import { Inferno } from 'src/plugins/InfernoPlugin';
 import { Client, Message, GuildMember } from 'discord.js';
 import { Case } from 'src/entities/Case';
-import axios, { AxiosResponse } from 'axios';
-import APIResponse from 'src/util/APIResponse';
 import Log from 'src/util/Logger';
+import { http } from 'src/services/HTTPService';
 
 export class WarnCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -40,13 +39,17 @@ export class WarnCommand extends Inferno.InfernoCommand implements Inferno.Infer
             guild_id: this.message.guild.id
         }
 
-        let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
-
-        this.success(`\`[CASE #${response.data.data.id}]\` Warned ${user} for *${reason}*`);
         try {
-            await user.send(`You have been warned on **${this.message.guild.name}** for ${reason}`);
+            let response = await http.post<Case>('case', item);
+            this.success(`\`[CASE #${response.data.id}]\` Warned ${user} for *${reason}*`);
         } catch (e) {
-            Log('Failed to send message to user.', 'warn');
+            return this.error(e);
+        }
+
+        try {
+            user.send(`You have been warned on **${this.message.guild.name}** for ${reason}`);
+        } catch (e) {
+            return Log('Failed to send message to user.', 'warn');
         }
     }
 

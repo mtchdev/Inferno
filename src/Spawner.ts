@@ -3,6 +3,7 @@ import { ReminderService } from 'src/services/ReminderService';
 import { MuteService } from 'src/services/MuteService';
 import { CleanImageCacheService } from 'src/services/CleanImageCache';
 import Log from 'src/util/Logger';
+import { http } from 'src/services/HTTPService';
 
 export abstract class Spawner {
 
@@ -14,6 +15,7 @@ export abstract class Spawner {
                 client.user.setActivity(process.env.DEFAULT_STATUS);
 
                 Log(`Authenticated as ${client.user.username}#${client.user.discriminator}`, 'success');
+                http.initialize();
                 ReminderService.init(client);
                 MuteService.init(client);
                 CleanImageCacheService.init();

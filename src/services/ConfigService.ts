@@ -1,11 +1,10 @@
-import { getFromCache } from '../util/Cache';
-import GuildConfig from '../util/GuildConfig';
-import axios, { AxiosResponse } from 'axios';
-import APIResponse from '../util/APIResponse';
+import { getFromCache } from 'src/util/Cache';
+import GuildConfig from 'src/util/GuildConfig';
+import { http } from 'src/services/HTTPService';
 
 export abstract class ConfigService {
     public static async getById(guildId: string): Promise<GuildConfig> {
-        return new Promise(async (resolve: Function, reject: Function) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 let cache = getFromCache<GuildConfig>(`config::${guildId}`);
                 cache = cache ? cache : await this.getGuildConfig(guildId);
@@ -17,10 +16,13 @@ export abstract class ConfigService {
     }
 
     private static getGuildConfig(id: string): Promise<GuildConfig> {
-        return new Promise((resolve: Function, reject: Function) => {
-            axios.get(process.env.API_URL + 'guild/' + id).then((res: AxiosResponse<APIResponse<GuildConfig>>) => {
-                resolve(res.data.data);
-            }).catch(e => reject(e));
+        return new Promise(async (resolve, reject) => {
+            try {
+                let response = await http.get<GuildConfig>('guild/' + id);
+                resolve(response.data);
+            } catch (e) {
+                reject(e);
+            }
         });
     }
 }

@@ -1,4 +1,4 @@
-import { Inferno } from '../InfernoPlugin';
+import { Inferno } from 'src/plugins/InfernoPlugin';
 import { Client, Message, GuildMember } from 'discord.js';
 
 export class WhereIsCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
@@ -24,11 +24,11 @@ export class WhereIsCommand extends Inferno.InfernoCommand implements Inferno.In
         if (!user) { return this.error('Please @mention a user or type their ID.'); }
 
         let vc = user.voiceChannel;
-        if (vc) {
-            this.message.channel.send(`${user.user.username} is in **${vc.name}**.`);
-        } else {
+        if (!vc) {
             return this.error('User is not in a voice channel.');
         }
+
+        this.message.channel.send(`${user.user.username} is in **${vc.name}**.`);
     }
 
 }
