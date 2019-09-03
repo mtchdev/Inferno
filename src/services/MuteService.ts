@@ -26,7 +26,7 @@ export abstract class MuteService {
     }
 
     private static refreshMutes(): Promise<void | any> {
-        return new Promise(async (resolve: Function, reject: Function) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 let response = await http.get<Array<Mute>>('tempmutes');
                 let mutes = response.data;

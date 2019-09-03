@@ -4,7 +4,7 @@ import http from 'https';
 
 export abstract class GuildIconService {
     public static getIcon(guild: Guild): Promise<string> {
-        return new Promise((resolve: Function, reject: Function) => {
+        return new Promise((resolve, reject) => {
             const path = process.env.NODE_ENV === 'prod' ? process.cwd() + '/build' : process.cwd();
             if (!existsSync(__dirname + '/../../.imgcache')) {
                 mkdirSync(__dirname + '/../../.imgcache');
@@ -13,7 +13,6 @@ export abstract class GuildIconService {
             if (existsSync(__dirname + '/../../.imgcache/'+guild.id+'.jpg')) {
                 resolve(`${path}/.imgcache/${guild.id}.jpg`);
             } else {
-    
                 let file = createWriteStream(__dirname + '/../../.imgcache/' + guild.id + '.jpg');
                 http.get(guild.iconURL, (response: any) => {
                     response.pipe(file);

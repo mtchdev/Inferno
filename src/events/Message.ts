@@ -134,7 +134,7 @@ export class MessageHandler {
     }
 
     private getGuildConfig(): Promise<GuildConfig> {
-        return new Promise((resolve: Function, reject: Function) => {
+        return new Promise((resolve, reject) => {
             axios.get(process.env.API_URL + 'guild/' + this.message.guild.id).then((res: AxiosResponse<APIResponse<GuildConfig>>) => {
                 resolve(res.data.data);
                 addToCache(`config::${this.message.guild.id}`, res.data.data, 3600);
@@ -143,7 +143,7 @@ export class MessageHandler {
     }
 
     private getCustomCommands(): Promise<CustomCommand[]> {
-        return new Promise((resolve: Function, reject: Function) => {
+        return new Promise((resolve, reject) => {
             axios.get(process.env.API_URL + 'guild/' + this.message.guild.id + '/commands').then((res: AxiosResponse<APIResponse<CustomCommand[]>>) => {
                 resolve(res.data.data);
                 addToCache(`commands::${this.message.guild.id}`, res.data.data, 3600);

@@ -44,7 +44,7 @@ export namespace Inferno {
         }
 
         private getGuildConfig(): Promise<GuildConfig> {
-            return new Promise((resolve: Function, reject: Function) => {
+            return new Promise((resolve, reject) => {
                 axios.get(process.env.API_URL + 'guild/' + this.message.guild.id).then((res: AxiosResponse<APIResponse<GuildConfig>>) => {
                     resolve(res.data.data);
                 }).catch(e => reject(e));
