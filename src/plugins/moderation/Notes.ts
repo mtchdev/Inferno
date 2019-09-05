@@ -1,9 +1,8 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message, GuildMember, User } from 'discord.js';
 import { Note } from 'src/entities/Note';
-import axios, { AxiosResponse } from 'axios';
-import APIResponse from 'src/util/APIResponse';
 import moment from 'moment';
+import { http } from 'src/services/HTTPService';
 
 export class NotesCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -29,8 +28,8 @@ export class NotesCommand extends Inferno.InfernoCommand implements Inferno.Infe
         }
         if (!user) { return this.error('Please @mention a user or type their user ID to see their cases.'); }
 
-        let response: AxiosResponse<APIResponse<Note[]>> = await axios.get(process.env.API_URL + 'notes/' + user.id + '/' + this.message.guild.id);
-        let notes = response.data.data;
+        let response = await http.get<Note[]>('notes/' + user.id + '/' + this.message.guild.id);
+        let notes = response.data;
 
         if (notes.length == 0) {
             return this.error(`${user} does not have any notes.`);

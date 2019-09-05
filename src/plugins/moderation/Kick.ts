@@ -1,8 +1,7 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message, GuildMember } from 'discord.js';
 import { Case } from 'src/entities/Case';
-import axios, { AxiosResponse } from 'axios';
-import APIResponse from 'src/util/APIResponse';
+import { http } from 'src/services/HTTPService';
 
 export class KickCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -47,8 +46,8 @@ export class KickCommand extends Inferno.InfernoCommand implements Inferno.Infer
             } catch (e) {}
             await user.kick(reason);
 
-            let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
-            this.success(`\`[CASE #${response.data.data.id}]\` Kicked ${user} for *${reason}*`);
+            let response = await http.post<Case>('case', item);
+            this.success(`\`[CASE #${response.data.id}]\` Kicked ${user} for *${reason}*`);
         } catch (e) {
             this.error('Failed to kick user, are you sure I have sufficient permissions?');
         }

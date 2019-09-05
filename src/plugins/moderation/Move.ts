@@ -37,7 +37,6 @@ export class MoveCommand extends Inferno.InfernoCommand implements Inferno.Infer
             } catch (e) {
                 return this.error('Failed to move user. Are you sure I have sufficient permissions?');
             }
-            this.message.channel.send(`${user.user.username} is in **${vc.name}**.`);
         } else {
             return this.error('User is not in a voice channel.');
         }

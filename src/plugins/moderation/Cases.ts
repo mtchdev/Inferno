@@ -1,9 +1,8 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message, GuildMember, User } from 'discord.js';
 import { Case, CasesWithNotes } from 'src/entities/Case';
-import axios, { AxiosResponse } from 'axios';
-import APIResponse from 'src/util/APIResponse';
 import moment from 'moment';
+import { http } from 'src/services/HTTPService';
 
 export class CasesCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -29,9 +28,9 @@ export class CasesCommand extends Inferno.InfernoCommand implements Inferno.Infe
         }
         if (!user) { return this.error('Please @mention a user or type their user ID to see their cases.'); }
 
-			let response: AxiosResponse<APIResponse<CasesWithNotes<Case>>> = await axios.get(process.env.API_URL + 'cases/' + user.id + '/' + this.message.guild.id);
-        let cases = response.data.data.cases;
-        let notes = response.data.data.notes;
+        let response = await http.get<CasesWithNotes<Case>>('cases/' + user.id + '/' + this.message.guild.id);
+        let cases = response.data.cases;
+        let notes = response.data.notes;
 
         if (cases.length == 0 || !(cases instanceof Array)) {
             if (notes && notes > 0) {
