@@ -4,6 +4,7 @@ import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
 import moment from 'moment';
+import { http } from 'src/services/HTTPService';
 
 export class CaseCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -33,12 +34,12 @@ export class CaseCommand extends Inferno.InfernoCommand implements Inferno.Infer
 
     
     async getCase() {
-			let response: AxiosResponse<APIResponse<Case>> = await axios.get(process.env.API_URL + 'case/' + this.args[1] + '/' + this.message.guild.id);
-        if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
+        let response = await http.get<Case>('case/' + this.args[1] + '/' + this.message.guild.id);
+        if (response && response.message == 'CASE_NOT_FOUND') {
             return this.error(`Couldn't find a case with an ID of **${this.args[1]}**`);
         }
 
-        let obj = response.data.data;
+        let obj = response.data;
         let type = obj.type.charAt(0).toUpperCase() + obj.type.substr(1);
         let color;
 
@@ -60,10 +61,10 @@ export class CaseCommand extends Inferno.InfernoCommand implements Inferno.Infer
                 break;
             case "kick":
                 color = 15302461;
-								break;
-						case "softban":
-								color = 8797666;
-								break;
+                break;
+            case "softban":
+                color = 8797666;
+                break;
         }
 
         let user = await this.client.fetchUser(obj.user_id);
@@ -106,8 +107,8 @@ export class CaseCommand extends Inferno.InfernoCommand implements Inferno.Infer
         let reason: string = this.args.slice(3).join(' ');
         let caseId = this.args[1];
         
-        let response: AxiosResponse<any> = await axios.put(process.env.API_URL + 'case/' + caseId, {reason: reason, guild_id: this.message.guild.id});
-        if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
+        let response = await http.put('case/' + caseId, {reason: reason, guild_id: this.message.guild.id});
+        if (response && response.message == 'CASE_NOT_FOUND') {
             return this.error(`Couldn't find a case with an ID of **${caseId}**`);
         }
 
@@ -116,8 +117,8 @@ export class CaseCommand extends Inferno.InfernoCommand implements Inferno.Infer
 
     async deleteCase() {
         let caseId = this.args[1];
-			let response: AxiosResponse<any> = await axios.delete(process.env.API_URL + 'case/' + caseId + '/' + this.message.guild.id);
-        if (response.data && response.data['message'] == 'CASE_NOT_FOUND') {
+        let response = await http.delete('case/' + caseId + '/' + this.message.guild.id);
+        if (response && response.message == 'CASE_NOT_FOUND') {
             return this.error(`Couldn't find a case with an ID of **${caseId}**`);
         }
 

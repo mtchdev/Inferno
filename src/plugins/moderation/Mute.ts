@@ -2,10 +2,9 @@ import { Inferno } from '../InfernoPlugin';
 import { Client, Message, GuildMember, Role } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import { MuteService } from 'src/services/MuteService';
-import axios, { AxiosResponse } from 'axios';
-import APIResponse from 'src/util/APIResponse';
 import timestring from 'timestring';
 import moment from 'moment';
+import { http } from 'src/services/HTTPService';
 
 export class MuteCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -84,14 +83,14 @@ export class MuteCommand extends Inferno.InfernoCommand implements Inferno.Infer
             return this.error('Failed to add mute role to user, cancelled operation.');
         }
 
-        let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
+        let response = await http.post<Case>('case', item);
         if (formattedTime) {
             let time = moment.unix((Date.now() / 1000) + formattedTime).fromNow(true);
             user.send(`You have been temporarily muted for ${time} on **${this.message.guild.name}** for ${item.reason}`).catch();
-            this.success(`\`[CASE #${response.data.data.id}]\` Temporarily muted ${user} for ${time} for *${item.reason}*`);
+            this.success(`\`[CASE #${response.data.id}]\` Temporarily muted ${user} for ${time} for *${item.reason}*`);
         } else {
             user.send(`You have been muted on **${this.message.guild.name}** for ${item.reason}`).catch();
-            this.success(`\`[CASE #${response.data.data.id}]\` Muted ${user} for *${item.reason}*`);
+            this.success(`\`[CASE #${response.data.id}]\` Muted ${user} for *${item.reason}*`);
         }
     }
 

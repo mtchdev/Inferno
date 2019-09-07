@@ -3,6 +3,7 @@ import { Client, Message, GuildMember, User } from 'discord.js';
 import { Case } from 'src/entities/Case';
 import axios, { AxiosResponse } from 'axios';
 import APIResponse from 'src/util/APIResponse';
+import { http } from 'src/services/HTTPService';
 
 export class BanCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -35,8 +36,8 @@ export class BanCommand extends Inferno.InfernoCommand implements Inferno.Infern
             type: 'ban',
             user_id: user.id,
             actor_id: this.message.author.id,
-						reason: reason,
-						guild_id: this.message.guild.id
+            reason: reason,
+            guild_id: this.message.guild.id
         }
 
         try {
@@ -46,8 +47,8 @@ export class BanCommand extends Inferno.InfernoCommand implements Inferno.Infern
             } catch (e) {}
             await this.message.guild.ban(user);
 
-            let response: AxiosResponse<APIResponse<Case>> = await axios.post(process.env.API_URL + 'case', item);
-            this.success(`\`[CASE #${response.data.data.id}]\` Banned ${user} for *${reason}*`);
+            let response = await http.post<Case>('case', item);
+            this.success(`\`[CASE #${response.data.id}]\` Banned ${user} for *${reason}*`);
         } catch (e) {
             this.error('Failed to ban user, are you sure I have sufficient permissions?');
         }

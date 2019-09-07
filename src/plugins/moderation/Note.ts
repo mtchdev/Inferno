@@ -1,6 +1,7 @@
 import { Inferno } from '../InfernoPlugin';
 import { Client, Message, GuildMember, User } from 'discord.js';
-import axios from 'axios';
+import { http } from 'src/services/HTTPService';
+import Log from 'src/util/Logger';
 
 export class NoteCommand extends Inferno.InfernoCommand implements Inferno.InfernoPlugin {
 
@@ -29,7 +30,12 @@ export class NoteCommand extends Inferno.InfernoCommand implements Inferno.Infer
         if (!this.args[2]) { return this.error('Please enter a note.'); }
         let note = this.args.slice(2).join(' ');
 
-        await axios.post(process.env.API_URL + 'note/' + user.id, {author: this.message.author.id, content: note, guildId: this.message.guild.id});
+        try {
+            await http.post('note/' + user.id, {author: this.message.author.id, content: note, guildId: this.message.guild.id});
+        } catch (e) {
+            this.error(e);
+            Log(e, 'error');
+        }
 
         this.success(`Successfully added note to ${user}`);
     }

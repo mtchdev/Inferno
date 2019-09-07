@@ -8,7 +8,7 @@ import { http } from 'src/services/HTTPService';
 export abstract class Spawner {
 
     public static spawn(client: Client): Promise<Client> {
-        return new Promise(async (resolve: Function, reject: Function) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 Log('Starting bot...');
                 await client.login(process.env.BOT_TOKEN);
