@@ -105,6 +105,10 @@ export namespace Inferno {
                 msg.delete(3500);
             });
         }
+
+        protected debug(message: string): void {
+            this.message.channel.send('> DEBUG: `' + message + '`');
+        }
     }
 
     export interface InfernoPlugin {

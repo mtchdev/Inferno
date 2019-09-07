@@ -25,7 +25,6 @@ export class SoftBanCommand extends Inferno.InfernoCommand implements Inferno.In
 
         let reason: string = this.args.slice(2).join(' ');
         if (user.id == this.message.author.id) { return this.error('You cannot softban yourself!'); }
-        let bans = await this.message.guild.fetchBans();
 
         let item: Case = {
             type: 'softban',

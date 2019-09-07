@@ -49,7 +49,8 @@ export class UnmuteCommand extends Inferno.InfernoCommand implements Inferno.Inf
             if (cacheIndex < 0) { return; }
             MuteService.removeMute(MuteService.Mutes[cacheIndex]);
         } catch (e) {
-            this.error(e);
+            this.debug(e);
+            return this.error('An error occurred.');
         }
     }
 

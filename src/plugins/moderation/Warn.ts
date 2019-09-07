@@ -43,12 +43,14 @@ export class WarnCommand extends Inferno.InfernoCommand implements Inferno.Infer
             let response = await http.post<Case>('case', item);
             this.success(`\`[CASE #${response.data.id}]\` Warned ${user} for *${reason}*`);
         } catch (e) {
-            return this.error(e);
+            this.debug(e);
+            return this.error('Failed to create case.');
         }
 
         try {
             user.send(`You have been warned on **${this.message.guild.name}** for ${reason}`);
         } catch (e) {
+            this.debug(e);
             return Log('Failed to send message to user.', 'warn');
         }
     }
