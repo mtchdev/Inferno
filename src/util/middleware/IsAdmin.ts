@@ -1,17 +1,17 @@
-import { PluginMiddlewareObject } from './Middleware';
+import { IPluginMiddleware } from './Middleware';
 import { Message, Client } from 'discord.js';
 import GuildConfig from 'src/util/GuildConfig';
 import { getFromCache } from 'src/util/Cache';
 import APIResponse from 'src/util/APIResponse';
 import axios, { AxiosResponse } from 'axios';
 
-export class IsAdmin implements PluginMiddlewareObject {
+export class IsAdmin implements IPluginMiddleware {
     constructor(private message: Message, private client: Client) {}
 
     run(): Promise<boolean> {
-        return new Promise(async (resolve: Function) => {
+        return new Promise(async (resolve) => {
             // Global admin check
-            if (this.message.member.hasPermission('ADMINISTRATOR')) { resolve(true); return; }
+            if (this.message.member.hasPermission('ADMINISTRATOR')) { return resolve(true); }
 
             let config: GuildConfig
             ,   cache = getFromCache<GuildConfig>(`config::${this.message.guild.id}`);
@@ -19,7 +19,7 @@ export class IsAdmin implements PluginMiddlewareObject {
             config = cache ? cache : await this.getGuildConfig();
             let adminRole = config.admin_role;
 
-            if (!adminRole) { resolve(false); return; }
+            if (!adminRole) { return resolve(false); }
             return resolve(this.message.member.roles.has(adminRole.toString()));
         });
     }

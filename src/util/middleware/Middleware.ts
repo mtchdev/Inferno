@@ -1,3 +1,3 @@
-export interface PluginMiddlewareObject {
+export interface IPluginMiddleware {
     run(): Promise<boolean>;
 }

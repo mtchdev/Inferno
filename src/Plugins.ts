@@ -49,7 +49,7 @@ import { NickCommand } from './plugins/moderation/Nick';
  * Middleware
  */
 import { IsAdmin } from 'src/util/middleware/IsAdmin';
-import { IsModerator } from 'src/util/middleware/isModerator';
+import { IsModerator } from 'src/util/middleware/IsModerator';
 import { IsInfernoAdmin } from 'src/util/middleware/IsInfernoAdmin';
 import { PermissionResolvable } from 'discord.js';
 

@@ -19,3 +19,4 @@ instance['app'] = APP;
 
 new EventHandler(APP);
 Statistics.startStatisticsHandler();
+

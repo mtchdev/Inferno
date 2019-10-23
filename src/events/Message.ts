@@ -152,7 +152,7 @@ export class MessageHandler {
     }
 
     private testCustomCommands(trigger: string): Promise<boolean> {
-        return new Promise(async (resolve: Function) => {
+        return new Promise(async (resolve) => {
             let commands: CustomCommand[]
             ,   cache = getFromCache<CustomCommand[]>(`commands::${this.message.guild.id}`);
 

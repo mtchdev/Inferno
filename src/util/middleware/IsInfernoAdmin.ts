@@ -1,4 +1,4 @@
-import { PluginMiddlewareObject } from './Middleware';
+import { IPluginMiddleware } from './Middleware';
 import { Message, Client } from 'discord.js';
 
 const InfernoAdminIds: Array<string> = [
@@ -8,12 +8,10 @@ const InfernoAdminIds: Array<string> = [
     '408524061325656065'
 ];
 
-export class IsInfernoAdmin implements PluginMiddlewareObject {
+export class IsInfernoAdmin implements IPluginMiddleware {
     constructor(private message: Message, private client: Client) {}
 
     run(): Promise<boolean> {
-        return new Promise(async (resolve: Function) => {
-            return resolve(InfernoAdminIds.includes(this.message.author.id));
-        });
+        return new Promise(async (resolve) => resolve(InfernoAdminIds.includes(this.message.author.id)));
     }
 }
