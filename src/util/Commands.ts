@@ -157,4 +157,5 @@ export interface Command {
     name: string;
     description: string;
     level: PermissionLevels;
+    showHelp?: boolean;
 }

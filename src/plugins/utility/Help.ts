@@ -27,6 +27,8 @@ export class HelpCommand extends Inferno.InfernoCommand implements Inferno.Infer
 
         let values: Array<Value> = [];
         for (let i of COMMANDS) {
+            if (!i.showHelp) continue;
+
             values.push({
                 name: `\`${prefix}${i.name}\``,
                 value: i.description,
