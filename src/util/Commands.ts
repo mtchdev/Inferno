@@ -3,7 +3,7 @@ export const COMMANDS: Array<Command> = [
         name: 'help',
         description: 'Get a list of available commands.',
         level: 'everyone'
-		},
+    },
     {
         name: 'warn @user [reason]',
         description: 'Warn a user.',
