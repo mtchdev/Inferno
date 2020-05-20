@@ -21,24 +21,24 @@
   },
   "homepage": "https://github.com/spliitzx/Inferno#readme",
   "dependencies": {
-    "@types/node": "^12.7.2",
-    "@types/rimraf": "^2.0.2",
-    "axios": "^0.19.0",
+    "@types/node": "^12.12.41",
+    "@types/rimraf": "^2.0.4",
+    "axios": "^0.19.2",
     "chalk": "^2.4.2",
     "color-thief": "^2.2.5",
     "cpu-gauge": "^1.1.0",
-    "discord.js": "^11.5.1",
-    "dotenv": "^8.0.0",
-    "humanize-duration": "^3.20.1",
-    "moment": "^2.24.0",
-    "rimraf": "^3.0.0",
+    "discord.js": "^11.6.4",
+    "dotenv": "^8.2.0",
+    "humanize-duration": "^3.22.0",
+    "moment": "^2.26.0",
+    "rimraf": "^3.0.2",
     "timestring": "^6.0.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.9.3"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0",
-    "nodemon": "^1.19.1",
-    "ts-node": "^8.3.0",
-    "tsconfig-paths": "^3.8.0"
+    "cross-env": "^5.2.1",
+    "nodemon": "^1.19.4",
+    "ts-node": "^8.10.1",
+    "tsconfig-paths": "^3.9.0"
   }
 }
