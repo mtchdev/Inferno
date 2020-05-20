@@ -20,7 +20,7 @@ export class CustomCommandsCommand extends Inferno.InfernoCommand implements Inf
         let commands = response.data.data;
 
         if (commands.length == 0) {
-            return this.error('There are no custom commands.');
+            return this.error(`There are no custom commands. Get started with \`${this.guild.prefix}addcommand help\``);
         }
 
         this.message.channel.send(`**__Custom Commands__**\n\n` + commands.map((command: CustomCommand) => `\`${this.guild.prefix}${command.trigger}\``).join(' | '));

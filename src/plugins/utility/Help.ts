@@ -36,7 +36,7 @@ export class HelpCommand extends Inferno.InfernoCommand implements Inferno.Infer
             });
         }
 
-        this.message.reply(`I've sent you a list commands via DM. If you haven't got it make sure you have direct messages **enabled**!`).then((msg: Message) => msg.delete(5000));
+        this.message.reply(`I've sent you a list commands via DM. If you haven't got it make sure you have direct messages **enabled**!`);
     
         try {
             /**
@@ -92,6 +92,8 @@ export class HelpCommand extends Inferno.InfernoCommand implements Inferno.Infer
                 },
                 fields: values.filter((v: Value) => v.level === 'admin')
             }});
+
+            this.message.author.send(`You can find out how to use each command by typing \`${this.guild.prefix}command help\` (replace \`command\` with the command name)!`)
         } catch (e) {
             Log('Failed to send some help commands', 'warn');
         }
