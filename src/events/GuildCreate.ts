@@ -18,6 +18,7 @@ export class GuildCreateHandler {
             Log(`Joined ${this.guild.name}!`);
         } catch (e) {
             Log(e, 'error');
+            this.guild.owner.send(`Sorry, something went wrong while joining ${this.guild.name}. Please try again soon, or join our support server for help: https://discord.gg/HBDS6cH`);
             this.guild.leave(); // Leave because can't make guild config
         }
     }

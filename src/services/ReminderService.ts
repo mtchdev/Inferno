@@ -21,6 +21,8 @@ export abstract class ReminderService {
                 }
             }
         }, 45 * 1000);
+
+        Log('Reminder service started successfully.');
     }
 
     private static refreshReminders(): Promise<Reminder[]> {

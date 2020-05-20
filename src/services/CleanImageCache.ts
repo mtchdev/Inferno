@@ -7,6 +7,8 @@ export abstract class CleanImageCacheService {
         // Clear cache at startup
         this.rimraf();
         setInterval(async () => this.rimraf(), (3600 / 2) * 1000);
+
+        Log('Image cache service started successfully.');
     }
 
     private static rimraf(): void {

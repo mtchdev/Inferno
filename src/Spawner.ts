@@ -19,6 +19,7 @@ export abstract class Spawner {
                 ReminderService.init(client);
                 MuteService.init(client);
                 CleanImageCacheService.init();
+                Log('All bot services running.');
                 resolve(client)
             } catch (e) {
                 Log(e, 'error');

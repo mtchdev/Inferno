@@ -23,6 +23,8 @@ export abstract class MuteService {
                 }
             }
         }, 60 * 1000);
+        
+        Log('Mute service started successfully.');
     }
 
     private static refreshMutes(): Promise<void | any> {
