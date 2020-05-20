@@ -146,7 +146,12 @@ export const COMMANDS: Array<Command> = [
     },
     {
         name: 'nick @user|userId [nickname]',
-        description: 'Change the nickname for a user',
+        description: 'Change the nickname for a user.',
+        level: 'moderator'
+    },
+    {
+        name: 'broadcast #channel [message]',
+        description: 'Broadcast a message to a channel.',
         level: 'moderator'
     }
 ];

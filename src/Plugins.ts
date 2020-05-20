@@ -44,6 +44,7 @@ import { SupportCommand } from './plugins/utility/Support';
 import { MuteCommand } from './plugins/moderation/Mute';
 import { UnmuteCommand } from './plugins/moderation/Unmute';
 import { NickCommand } from './plugins/moderation/Nick';
+import { BroadcastCommand } from './plugins/utility/Broadcast';
 
 /**
  * Middleware
@@ -234,5 +235,11 @@ export const plugins: Array<Plugin> = [
         permissions: ['MANAGE_NICKNAMES'],
         permissionRule: 'or',
         alias: ['nickname']
+    },
+    {
+        trigger: 'broadcast',
+        component: BroadcastCommand,
+        canActivate: IsModerator,
+        alias: ['bc']
     }
 ];
