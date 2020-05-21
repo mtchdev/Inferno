@@ -36,6 +36,19 @@ export class GuildController extends Controller {
         return this.respondWithSuccess(guild);
     }
 
+    async getGuild(request: Request) {
+        let id = request.params.id;
+        let guild;
+
+        try {
+            guild = await <Promise<Guild>>this.db.findOneOrFail(Guild, {where:{guild_id: id}});
+        } catch (e) {
+            return this.respondWithError(e);
+        }
+
+        return this.respondWithSuccess(guild);
+    }
+
     async getConfig(request: Request) {
         let id = request.params.id;
         let config;

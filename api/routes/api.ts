@@ -15,6 +15,7 @@ import { MuteController } from 'app/controllers/MuteController';
 
 http.post('guild', (req: Request, res: Response) => new GuildController(res).addGuild(req));
 http.get('guild/:id', (req: Request, res: Response) => new GuildController(res).getConfig(req));
+http.get('guildinfo/:id', (req: Request, res: Response) => new GuildController(res).getGuild(req));
 http.get('guild/:guildId/commands', (req: Request, res: Response) => new CommandController(res).getCommands(req));
 http.post('guild/:guildId/command', (req: Request, res: Response) => new CommandController(res).addCommand(req));
 http.delete('guild/:guildId/command/:command', (req: Request, res: Response) => new CommandController(res).removeCommand(req));

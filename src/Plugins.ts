@@ -47,6 +47,7 @@ import { NickCommand } from './plugins/moderation/Nick';
 import { BroadcastCommand } from './plugins/utility/Broadcast';
 import { DirectMessageCommand } from './plugins/utility/DirectMessage';
 import { DiceCommand } from './plugins/entertainment/Dice';
+import { DebugServerCommand } from './plugins/utility/DebugServer';
 
 /**
  * Middleware
@@ -253,5 +254,10 @@ export const plugins: Array<Plugin> = [
         trigger: 'rolldice',
         component: DiceCommand,
         alias: ['dice']
+    },
+    {
+        trigger: 'debugserver',
+        component: DebugServerCommand,
+        alias: ['ds']
     }
 ];
