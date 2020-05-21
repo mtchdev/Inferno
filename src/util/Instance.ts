@@ -2,5 +2,5 @@ export var instance: object = {
     app: undefined
 };
 
-export const VERSION = '1.2.5';
-export const RELEASE_DATE = '20 May 2020';
+export const VERSION = '1.3.0';
+export const RELEASE_DATE = '21 May 2020';
