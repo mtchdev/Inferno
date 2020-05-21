@@ -258,6 +258,7 @@ export const plugins: Array<Plugin> = [
     {
         trigger: 'debugserver',
         component: DebugServerCommand,
+        canActivate: IsInfernoAdmin,
         alias: ['ds']
     }
 ];
