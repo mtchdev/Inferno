@@ -20,5 +20,6 @@ export class DebugServerCommand extends Inferno.InfernoCommand implements Infern
         let data = response.data;
 
         this.message.author.send(`[**CONFIG: ${this.message.guild.name}**]\n*Joined on ${moment.unix(data.unix_added).format('DD/MM/YYYY')}*\n\nPrefix: \`${this.guild.prefix}\`\nMod Role: \`${this.guild.mod_role}\`\nAdmin Role: \`${this.guild.admin_role}\`\nMute Role: \`${this.guild.mute_role}\`\nOwner ID: \`${data.owner_id}\`\nGuild ID: \`${data.guild_id}\`\nBot ID: \`${data.id}\``);
+        this.message.delete();
     }
 }
