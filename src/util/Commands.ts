@@ -125,6 +125,11 @@ export const COMMANDS: Array<Command> = [
         level: 'everyone'
     },
     {
+        name: 'rolldice',
+        description: 'Roll the dice.',
+        level: 'everyone'
+    },
+    {
         name: 'version',
         description: 'Get the current Inferno version.',
         level: 'everyone'

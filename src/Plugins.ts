@@ -46,6 +46,7 @@ import { UnmuteCommand } from './plugins/moderation/Unmute';
 import { NickCommand } from './plugins/moderation/Nick';
 import { BroadcastCommand } from './plugins/utility/Broadcast';
 import { DirectMessageCommand } from './plugins/utility/DirectMessage';
+import { DiceCommand } from './plugins/entertainment/Dice';
 
 /**
  * Middleware
@@ -247,5 +248,10 @@ export const plugins: Array<Plugin> = [
         trigger: 'dm',
         component: DirectMessageCommand,
         canActivate: IsInfernoAdmin
+    },
+    {
+        trigger: 'rolldice',
+        component: DiceCommand,
+        alias: ['dice']
     }
 ];
